@@ -56,8 +56,8 @@ public class DatabaseConnection {
     }
 
     private void convertParameters(PreparedStatement statement, int offset, Object... params) throws SQLException {
-        for(int i = offset; i < params.length; i++) {
-            Object o = params[i];
+        for(int i = offset; i < params.length + offset; i++) {
+            Object o = params[i - offset];
             if(o instanceof Integer) {
                 statement.setInt(i, (int)o);
             }
@@ -70,7 +70,7 @@ public class DatabaseConnection {
         }
     }
 
-    private String generateParamString(int count) {
+    public String generateParamString(int count) {
         StringBuilder builder = new StringBuilder();
         String separator = "";
         for(int i = 0; i < count; i++) {
@@ -82,7 +82,7 @@ public class DatabaseConnection {
     }
 
     @PreDestroy
-    public  void disconnect() throws SQLException {
+    public void disconnect() throws SQLException {
         connection.close();
     }
 }
