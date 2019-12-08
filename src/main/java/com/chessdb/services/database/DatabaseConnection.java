@@ -43,7 +43,7 @@ public class DatabaseConnection {
             result = statement.getString(1);
         }
         else {
-            throw new InvalidSQLParameterException();
+            throw new InvalidSQLParameterException(outputType);
         }
         statement.close();
         return result;
@@ -65,7 +65,7 @@ public class DatabaseConnection {
                 statement.setString(i, (String)o);
             }
             else {
-                throw new InvalidSQLParameterException();
+                throw new InvalidSQLParameterException(o);
             }
         }
     }

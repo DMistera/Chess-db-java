@@ -1,4 +1,4 @@
-package com.chessdb.models;
+package com.chessdb.API.player.models;
 
 import lombok.Data;
 
