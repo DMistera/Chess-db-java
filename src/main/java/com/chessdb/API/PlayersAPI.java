@@ -9,6 +9,6 @@ public class PlayersAPI {
 
     @RequestMapping("/players")
     public String players() {
-        return "";
+        return "works!";
     }
 }
