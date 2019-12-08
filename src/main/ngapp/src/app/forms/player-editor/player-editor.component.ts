@@ -15,10 +15,12 @@ export class PlayerEditorComponent implements OnInit {
   nameForm = new FormControl('');
   surnameForm = new FormControl('');
   eloForm = new FormControl('');
+  categoryForm = new FormControl('');
   playerForm = new FormGroup({
     name: this.nameForm,
     surname: this.surnameForm,
-    elo: this.eloForm
+    elo: this.eloForm,
+    category: this.categoryForm
   });
 
   id: number;
@@ -54,11 +56,8 @@ export class PlayerEditorComponent implements OnInit {
   }
 
   private createPlayer(): Player {
-    const result = new Player();
+    const result = this.playerForm.value;
     result.id = this.id;
-    result.name = this.nameForm.value;
-    result.surname = this.surnameForm.value;
-    result.elo = this.eloForm.value;
     return result;
   }
 

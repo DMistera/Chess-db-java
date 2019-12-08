@@ -27,11 +27,11 @@ public class PlayerService {
     }
 
     public void insertPlayer(Player player) throws SQLException {
-        connection.callProcedure("insertPlayer", player.getName(), player.getSurname(), player.getCategory(), player.getElo());
+        connection.callProcedure("insertPlayer", player.getName(), player.getSurname(), player.getElo(),  player.getCategory());
     }
 
     public void updatePlayer(Player player)  throws SQLException {
-        connection.callProcedure("updatePlayer", player.getId(), player.getName(), player.getSurname(), player.getCategory(), player.getElo());
+        connection.callProcedure("updatePlayer", player.getId(), player.getName(), player.getSurname(), player.getElo(), player.getCategory());
     }
 
     private Player readPlayerFromRow(ResultSet row) throws SQLException {
