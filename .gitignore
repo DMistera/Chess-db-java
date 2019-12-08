@@ -31,3 +31,5 @@ build/
 .vscode/
 
 webapp/
+/src/main/ngapp/node_modules/
+/src/main/ngapp/dist/
