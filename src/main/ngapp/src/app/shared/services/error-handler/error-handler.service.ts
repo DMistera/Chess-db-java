@@ -10,6 +10,6 @@ export class ErrorHandlerService {
   constructor(private snackBar: MatSnackBar) { }
 
   handleError(error: HttpErrorResponse) {
-    this.snackBar.open(error.error.message, 'Close');
+    this.snackBar.open(error.error.error, 'Close');
   }
 }

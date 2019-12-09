@@ -6,6 +6,7 @@
       {{player.name}}
       {{player.surname}}
       <button mat-button (click)="editPlayer()">Edit</button>
+      <button mat-button [routerLink]="[player.id]">View</button>
     </mat-list-item>
   </mat-list>
 </mat-card>

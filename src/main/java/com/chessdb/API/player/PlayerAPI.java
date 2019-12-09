@@ -1,4 +1,4 @@
-package com.chessdb.API;
+package com.chessdb.API.player;
 
 import com.chessdb.API.player.models.Player;
 import com.chessdb.API.player.services.PlayerService;
@@ -14,19 +14,29 @@ public class PlayerAPI {
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public Player[] getPlayers() throws SQLException {
-        return playerService.getAllPlayers();
+        return playerService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Player getPlayer(@PathVariable int id) throws SQLException {
+        return playerService.get(id);
     }
 
     @PostMapping("")
     public void insertPlayer(@RequestBody Player player) throws SQLException {
-        playerService.insertPlayer(player);
+        playerService.insert(player);
     }
 
     @PutMapping("")
     public void updatePlayer(@RequestBody Player player) throws SQLException {
-        playerService.updatePlayer(player);
+        playerService.update(player);
+    }
+
+    @DeleteMapping("/{id}")
+    public void updatePlayer(@PathVariable int id) throws SQLException {
+        playerService.delete(id);
     }
 
 }

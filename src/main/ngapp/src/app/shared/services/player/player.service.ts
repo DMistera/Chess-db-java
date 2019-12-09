@@ -18,7 +18,7 @@ export class PlayerService {
     return this.players$.asObservable();
   }
 
-  public getPlayer(id: number): Observable<Player> {
+  public getPlayer$(id: number): Observable<Player> {
     return this.http.get<Player>('player/' + id);
   }
 
@@ -36,7 +36,7 @@ export class PlayerService {
   }
 
   private refreshPlayers$() {
-    this.http.get<Player[]>('player/all').subscribe(players => {
+    this.http.get<Player[]>('player').subscribe(players => {
       this.players$.next(players);
     }, err => {
       console.log(err);

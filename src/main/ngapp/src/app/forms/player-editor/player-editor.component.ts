@@ -33,7 +33,7 @@ export class PlayerEditorComponent implements OnInit {
   ngOnInit() {
     this.id = this.data.id;
     if (this.id >= 0) {
-      this.playerService.getPlayer(this.id).subscribe(player => {
+      this.playerService.getPlayer$(this.id).subscribe(player => {
         this.initForm(player);
       });
     }

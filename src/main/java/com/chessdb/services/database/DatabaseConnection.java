@@ -61,8 +61,14 @@ public class DatabaseConnection {
             if(o instanceof Integer) {
                 statement.setInt(i, (int)o);
             }
+            else if(o instanceof Float) {
+                statement.setFloat(i, (float)o);
+            }
             else if(o instanceof String) {
                 statement.setString(i, (String)o);
+            }
+            else if(o instanceof Date) {
+                statement.setDate(i, (Date)o);
             }
             else {
                 throw new InvalidSQLParameterException(o);
