@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Service
-public class PlayerService extends RepositoryService<Player> {
+public class PlayerService extends RepositoryService<Player, Integer> {
 
     @Override
     protected String getEntityName() {
@@ -16,7 +16,7 @@ public class PlayerService extends RepositoryService<Player> {
     }
 
     @Override
-    protected int getEntityID(Player player) {
+    protected Integer getEntityID(Player player) {
         return player.getId();
     }
 

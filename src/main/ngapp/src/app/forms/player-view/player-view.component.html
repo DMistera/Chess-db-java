@@ -3,4 +3,6 @@
   <p>Name: {{player.name}}</p>
   <p>Surname: {{player.surname}}</p>
   <p>Elo: {{player.elo}}</p>
+  <p *ngIf="player.clubID > 0">Club: </p>
+  <button mat-button (click)="editPlayer(player.id)">Edit</button>
 </mat-card>

@@ -2,10 +2,13 @@
   <mat-card-title>Players</mat-card-title>
   <button mat-button (click)="newPlayer()">New player</button>
   <mat-list>
+    <mat-list-item>
+        <app-search-bar></app-search-bar>
+    </mat-list-item>
     <mat-list-item *ngFor="let player of (players$ | async)">
-      {{player.name}}
-      {{player.surname}}
-      <button mat-button (click)="editPlayer()">Edit</button>
+      <h3 mat-line>
+          {{player.name}} {{player.surname}}
+      </h3>
       <button mat-button [routerLink]="[player.id]">View</button>
     </mat-list-item>
   </mat-list>

@@ -33,7 +33,7 @@ export class PlayerEditorComponent implements OnInit {
   ngOnInit() {
     this.id = this.data.id;
     if (this.id >= 0) {
-      this.playerService.getPlayer$(this.id).subscribe(player => {
+      this.playerService.getByID(this.id).subscribe(player => {
         this.initForm(player);
       });
     }
@@ -42,9 +42,9 @@ export class PlayerEditorComponent implements OnInit {
   onSubmit() {
     const player = this.createPlayer();
     if (player.id < 0) {
-      this.playerService.createPlayer(player);
+      this.playerService.create(player);
     } else {
-      this.playerService.updatePlayer(player);
+      this.playerService.update(player);
     }
     this.dialogRef.close();
   }

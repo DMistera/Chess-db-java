@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @RequestMapping("tournament")
@@ -14,7 +15,7 @@ public class TournamentAPI {
     private TournamentService tournamentService;
 
     @GetMapping("")
-    public Tournament[] getPlayers() throws SQLException {
+    public List<Tournament> getPlayers() throws SQLException {
         return tournamentService.getAll();
     }
 

@@ -13,6 +13,8 @@ import { PlayerEditorComponent } from './forms/player-editor/player-editor.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { PlayerViewComponent } from './forms/player-view/player-view.component';
 import { InterceptorService } from './shared/services/error-handler/interceptor.service';
+import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
+import { TournamentListComponent } from './forms/tournament-list/tournament-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { InterceptorService } from './shared/services/error-handler/interceptor.
     MenuBarComponent,
     PlayerListComponent,
     PlayerEditorComponent,
-    PlayerViewComponent
+    PlayerViewComponent,
+    SearchBarComponent,
+    TournamentListComponent
   ],
   imports: [
     CommonModule,

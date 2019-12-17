@@ -18,7 +18,7 @@ export class PlayerListComponent implements OnInit {
   constructor(private http: HttpClient, private playerService: PlayerService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.players$ =  this.playerService.getPlayers$();
+    this.players$ =  this.playerService.getAll();
   }
 
   newPlayer() {

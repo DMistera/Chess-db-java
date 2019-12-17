@@ -1,42 +1,21 @@
 package com.chessdb.API.player;
 
+import com.chessdb.API.RepositoryAPI;
 import com.chessdb.API.player.models.Player;
 import com.chessdb.API.player.services.PlayerService;
+import com.chessdb.services.repository.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-
 @RestController
 @RequestMapping("player")
-public class PlayerAPI {
+public class PlayerAPI extends RepositoryAPI<Player, Integer> {
 
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping("")
-    public Player[] getPlayers() throws SQLException {
-        return playerService.getAll();
+    @Override
+    protected RepositoryService<Player, Integer> getRepositoryService() {
+        return playerService;
     }
-
-    @GetMapping("/{id}")
-    public Player getPlayer(@PathVariable int id) throws SQLException {
-        return playerService.get(id);
-    }
-
-    @PostMapping("")
-    public void insertPlayer(@RequestBody Player player) throws SQLException {
-        playerService.insert(player);
-    }
-
-    @PutMapping("")
-    public void updatePlayer(@RequestBody Player player) throws SQLException {
-        playerService.update(player);
-    }
-
-    @DeleteMapping("/{id}")
-    public void updatePlayer(@PathVariable int id) throws SQLException {
-        playerService.delete(id);
-    }
-
 }

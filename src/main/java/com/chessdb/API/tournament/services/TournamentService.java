@@ -12,7 +12,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TournamentService extends RepositoryService<Tournament> {
+public class TournamentService extends RepositoryService<Tournament, Integer> {
+
+    public void addPlayer(int tournamentID, int playerID) throws SQLException {
+        connection.callProcedure("tournament.add_player", tournamentID, playerID);
+    }
+
+    public void addReferee(int tournamentID, int refereeID) throws SQLException {
+        connection.callProcedure("tournament.add_referee", tournamentID, refereeID);
+    }
+
+    public void addPatron(int tournamentID, String patron) throws SQLException {
+        connection.callProcedure("tournament.add_patron", tournamentID, patron);
+    }
+
+    public void addOrganizer(int tournamentID, String organizer) throws SQLException {
+        connection.callProcedure("tournament.add_organizer", tournamentID, organizer);
+    }
+
+    public void addPrize(int tournamentID, String prizeName, int amount, String sponsorName) throws SQLException {
+        connection.callProcedure("tournament.add_prize", tournamentID, prizeName, amount, sponsorName);
+    }
+
+    public int countPlayers(int id) throws SQLException {
+        return (int)connection.callFunction("tournament.count_players", id);
+    }
+
+    public int countReferees(int id) throws SQLException {
+        return (int)connection.callFunction("tournament.count_referees", id);
+    }
+
+    public int countSponsors(int id) throws SQLException {
+        return (int)connection.callFunction("tournament.count_sponsors", id);
+    }
+
+    public int countOrganizers(int id) throws SQLException {
+        return (int)connection.callFunction("tournament.count_organizers", id);
+    }
+
+    public int countGames(int id) throws SQLException {
+        return (int)connection.callFunction("tournament.count_games", id);
+    }
+
+    public int countPatrons(int id) throws SQLException {
+        return (int)connection.callFunction("tournament.count_patrons", id);
+    }
 
     @Override
     protected String getEntityName() {
@@ -20,7 +64,7 @@ public class TournamentService extends RepositoryService<Tournament> {
     }
 
     @Override
-    protected int getEntityID(Tournament tournament) {
+    protected Integer getEntityID(Tournament tournament) {
         return tournament.getId();
     }
 

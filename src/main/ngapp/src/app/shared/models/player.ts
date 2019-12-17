@@ -4,4 +4,5 @@ export class Player {
   surname: string;
   category: string;
   elo: number;
+  clubID: number;
 }
