@@ -5,6 +5,8 @@ import { Player } from 'src/app/shared/models/player';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PlayerEditorComponent } from '../../player-editor/player-editor.component';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-player-list',
@@ -15,16 +17,24 @@ export class PlayerListComponent implements OnInit {
 
   players$: Observable<Player[]>;
 
-  constructor(private http: HttpClient, private playerService: PlayerService, private dialog: MatDialog) { }
+  constructor(private http: HttpClient,
+              private playerService: PlayerService,
+              private dialog: MatDialog,
+              private route: Router
+    ) { }
 
   ngOnInit() {
-    this.players$ =  this.playerService.getAll();
+    this.players$ =  this.playerService.getAll().pipe(tap(r => {console.log(r); }));
   }
 
   newPlayer() {
     this.dialog.open(PlayerEditorComponent, {
       data: {id: -1, isNew: true}
     });
+  }
+
+  viewPlayer(player: Player) {
+
   }
 
 }

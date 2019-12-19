@@ -4,7 +4,7 @@ import { tap, filter } from 'rxjs/operators';
 
 export abstract class EntityService<T, IdType> {
 
-  entities$ = new BehaviorSubject<T[]>([]);
+  entities$ = new BehaviorSubject<T[]>(null);
 
   singleEntities = new Map<IdType, BehaviorSubject<T>>();
 
@@ -13,7 +13,7 @@ export abstract class EntityService<T, IdType> {
   }
 
   public getAll(): Observable<T[]> {
-    return this.entities$.asObservable();
+    return this.entities$.asObservable().pipe(filter(entity => entity !== null));
   }
 
   public getByID(id: IdType): Observable<T> {

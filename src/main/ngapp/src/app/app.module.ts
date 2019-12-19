@@ -20,6 +20,8 @@ import { ClubEditorComponent } from './forms/club/club-editor/club-editor.compon
 import { ClubViewComponent } from './forms/club/club-view/club-view.component';
 import { ClubPickerComponent } from './forms/club/club-picker/club-picker.component';
 import { PickerComponent } from './shared/components/picker/picker.component';
+import { EntityTableComponent } from './shared/components/entity-table/entity-table.component';
+import { PlayerTableComponent } from './forms/player/player-table/player-table.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { PickerComponent } from './shared/components/picker/picker.component';
     ClubEditorComponent,
     ClubViewComponent,
     ClubPickerComponent,
-    PickerComponent
+    PickerComponent,
+    EntityTableComponent,
+    PlayerTableComponent
   ],
   entryComponents: [
     ClubPickerComponent

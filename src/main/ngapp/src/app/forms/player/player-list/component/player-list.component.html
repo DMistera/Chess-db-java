@@ -1,18 +1,8 @@
-<mat-card>
+<mat-card *ngIf="players$ | async as players">
   <mat-card-title>List of Players</mat-card-title>
   <app-search-bar></app-search-bar>
   <mat-divider></mat-divider>
-  <mat-list>
-    <mat-list-item *ngFor="let player of (players$ | async)">
-      <h3 mat-line>
-        <b>{{player.name}} {{player.surname}}</b>
-      </h3>
-      <p mat-line>
-        {{player.elo}}
-      </p>
-      <button mat-button [routerLink]="[player.id]">View</button>
-    </mat-list-item>
-  </mat-list>
+  <app-entity-table [data]="players" [filter]="['id', 'clubID']" (selectEntity)="viewPlayer($event)"></app-entity-table>
   <mat-card-footer>
     <button mat-button (click)="newPlayer()">New Player</button>
   </mat-card-footer>
