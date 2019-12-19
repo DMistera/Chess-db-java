@@ -22,6 +22,7 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
         while(queryResult.next()) {
             list.add(entityFromRow(queryResult));
         }
+        queryResult.close();
         return list;
     }
 
@@ -31,6 +32,7 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
         if(queryResult.next()) {
             return entityFromRow(queryResult);
         }
+        queryResult.close();
         throw new EntityNotFoundException();
     }
 

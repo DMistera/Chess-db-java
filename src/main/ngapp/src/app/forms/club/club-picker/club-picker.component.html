@@ -1,0 +1,2 @@
+
+<app-picker *ngIf="options$ | async as options" title="Pick Club" [options]="options" (picked)="end($event)"></app-picker>

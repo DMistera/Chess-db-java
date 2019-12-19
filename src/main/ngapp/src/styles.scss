@@ -2,3 +2,13 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.entity-editor {
+  width: 100%;
+  max-width: 500px;
+  min-width: 400px;
+}
+
+.entity-editor mat-dialog-content mat-form-field {
+  width: 100%;
+}

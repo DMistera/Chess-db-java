@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-title>List of Clubs</mat-card-title>
+  <app-search-bar></app-search-bar>
+  <mat-list>
+    <mat-list-item *ngFor="let club of (clubs$ | async)">
+      <h3 mat-line>
+        <b>{{club.name}}</b>
+      </h3>
+      <button mat-button [routerLink]="[club.id]">View</button>
+    </mat-list-item>
+  </mat-list>
+  <mat-card-footer>
+    <button mat-button (click)="newClub()">New Club</button>
+  </mat-card-footer>
+</mat-card>

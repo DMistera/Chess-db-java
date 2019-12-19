@@ -1,0 +1,13 @@
+<form [formGroup]="clubForm" class=entity-editor (submit)="onSubmit()">
+  <h2 mat-dialog-title>
+    Club
+  </h2>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit">Accept</button>
+  </mat-dialog-actions>
+</form>

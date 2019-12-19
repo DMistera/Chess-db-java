@@ -8,7 +8,7 @@ export abstract class EntityService<T, IdType> {
 
   singleEntities = new Map<IdType, BehaviorSubject<T>>();
 
-  constructor(private http: HttpClient) {
+  constructor(protected http: HttpClient) {
     this.refresh();
   }
 

@@ -4,13 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { Player } from 'src/app/shared/models/player';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { EditorTemplate, DialogData } from 'src/app/shared/templates/editor-template';
 
 @Component({
   selector: 'app-player-editor',
   templateUrl: './player-editor.component.html',
   styleUrls: ['./player-editor.component.scss']
 })
-export class PlayerEditorComponent implements OnInit {
+export class PlayerEditorComponent extends EditorTemplate<Player, number> {
 
   nameForm = new FormControl('');
   surnameForm = new FormControl('');
@@ -23,46 +24,23 @@ export class PlayerEditorComponent implements OnInit {
     category: this.categoryForm
   });
 
-  id: number;
-
   constructor(
-    private playerService: PlayerService,
-    private dialogRef: MatDialogRef<PlayerEditorComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: DialogData) { }
-
-  ngOnInit() {
-    this.id = this.data.id;
-    if (this.id >= 0) {
-      this.playerService.getByID(this.id).subscribe(player => {
-        this.initForm(player);
-      });
+     playerService: PlayerService,
+     dialogRef: MatDialogRef<PlayerEditorComponent>,
+     @Inject(MAT_DIALOG_DATA)  data: DialogData<number>) {
+      super(playerService, dialogRef, data);
     }
-  }
 
-  onSubmit() {
-    const player = this.createPlayer();
-    if (player.id < 0) {
-      this.playerService.create(player);
-    } else {
-      this.playerService.update(player);
-    }
-    this.dialogRef.close();
-  }
-
-  private initForm(player: Player) {
+  protected initForm(player: Player) {
     this.nameForm.setValue(player.name);
     this.surnameForm.setValue(player.surname);
     this.eloForm.setValue(player.elo);
   }
 
-  private createPlayer(): Player {
+  protected createEntity(): Player {
     const result = this.playerForm.value;
-    result.id = this.id;
+    result.id = this.data.id;
     return result;
   }
 
-}
-
-export interface DialogData {
-  id: number;
 }

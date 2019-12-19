@@ -1,0 +1,16 @@
+<mat-card *ngIf="player$ | async as player">
+  <mat-card-title>{{player.name}} {{player.surname}}</mat-card-title>
+  <mat-card-content>
+    <p>Name: {{player.name}}</p>
+    <p>Surname: {{player.surname}}</p>
+    <p>Elo: {{player.elo}}</p>
+    <p *ngIf="player.clubID > 0; else noClub">Club: {{(this.getClub$() | async).name}}</p>
+    <ng-template #noClub>
+      <p>
+        No club
+        <button mat-button (click)="joinClub()">Join Club!</button>
+      </p>
+    </ng-template>
+    <button mat-button (click)="editPlayer(player.id)">Edit</button>
+  </mat-card-content>
+</mat-card>

@@ -1,5 +1,11 @@
 <mat-toolbar color="primary">
   <span>Chess Database</span>
-  <button mat-button (click)="players()">Players</button>
-  <button mat-button (click)="tournaments()">Tournaments</button>
+  <button mat-button [routerLink]="['./players']">Players</button>
+  <button mat-button [routerLink]="['./clubs']">Clubs</button>
+  <button mat-button [routerLink]="['./games']">Games</button>
+  <button mat-button [routerLink]="['./tournaments']">Tournaments</button>
+  <button mat-button [routerLink]="['./organizers']">Organizers</button>
+  <button mat-button [routerLink]="['./referees']">Referees</button>
+  <button mat-button [routerLink]="['./sponsors']">Sponsors</button>
+  <button mat-button [routerLink]="['./patrons']">Media Patrons</button>
 </mat-toolbar>

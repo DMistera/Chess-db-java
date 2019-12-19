@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,27 +36,27 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
     }
 
     public int countPlayers(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_players", id);
+        return (int)connection.callFunction("tournament.count_players", Types.INTEGER, id);
     }
 
     public int countReferees(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_referees", id);
+        return (int)connection.callFunction("tournament.count_referees", Types.INTEGER, id);
     }
 
     public int countSponsors(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_sponsors", id);
+        return (int)connection.callFunction("tournament.count_sponsors", Types.INTEGER, id);
     }
 
     public int countOrganizers(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_organizers", id);
+        return (int)connection.callFunction("tournament.count_organizers", Types.INTEGER, id);
     }
 
     public int countGames(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_games", id);
+        return (int)connection.callFunction("tournament.count_games", Types.INTEGER, id);
     }
 
     public int countPatrons(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_patrons", id);
+        return (int)connection.callFunction("tournament.count_patrons", Types.INTEGER, id);
     }
 
     @Override

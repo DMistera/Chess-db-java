@@ -23,13 +23,7 @@ export class PlayerListComponent implements OnInit {
 
   newPlayer() {
     this.dialog.open(PlayerEditorComponent, {
-      data: {id: -1}
-    });
-  }
-
-  editPlayer(playerID: number) {
-    this.dialog.open(PlayerEditorComponent, {
-      data: {id: playerID}
+      data: {id: -1, isNew: true}
     });
   }
 
