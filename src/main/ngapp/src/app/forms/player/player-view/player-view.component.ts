@@ -30,8 +30,11 @@ export class PlayerViewComponent implements OnInit {
     this.player$ = this.loadPlayer$();
   }
 
-  private joinClub() {
-    this.dialog.open(ClubPickerComponent);
+  private joinClub(playerID: number) {
+    const dialogRef = this.dialog.open(ClubPickerComponent);
+    dialogRef.afterClosed().subscribe(id => {
+      this.clubService.addPlayer(id, playerID);
+    });
   }
 
   private loadPlayer$(): Observable<Player> {

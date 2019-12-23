@@ -17,13 +17,8 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
 
     @Override
     public List<T> getAll() throws SQLException {
-        List<T> list = new ArrayList<>();
         ResultSet queryResult = connection.query("SELECT * FROM " + getTableName());
-        while(queryResult.next()) {
-            list.add(entityFromRow(queryResult));
-        }
-        queryResult.close();
-        return list;
+        return queryResultToList(queryResult);
     }
 
     @Override
@@ -53,6 +48,15 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
     @Override
     public void delete(IDType id)  throws SQLException {
         connection.callProcedure( getEntityName() + ".delete_" + getEntityName(), id);
+    }
+
+    protected List<T> queryResultToList(ResultSet queryResult) throws SQLException {
+        List<T> list = new ArrayList<>();
+        while(queryResult.next()) {
+            list.add(entityFromRow(queryResult));
+        }
+        queryResult.close();
+        return list;
     }
 
     protected abstract String getEntityName();

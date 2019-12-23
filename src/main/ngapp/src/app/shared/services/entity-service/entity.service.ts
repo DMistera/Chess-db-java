@@ -39,7 +39,7 @@ export abstract class EntityService<T, IdType> {
   protected abstract url(): string;
   protected abstract getID(entity: T): IdType;
 
-  private refresh(id?: IdType) {
+  public refresh(id?: IdType) {
     this.http.get<T[]>(this.url()).subscribe(entities => {
       this.entities$.next(entities);
     });
@@ -48,7 +48,7 @@ export abstract class EntityService<T, IdType> {
     }
   }
 
-  private refreshID(id: IdType): Observable<T> {
+  public refreshID(id: IdType): Observable<T> {
     return this.http.get<T>(this.url() + '/' + id).pipe(tap(entity => {
       this.singleEntities.get(id).next(entity);
     }));

@@ -6,9 +6,15 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class PlayerService extends RepositoryService<Player, Integer> {
+
+    public List<Player> getClubPlayers(int clubID) throws SQLException {
+        ResultSet resultSet = connection.query("SELECT * FROM " + getTableName() + " WHERE CLUB_ID = ?", clubID);
+        return queryResultToList(resultSet);
+    }
 
     @Override
     protected String getEntityName() {
@@ -40,6 +46,7 @@ public class PlayerService extends RepositoryService<Player, Integer> {
         result.setSurname(row.getString("surname"));
         result.setCategory(row.getString("category"));
         result.setElo(row.getInt("elo"));
+        result.setClubID(row.getInt("club_id"));
         return result;
     }
 }

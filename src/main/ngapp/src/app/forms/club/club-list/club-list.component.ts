@@ -4,6 +4,7 @@ import { ClubService } from 'src/app/shared/services/club/club.service';
 import { Club } from 'src/app/shared/models/club';
 import { MatDialog } from '@angular/material/dialog';
 import { ClubEditorComponent } from '../club-editor/club-editor.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-club-list',
@@ -16,7 +17,8 @@ export class ClubListComponent implements OnInit {
 
   constructor(
     private clubService: ClubService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -27,6 +29,10 @@ export class ClubListComponent implements OnInit {
     this.dialog.open(ClubEditorComponent, {
       data: {isNew: true}
     });
+  }
+
+  viewClub(club: Club) {
+    this.router.navigate(['clubs/' + club.id]);
   }
 
 }

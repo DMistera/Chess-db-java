@@ -17,10 +17,10 @@ export class PlayerListComponent implements OnInit {
 
   players$: Observable<Player[]>;
 
-  constructor(private http: HttpClient,
+  constructor(
               private playerService: PlayerService,
               private dialog: MatDialog,
-              private route: Router
+              private router: Router
     ) { }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   viewPlayer(player: Player) {
-
+    this.router.navigate(['players/' + player.id]);
   }
 
 }
