@@ -5,6 +5,7 @@ import { GameService } from 'src/app/shared/services/game/game.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { first, switchMap } from 'rxjs/operators';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
+import { Player } from 'src/app/shared/models/player';
 
 @Component({
   selector: 'app-game-view',
@@ -29,6 +30,19 @@ export class GameViewComponent implements OnInit {
 
   getPlayer$(id: number) {
     return this.playerService.getByID(id);
+  }
+
+  getResultString(whitePlayer: Player, blackPlayer: Player, result: string) {
+    switch(result) {
+      case 'W':
+        return whitePlayer.name + ' ' + whitePlayer.surname + ' won';
+      case 'B':
+        return blackPlayer.name + ' ' + blackPlayer.surname + ' won';
+      case 'T':
+        return 'Tie';
+      default:
+        return 'Undefined';
+    }
   }
 
 }

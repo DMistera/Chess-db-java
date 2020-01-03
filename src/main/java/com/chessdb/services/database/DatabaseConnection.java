@@ -52,7 +52,8 @@ public class DatabaseConnection {
     public ResultSet query(String statementStr, Object... params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(statementStr);
         convertParameters(statement, 1, params);
-        return statement.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet; //TODO Close statement after
     }
 
     private void convertParameters(PreparedStatement statement, int offset, Object... params) throws SQLException {

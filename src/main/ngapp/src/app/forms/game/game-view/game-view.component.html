@@ -9,10 +9,14 @@
             <p>White Player: {{whitePlayer.name}} {{whitePlayer.surname}}</p>
             <p>Black Player: {{blackPlayer.name}} {{blackPlayer.surname}}</p>
             <p>Date: {{game.date}}</p>
-            <p>Result: {{game.result}}</p>
+            <p>Result: {{getResultString(whitePlayer, blackPlayer, game.result)}}</p>
+            <p>Tournament: <i>None</i></p>
+            <button mat-raised-button color="primary">Edit</button>
           </mat-tab>
           <mat-tab label="Preview">
-
+            <div class=chessboard-panel>
+              <app-game-preview></app-game-preview>
+            </div>
           </mat-tab>
         </mat-tab-group>
       </mat-card-content>

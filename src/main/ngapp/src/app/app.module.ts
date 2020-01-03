@@ -30,7 +30,7 @@ import { PlayerPickerComponent } from './forms/player/player-picker/player-picke
 import { GameViewComponent } from './forms/game/game-view/game-view.component';
 import { GamePreviewComponent } from './shared/components/game-preview/game-preview.component';
 
-//import { ChessboardModule } from 'ng2-chessboard';
+import * as $ from 'jquery';
 
 @NgModule({
   declarations: [
