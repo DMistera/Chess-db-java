@@ -1,0 +1,3 @@
+<app-entity-list *ngIf="games$ | async as games" entityName="Game" (create)="newGame()">
+  <app-entity-table [data]="games" (selectEntity)="viewGame($event)"></app-entity-table>
+</app-entity-list>

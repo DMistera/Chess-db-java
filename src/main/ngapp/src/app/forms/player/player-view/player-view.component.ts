@@ -33,7 +33,9 @@ export class PlayerViewComponent implements OnInit {
   private joinClub(playerID: number) {
     const dialogRef = this.dialog.open(ClubPickerComponent);
     dialogRef.afterClosed().subscribe(id => {
-      this.clubService.addPlayer(id, playerID);
+      if (id) {
+        this.clubService.addPlayer(id, playerID);
+      }
     });
   }
 

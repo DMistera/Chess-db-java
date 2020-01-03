@@ -37,6 +37,10 @@ export class PlayerEditorComponent extends EditorTemplate<Player, number> {
     this.eloForm.setValue(player.elo);
   }
 
+  protected validate(): boolean {
+    return true;
+  }
+
   protected createEntity(): Player {
     const result = this.playerForm.value;
     result.id = this.data.id;

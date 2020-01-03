@@ -6,7 +6,7 @@ import { Inject, OnInit } from '@angular/core';
 export abstract class EditorTemplate<T, IdType> implements OnInit {
   constructor(
     protected entityService: EntityService<T, IdType>,
-    protected dialogRef: MatDialogRef<PlayerEditorComponent>,
+    protected dialogRef: MatDialogRef<EditorTemplate<T, IdType>>,
     protected data: DialogData<IdType>) {
 
     }
@@ -20,17 +20,21 @@ export abstract class EditorTemplate<T, IdType> implements OnInit {
   }
 
   public onSubmit() {
-    const entity = this.createEntity();
-    if (this.data.isNew) {
-      this.entityService.create(entity);
-    } else {
-      this.entityService.update(entity);
+    console.log('Submitting!');
+    if (this.validate()) {
+      const entity = this.createEntity();
+      if (this.data.isNew) {
+        this.entityService.create(entity);
+      } else {
+        this.entityService.update(entity);
+      }
+      this.dialogRef.close();
     }
-    this.dialogRef.close();
   }
 
   protected abstract initForm(entity: T): void;
   protected abstract createEntity(): T;
+  protected abstract validate(): boolean;
 }
 
 export interface DialogData<IdType> {

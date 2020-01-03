@@ -25,9 +25,10 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
     public T get(IDType id) throws SQLException {
         ResultSet queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID = ?", id);
         if(queryResult.next()) {
-            return entityFromRow(queryResult);
+            T entity = entityFromRow(queryResult);
+            queryResult.close();
+            return entity;
         }
-        queryResult.close();
         throw new EntityNotFoundException();
     }
 

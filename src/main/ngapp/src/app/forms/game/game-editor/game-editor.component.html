@@ -1,0 +1,39 @@
+<app-entity-editor [formGroup]="gameForm" (accept)="onSubmit()">
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Date" [formControl]="dateControl">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Result</mat-label>
+    <mat-select [formControl]="resultControl">
+      <mat-option *ngFor="let gameResult of gameResults" [value]="gameResult.value">
+        {{gameResult.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <ng-template #noPlayer>
+    <i>None</i>
+  </ng-template>
+
+  <div>
+    <mat-label>White Player: </mat-label>
+    <ng-container *ngIf="whitePlayer$ | async as whitePlayer; else noPlayer">
+      {{whitePlayer.name}} {{whitePlayer.surname}}
+    </ng-container>
+    <button mat-button (click)="pickWhitePlayer()">Select</button>
+  </div>
+
+  <div>
+    <mat-label>Black Player: </mat-label>
+    <ng-container *ngIf="blackPlayer$ | async as blackPlayer; else noPlayer">
+      {{blackPlayer.name}} {{blackPlayer.surname}}
+    </ng-container>
+    <button mat-button (click)="pickBlackPlayer()">Select</button>
+  </div>
+
+</app-entity-editor>
+

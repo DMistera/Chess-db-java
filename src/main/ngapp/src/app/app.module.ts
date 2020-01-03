@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/modules/material/material.module';
-import { PlayerListComponent } from './forms/player/player-list/component/player-list.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PlayerEditorComponent } from './forms/player/player-editor/player-editor.component';
@@ -22,6 +21,16 @@ import { ClubPickerComponent } from './forms/club/club-picker/club-picker.compon
 import { PickerComponent } from './shared/components/picker/picker.component';
 import { EntityTableComponent } from './shared/components/entity-table/entity-table.component';
 import { PlayerTableComponent } from './forms/player/player-table/player-table.component';
+import { GameEditorComponent } from './forms/game/game-editor/game-editor.component';
+import { PlayerListComponent } from './forms/player/player-list/player-list.component';
+import { EntityListComponent } from './shared/components/entity-list/entity-list.component';
+import { GameListComponent } from './forms/game/game-list/game-list.component';
+import { EntityEditorComponent } from './shared/components/entity-editor/entity-editor.component';
+import { PlayerPickerComponent } from './forms/player/player-picker/player-picker.component';
+import { GameViewComponent } from './forms/game/game-view/game-view.component';
+import { GamePreviewComponent } from './shared/components/game-preview/game-preview.component';
+
+//import { ChessboardModule } from 'ng2-chessboard';
 
 @NgModule({
   declarations: [
@@ -38,10 +47,21 @@ import { PlayerTableComponent } from './forms/player/player-table/player-table.c
     ClubPickerComponent,
     PickerComponent,
     EntityTableComponent,
-    PlayerTableComponent
+    PlayerTableComponent,
+    GameEditorComponent,
+    EntityListComponent,
+    GameListComponent,
+    EntityEditorComponent,
+    PlayerPickerComponent,
+    GameViewComponent,
+    GamePreviewComponent
   ],
   entryComponents: [
-    ClubPickerComponent
+    PlayerEditorComponent,
+    GameEditorComponent,
+    ClubEditorComponent,
+    ClubPickerComponent,
+    PlayerPickerComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
-
-<table ng-if="dataSource.data.length > 0" mat-table matSort [dataSource]="dataSource">
+<app-search-bar (valueChanged)="dataFilter($event)"></app-search-bar>
+<table *ngIf="dataSource.data.length > 0" mat-table matSort [dataSource]="dataSource">
   <ng-container *ngIf="getProperties(dataSource.data[0]) as properties">
     <ng-container *ngFor="let property of properties" [matColumnDef]="property">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{toUppercase(property)}} </th>

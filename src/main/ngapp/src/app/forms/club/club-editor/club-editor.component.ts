@@ -30,6 +30,10 @@ export class ClubEditorComponent extends EditorTemplate<Club, number> {
     this.nameForm.setValue(entity.name);
   }
 
+  protected validate(): boolean {
+    return true;
+  }
+
   protected createEntity(): Club {
     const club = new Club();
     club.name = this.nameForm.value;

@@ -66,4 +66,8 @@ export class EntityTableComponent implements OnChanges {
     this.selectEntity.emit(entity);
   }
 
+  dataFilter(query: string) {
+    this.dataSource.filter = query;
+  }
+
 }

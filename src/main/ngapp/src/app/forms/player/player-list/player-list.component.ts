@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Player } from 'src/app/shared/models/player';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { MatDialog } from '@angular/material/dialog';
-import { PlayerEditorComponent } from '../../player-editor/player-editor.component';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { PlayerEditorComponent } from '../player-editor/player-editor.component';
 
 @Component({
   selector: 'app-player-list',
@@ -24,12 +24,12 @@ export class PlayerListComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.players$ =  this.playerService.getAll().pipe(tap(r => {console.log(r); }));
+    this.players$ =  this.playerService.getAll();
   }
 
   newPlayer() {
     this.dialog.open(PlayerEditorComponent, {
-      data: {id: -1, isNew: true}
+      data: {isNew: true}
     });
   }
 

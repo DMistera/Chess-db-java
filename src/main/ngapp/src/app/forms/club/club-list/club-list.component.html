@@ -1,8 +1,5 @@
-<mat-card *ngIf="clubs$ | async as clubs">
-  <mat-card-title>List of Clubs</mat-card-title>
-  <app-search-bar></app-search-bar>
+
+
+<app-entity-list *ngIf="clubs$ | async as clubs" entityName="Club" (create)="newClub()">
   <app-entity-table [data]="clubs" [filter]="['id']" (selectEntity)="viewClub($event)"></app-entity-table>
-  <mat-card-footer>
-    <button mat-button (click)="newClub()">New Club</button>
-  </mat-card-footer>
-</mat-card>
+</app-entity-list>

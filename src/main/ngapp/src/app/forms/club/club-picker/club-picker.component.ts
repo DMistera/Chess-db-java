@@ -19,14 +19,7 @@ export class ClubPickerComponent implements OnInit {
               private dialogRef: MatDialogRef<ClubPickerComponent>
     ) { }
 
-  //options$: Observable<PickerOption[]>;
-
   ngOnInit() {
-    // this.options$ = this.clubService.getAll().pipe(map(clubs => {
-    //   return clubs.map(club => {
-    //     return {id: club.id, name: club.name};
-    //   });
-    // }));
     this.clubs$ = this.clubService.getAll();
   }
 

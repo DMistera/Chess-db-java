@@ -3,12 +3,15 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.entity-editor {
+.entity-editor mat-dialog-content mat-form-field {
   width: 100%;
-  max-width: 500px;
-  min-width: 400px;
 }
 
-.entity-editor mat-dialog-content mat-form-field {
+body {
+  background-image: url("assets/bg.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  position: absolute;
+  z-index: -1;
   width: 100%;
 }

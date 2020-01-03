@@ -1,0 +1,21 @@
+<mat-card *ngIf="game$ | async as game">
+  <ng-container *ngIf="getPlayer$(game.whitePlayerID) | async as whitePlayer">
+    <ng-container *ngIf="getPlayer$(game.blackPlayerID) | async as blackPlayer">
+      <mat-card-title>{{whitePlayer.name}} {{whitePlayer.surname}} vs. {{blackPlayer.name}} {{blackPlayer.surname}}</mat-card-title>
+      <mat-card-content>
+
+        <mat-tab-group>
+          <mat-tab label="Info">
+            <p>White Player: {{whitePlayer.name}} {{whitePlayer.surname}}</p>
+            <p>Black Player: {{blackPlayer.name}} {{blackPlayer.surname}}</p>
+            <p>Date: {{game.date}}</p>
+            <p>Result: {{game.result}}</p>
+          </mat-tab>
+          <mat-tab label="Preview">
+
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </ng-container>
+  </ng-container>
+</mat-card>
