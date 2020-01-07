@@ -1,6 +1,7 @@
 package com.chessdb.API.player.services;
 
 import com.chessdb.API.player.models.Player;
+import com.chessdb.services.database.QueryResult;
 import com.chessdb.services.repository.RepositoryService;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,10 @@ import java.util.List;
 public class PlayerService extends RepositoryService<Player, Integer> {
 
     public List<Player> getClubPlayers(int clubID) throws SQLException {
-        ResultSet resultSet = connection.query("SELECT * FROM " + getTableName() + " WHERE CLUB_ID = ?", clubID);
-        return queryResultToList(resultSet);
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE CLUB_ID = ?", clubID);
+        List<Player> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.chessdb.services.repository;
 
 import com.chessdb.services.database.DatabaseConnection;
+import com.chessdb.services.database.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +18,18 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
 
     @Override
     public List<T> getAll() throws SQLException {
-        ResultSet queryResult = connection.query("SELECT * FROM " + getTableName());
-        return queryResultToList(queryResult);
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName());
+        List<T> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
     }
 
     @Override
     public T get(IDType id) throws SQLException {
-        ResultSet queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID = ?", id);
-        if(queryResult.next()) {
-            T entity = entityFromRow(queryResult);
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID = ?", id);
+        ResultSet resultSet = queryResult.getResultSet();
+        if(resultSet.next()) {
+            T entity = entityFromRow(resultSet);
             queryResult.close();
             return entity;
         }
@@ -57,7 +61,6 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
         while(queryResult.next()) {
             list.add(entityFromRow(queryResult));
         }
-        queryResult.close();
         return list;
     }
 
