@@ -49,11 +49,11 @@ public class DatabaseConnection {
         return result;
     }
 
-    public ResultSet query(String statementStr, Object... params) throws SQLException {
+    public QueryResult query(String statementStr, Object... params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(statementStr);
         convertParameters(statement, 1, params);
         ResultSet resultSet = statement.executeQuery();
-        return resultSet; //TODO Close statement after
+        return new QueryResult(statement, resultSet);
     }
 
     private void convertParameters(PreparedStatement statement, int offset, Object... params) throws SQLException {
