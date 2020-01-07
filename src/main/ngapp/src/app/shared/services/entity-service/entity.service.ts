@@ -1,6 +1,7 @@
 import { BehaviorSubject, Observable, Subject, concat, merge } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap, filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 export abstract class EntityService<T, IdType> {
 
@@ -8,8 +9,15 @@ export abstract class EntityService<T, IdType> {
 
   singleEntities = new Map<IdType, BehaviorSubject<T>>();
 
-  constructor(protected http: HttpClient) {
+  constructor(
+    protected http: HttpClient,
+    protected router: Router
+    ) {
     this.refresh();
+  }
+
+  public navigate(id: IdType) {
+    this.router.navigate([this.url() +  '/' + id]);
   }
 
   public getAll(): Observable<T[]> {

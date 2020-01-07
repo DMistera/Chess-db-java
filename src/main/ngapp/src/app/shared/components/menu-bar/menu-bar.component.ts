@@ -12,12 +12,4 @@ export class MenuBarComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  players() {
-    this.router.navigate(['./players']);
-  }
-
-  tournaments() {
-    this.router.navigate(['./tournaments']);
-  }
 }

@@ -9,6 +9,16 @@ import java.sql.SQLException;
 
 @Service
 public class GameService extends RepositoryService<Game, Integer> {
+
+    public String getPGN(int id) {
+        //TODO
+        return "";
+    }
+
+    public void setPGN(int id, String pgn) {
+        //TODO
+    }
+
     @Override
     protected String getEntityName() {
         return "Game";

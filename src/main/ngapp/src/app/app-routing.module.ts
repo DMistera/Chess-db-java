@@ -9,12 +9,12 @@ import { GameViewComponent } from './forms/game/game-view/game-view.component';
 
 
 const routes: Routes = [
-  {path: 'players', component: PlayerListComponent},
-  {path: 'players/:id', component: PlayerViewComponent},
-  {path: 'clubs', component: ClubListComponent},
-  {path: 'clubs/:id', component: ClubViewComponent},
-  {path: 'games', component: GameListComponent},
-  {path: 'games/:id', component: GameViewComponent}
+  {path: 'player', component: PlayerListComponent},
+  {path: 'player/:id', component: PlayerViewComponent},
+  {path: 'club', component: ClubListComponent},
+  {path: 'club/:id', component: ClubViewComponent},
+  {path: 'game', component: GameListComponent},
+  {path: 'game/:id', component: GameViewComponent}
 ];
 
 @NgModule({

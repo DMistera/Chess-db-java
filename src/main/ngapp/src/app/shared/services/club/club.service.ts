@@ -4,15 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { Club } from '../../models/club';
 import { Observable } from 'rxjs';
 import { PlayerService } from '../player/player.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClubService extends EntityService<Club, number> {
 
-  constructor(http: HttpClient,
+  constructor(http: HttpClient, router: Router,
               private playerService: PlayerService) {
-    super(http);
+    super(http, router);
   }
 
   public getPlayerCount(id: number): Observable<number> {

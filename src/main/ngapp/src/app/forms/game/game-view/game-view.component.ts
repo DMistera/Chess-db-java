@@ -6,6 +6,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { first, switchMap } from 'rxjs/operators';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { Player } from 'src/app/shared/models/player';
+import { MatDialog } from '@angular/material/dialog';
+import { GameEditorComponent } from '../game-editor/game-editor.component';
+import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
 
 @Component({
   selector: 'app-game-view',
@@ -19,7 +22,9 @@ export class GameViewComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private playerService: PlayerService,
-    private route: ActivatedRoute
+    private tournamentService: TournamentService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -32,8 +37,12 @@ export class GameViewComponent implements OnInit {
     return this.playerService.getByID(id);
   }
 
+  getTournament$(id: number) {
+    return this.tournamentService.getByID(id);
+  }
+
   getResultString(whitePlayer: Player, blackPlayer: Player, result: string) {
-    switch(result) {
+    switch (result) {
       case 'W':
         return whitePlayer.name + ' ' + whitePlayer.surname + ' won';
       case 'B':
@@ -43,6 +52,12 @@ export class GameViewComponent implements OnInit {
       default:
         return 'Undefined';
     }
+  }
+
+  edit(gameID: number) {
+    this.dialog.open(GameEditorComponent, {
+      data: {id: gameID, isNew: false}
+    });
   }
 
 }

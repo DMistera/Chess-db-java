@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { Player } from 'src/app/shared/models/player';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { MatDialog } from '@angular/material/dialog';
-import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { PlayerEditorComponent } from '../player-editor/player-editor.component';
 
 @Component({
@@ -19,8 +16,7 @@ export class PlayerListComponent implements OnInit {
 
   constructor(
               private playerService: PlayerService,
-              private dialog: MatDialog,
-              private router: Router
+              private dialog: MatDialog
     ) { }
 
   ngOnInit() {
@@ -34,7 +30,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   viewPlayer(player: Player) {
-    this.router.navigate(['players/' + player.id]);
+    this.playerService.navigate(player.id);
   }
 
 }

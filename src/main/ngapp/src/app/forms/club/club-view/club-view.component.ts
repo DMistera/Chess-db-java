@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ClubService } from 'src/app/shared/services/club/club.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Club } from 'src/app/shared/models/club';
 import { first, switchMap, tap, filter } from 'rxjs/operators';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
@@ -22,8 +22,7 @@ export class ClubViewComponent implements OnInit {
   constructor(
     private clubService: ClubService,
     private playerService: PlayerService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -41,7 +40,7 @@ export class ClubViewComponent implements OnInit {
   }
 
   viewPlayer(player: Player) {
-    this.router.navigate(['players/' + player.id]);
+    this.playerService.navigate(player.id);
   }
 
 }

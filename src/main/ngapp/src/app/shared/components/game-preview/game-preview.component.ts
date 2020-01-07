@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit, AfterViewChecked, Input } from '@angular/core';
 import { ChessInstance } from 'chess.js';
 
 const Chess = require('chess.js');
@@ -12,8 +12,8 @@ const Chessboard = require('chessboardjs');
 })
 export class GamePreviewComponent implements OnInit, AfterViewChecked {
 
-  // @ViewChild(ChessboardComponent, {static: true})
-  // chessboard: ChessboardComponent;
+  @Input()
+  pgn: string;
 
   chess: ChessInstance;
   chessBoard: any;
@@ -30,9 +30,7 @@ export class GamePreviewComponent implements OnInit, AfterViewChecked {
     if (document.getElementById('chessboard') != null && !this.initialized) {
       this.chessBoard = Chessboard('chessboard', 'start');
       this.initialized = true;
-
     }
-    //this.chessBoard = Chessboard('chessboard', 'start');
   }
 
 }

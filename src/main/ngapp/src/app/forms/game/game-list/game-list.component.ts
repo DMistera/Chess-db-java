@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Game } from 'src/app/shared/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { GameEditorComponent } from '../game-editor/game-editor.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-list',
@@ -17,8 +16,7 @@ export class GameListComponent implements OnInit {
 
   constructor(
     private gameService: GameService,
-    private dialog: MatDialog,
-    private router: Router
+    private dialog: MatDialog
     ) { }
 
   ngOnInit() {
@@ -32,7 +30,7 @@ export class GameListComponent implements OnInit {
   }
 
   viewGame(game: Game) {
-    this.router.navigate(['games/' + game.id]);
+    this.gameService.navigate(game.id);
   }
 
 }
