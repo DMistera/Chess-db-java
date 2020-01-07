@@ -18,4 +18,15 @@ public class DatabaseConnectionTest {
         assertEquals(databaseConnection.generateParamString(2), "?,?");
         assertNotEquals(databaseConnection.generateParamString(2), "?");
     }
+
+    @Test
+    public void should_query() {
+        assertDoesNotThrow(() -> {
+            databaseConnection.query("SELECT * FROM PLAYERS");
+        });
+        assertDoesNotThrow(() -> {
+            databaseConnection.query("SELECT * FROM PLAYERS WHERE ID = ?", 2);
+        });
+    }
+
 }

@@ -9,4 +9,5 @@ public class Player {
     private String surname;
     private int elo;
     private String category;
+    private int clubID;
 }

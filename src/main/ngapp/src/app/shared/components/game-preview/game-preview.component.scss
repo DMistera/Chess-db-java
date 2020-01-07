@@ -1,0 +1,23 @@
+
+
+.board-container
+{
+
+	display:block;
+	position:relative;
+	width:400px;
+	height:400px;
+  margin:auto;
+
+  margin: 5px;
+
+}
+
+.chessboard
+{
+	touch-action: none;
+
+	position: absolute;
+	width:400px;
+	height:400px;
+}

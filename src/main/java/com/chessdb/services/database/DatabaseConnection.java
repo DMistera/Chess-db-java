@@ -52,7 +52,8 @@ public class DatabaseConnection {
     public ResultSet query(String statementStr, Object... params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(statementStr);
         convertParameters(statement, 1, params);
-        return statement.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet; //TODO Close statement after
     }
 
     private void convertParameters(PreparedStatement statement, int offset, Object... params) throws SQLException {
@@ -61,8 +62,20 @@ public class DatabaseConnection {
             if(o instanceof Integer) {
                 statement.setInt(i, (int)o);
             }
+            else if(o instanceof Float) {
+                statement.setFloat(i, (float)o);
+            }
             else if(o instanceof String) {
                 statement.setString(i, (String)o);
+            }
+            else if(o instanceof Character) {
+                statement.setString(i, "" + (Character)o);
+            }
+            else if(o instanceof Date) {
+                statement.setDate(i, (Date)o);
+            }
+            else if(o == null) {
+                statement.setObject(i, null);
             }
             else {
                 throw new InvalidSQLParameterException(o);

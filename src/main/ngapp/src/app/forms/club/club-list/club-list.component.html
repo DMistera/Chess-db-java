@@ -1,0 +1,5 @@
+
+
+<app-entity-list *ngIf="clubs$ | async as clubs" entityName="Club" (create)="newClub()">
+  <app-entity-table [data]="clubs" [filter]="['id']" (selectEntity)="viewClub($event)"></app-entity-table>
+</app-entity-list>

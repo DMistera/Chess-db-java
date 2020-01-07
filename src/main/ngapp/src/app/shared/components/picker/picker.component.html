@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>
+  {{title}}
+</h2>
+<mat-dialog-content>
+  <!-- <mat-action-list>
+    <button *ngFor="let option of options"  mat-list-item (click)="select()"> {{option.name}} </button>
+  </mat-action-list> -->
+  <mat-button-toggle-group vertical>
+    <mat-button-toggle vertical *ngFor="let option of options"  mat-list-item (click)="select()"> {{option.name}} </mat-button-toggle>
+  </mat-button-toggle-group>
+</mat-dialog-content>
+<mat-dialog-actions>
+</mat-dialog-actions>

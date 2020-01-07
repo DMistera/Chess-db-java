@@ -1,0 +1,15 @@
+<mat-card *ngIf="club$ | async as club">
+  <mat-card-title>{{club.name}}</mat-card-title>
+  <mat-card-content>
+
+    <mat-tab-group>
+      <mat-tab label="Info">
+        <p>Name: {{club.name}}</p>
+        <p>Number of Players: {{playerCount$ | async}}</p>
+      </mat-tab>
+      <mat-tab label="Players" *ngIf="clubPlayers$ | async as players">
+        <app-entity-table *ngIf="players.length > 0" [data]="players" (selectEntity)="viewPlayer($event)"></app-entity-table>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
