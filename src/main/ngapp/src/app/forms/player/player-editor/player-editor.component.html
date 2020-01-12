@@ -9,6 +9,11 @@
     <input matInput placeholder="Elo" formControlName="elo">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Category" formControlName="category">
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category">
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{category}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 </app-entity-editor>

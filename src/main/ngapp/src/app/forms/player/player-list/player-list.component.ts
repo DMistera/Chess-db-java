@@ -33,4 +33,8 @@ export class PlayerListComponent implements OnInit {
     this.playerService.navigate(player.id);
   }
 
+  deletePlayer(player: Player) {
+    this.playerService.delete(player.id);
+  }
+
 }

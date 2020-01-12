@@ -17,10 +17,16 @@ export class EntityTableComponent implements OnChanges {
   buttonLabel = 'View';
 
   @Input()
+  showDelete = true;
+
+  @Input()
   filter: string[] = [];
 
   @Output()
   selectEntity = new EventEmitter<any>();
+
+  @Output()
+  deleteEntity = new EventEmitter<any>();
 
   @ViewChild(MatSort, {static: true}) set matSort(sort: MatSort) {
     this.sort = sort;
@@ -64,6 +70,10 @@ export class EntityTableComponent implements OnChanges {
 
   buttonClick(entity: any) {
     this.selectEntity.emit(entity);
+  }
+
+  deleteClick(entity: any) {
+    this.deleteEntity.emit(entity);
   }
 
   dataFilter(query: string) {

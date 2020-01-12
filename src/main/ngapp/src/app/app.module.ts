@@ -31,6 +31,13 @@ import { GameViewComponent } from './forms/game/game-view/game-view.component';
 import { GamePreviewComponent } from './shared/components/game-preview/game-preview.component';
 
 import * as $ from 'jquery';
+import { TournamentViewComponent } from './forms/tournament/tournament-view/tournament-view.component';
+import { TournamentEditorComponent } from './forms/tournament/tournament-editor/tournament-editor.component';
+import { OrganizerListComponent } from './forms/organizer/organizer-list/organizer-list.component';
+import { OrganizerViewComponent } from './forms/organizer/organizer-view/organizer-view.component';
+import { OrganizerEditorComponent } from './forms/organizer/organizer-editor/organizer-editor.component';
+import { OrganizerPickerComponent } from './forms/organizer/organizer-picker/organizer-picker.component';
+import { TournamentTableComponent } from './forms/tournament/tournament-table/tournament-table.component';
 
 @NgModule({
   declarations: [
@@ -54,14 +61,24 @@ import * as $ from 'jquery';
     EntityEditorComponent,
     PlayerPickerComponent,
     GameViewComponent,
-    GamePreviewComponent
+    GamePreviewComponent,
+    TournamentViewComponent,
+    TournamentEditorComponent,
+    OrganizerListComponent,
+    OrganizerViewComponent,
+    OrganizerEditorComponent,
+    OrganizerPickerComponent,
+    TournamentTableComponent
   ],
   entryComponents: [
     PlayerEditorComponent,
     GameEditorComponent,
     ClubEditorComponent,
+    TournamentEditorComponent,
+    OrganizerEditorComponent,
     ClubPickerComponent,
-    PlayerPickerComponent
+    PlayerPickerComponent,
+    OrganizerPickerComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,3 @@
+<app-entity-list *ngIf="organizers$ | async as organizers" entityName = "Organizer" (create)="newOrganizer()">
+  <app-entity-table [data]="organizers" (deleteEntity)="deleteOrganizer($event)" (selectEntity)="viewOrganizer($event)"></app-entity-table>
+</app-entity-list>

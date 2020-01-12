@@ -1,15 +1,13 @@
 package com.chessdb.API.tournament.services;
 
 import com.chessdb.API.tournament.models.Tournament;
-import com.chessdb.services.database.DatabaseConnection;
+import com.chessdb.services.database.QueryResult;
 import com.chessdb.services.repository.RepositoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,6 +57,20 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
         return (int)connection.callFunction("tournament.count_patrons", Types.INTEGER, id);
     }
 
+    public List<Tournament> getOrganizerTournaments(String organizerName) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ORGANIZER_NAME = ?", organizerName);
+        List<Tournament> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
+    }
+
+    public List<Tournament> getRefereeTournaments(int refereeID) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM TOURNAMENTS WHERE ID IN (SELECT TOURNAMENT_ID FROM REFERING WHERE REFEREE_ID = ?)", refereeID);
+        List<Tournament> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
+    }
+
     @Override
     protected String getEntityName() {
         return "Tournament";
@@ -77,7 +89,7 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
     @Override
     protected Object[] getEntityProperties(Tournament tournament) {
         return new Object[] {
-                tournament.getName(), tournament.getStartDate(), tournament.getEndDate(), tournament.getEntryFee(), tournament.getLocation()
+                tournament.getName(), tournament.getStartDate(), tournament.getEndDate(), tournament.getEntryFee(), tournament.getLocation(), tournament.getOrganizerName()
         };
     }
 
@@ -90,6 +102,7 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
         result.setEndDate(row.getDate("end_date"));
         result.setEntryFee(row.getFloat("entry_fee"));
         result.setLocation(row.getString("location"));
+        result.setOrganizerName(row.getString("organizer_name"));
         return result;
     }
 }

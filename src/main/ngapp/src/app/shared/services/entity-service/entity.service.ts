@@ -44,6 +44,12 @@ export abstract class EntityService<T, IdType> {
     });
   }
 
+  public delete(id: IdType) {
+    this.http.delete(this.url() + '/' + id).subscribe(() => {
+      this.refresh();
+    });
+  }
+
   protected abstract url(): string;
   protected abstract getID(entity: T): IdType;
 

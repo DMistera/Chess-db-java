@@ -1,7 +1,9 @@
 package com.chessdb.API.tournament;
 
+import com.chessdb.API.RepositoryAPI;
 import com.chessdb.API.tournament.models.Tournament;
 import com.chessdb.API.tournament.services.TournamentService;
+import com.chessdb.services.repository.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,27 +12,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("tournament")
-public class TournamentAPI {
+public class TournamentAPI extends RepositoryAPI<Tournament, Integer> {
+
     @Autowired
     private TournamentService tournamentService;
 
-    @GetMapping("")
-    public List<Tournament> getPlayers() throws SQLException {
-        return tournamentService.getAll();
+    @GetMapping("/organizer/{id}")
+    public List<Tournament> getOrganizerTournaments(@PathVariable String id) throws SQLException {
+        return tournamentService.getOrganizerTournaments(id);
     }
 
-    @PostMapping("")
-    public void insertPlayer(@RequestBody Tournament player) throws SQLException {
-        tournamentService.insert(player);
+    @GetMapping("/referee/{id}")
+    public List<Tournament> getRefereeTournaments(@PathVariable String id) throws SQLException {
+        return tournamentService.getOrganizerTournaments(id);
     }
 
-    @PutMapping("")
-    public void updatePlayer(@RequestBody Tournament player) throws SQLException {
-        tournamentService.update(player);
-    }
-
-    @DeleteMapping("{id}")
-    public void updatePlayer(@PathVariable int id) throws SQLException {
-        tournamentService.delete(id);
+    @Override
+    protected RepositoryService<Tournament, Integer> getRepositoryService() {
+        return tournamentService;
     }
 }

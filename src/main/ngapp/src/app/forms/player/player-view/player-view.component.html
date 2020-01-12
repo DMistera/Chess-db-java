@@ -4,6 +4,7 @@
     <p>Name: {{player.name}}</p>
     <p>Surname: {{player.surname}}</p>
     <p>Elo: {{player.elo}}</p>
+    <p>Category: {{player.category}}</p>
     <p *ngIf="player.clubID > 0; else noClub">
       <ng-container *ngIf="getClub$(player.clubID) | async as club">
         Club: {{club.name}}

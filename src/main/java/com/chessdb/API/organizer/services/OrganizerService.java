@@ -32,7 +32,7 @@ public class OrganizerService extends RepositoryService<Organizer, String> {
     @Override
     protected Organizer entityFromRow(ResultSet row) throws SQLException {
         Organizer organizer = new Organizer();
-        organizer.setName(row.getString("name"));
+        organizer.setName(row.getString("id"));
         return organizer;
     }
 }

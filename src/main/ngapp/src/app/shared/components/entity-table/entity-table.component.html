@@ -10,6 +10,7 @@
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
         <button mat-button  (click)="buttonClick(element)">{{buttonLabel}}</button>
+        <button mat-button *ngIf="showDelete"  (click)="deleteClick(element)">Delete</button>
       </td>
     </ng-container>
 

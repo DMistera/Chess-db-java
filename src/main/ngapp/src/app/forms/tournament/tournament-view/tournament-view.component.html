@@ -1,0 +1,17 @@
+<mat-card *ngIf="tournament$ | async as tournament">
+  <mat-card-title>{{tournament.name}}</mat-card-title>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Basic Info">
+        <p>Name: {{tournament.name}}</p>
+        <p>Start Date: {{tournament.startDate}}</p>
+        <p>End Date: {{tournament.endDate}}</p>
+        <p>Entry Fee: {{tournament.entryFee}}</p>
+        <p>Location: {{tournament.location}}</p>
+        <p>Organizer: {{tournament.organizerName}}</p>
+
+        <button mat-raised-button color="primary" (click)="edit(tournament.id)">Edit</button>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
