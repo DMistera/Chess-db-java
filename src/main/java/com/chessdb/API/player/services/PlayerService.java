@@ -19,6 +19,13 @@ public class PlayerService extends RepositoryService<Player, Integer> {
         return result;
     }
 
+    public List<Player> getTournamentPlayers(int tournamentID) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID IN (SELECT PLAYER_ID FROM PARTICIPATION WHERE TOURNAMENT_ID = ?)", tournamentID);
+        List<Player> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
+    }
+
     @Override
     protected String getEntityName() {
         return "Player";

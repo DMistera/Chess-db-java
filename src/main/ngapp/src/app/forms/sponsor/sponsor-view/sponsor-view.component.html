@@ -1,0 +1,20 @@
+<mat-card *ngIf="sponsor$ | async as sponsor">
+  <mat-card-title>{{sponsor.name}}</mat-card-title>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Basic Info">
+        <p>Name: {{sponsor.name}}</p>
+      </mat-tab>
+      <mat-tab label="Prizes">
+        <ng-container *ngIf="prizes$ | async as prizes">
+          <ng-container *ngIf="prizes.length > 0; else noPrizes">
+            <app-entity-table [data]="prizes" [mapper]="prizeMapper" buttonLabel="View Tournament" (deleteEntity)="deletePrize($event)" (selectEntity)="showTournament($event)"></app-entity-table>
+          </ng-container>
+          <ng-template #noPrizes>
+            <i>No prizes found!</i>
+          </ng-template>
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

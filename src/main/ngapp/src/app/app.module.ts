@@ -38,6 +38,16 @@ import { OrganizerViewComponent } from './forms/organizer/organizer-view/organiz
 import { OrganizerEditorComponent } from './forms/organizer/organizer-editor/organizer-editor.component';
 import { OrganizerPickerComponent } from './forms/organizer/organizer-picker/organizer-picker.component';
 import { TournamentTableComponent } from './forms/tournament/tournament-table/tournament-table.component';
+import { TournamentPickerComponent } from './forms/tournament/tournament-picker/tournament-picker.component';
+import { SponsorListComponent } from './forms/sponsor/sponsor-list/sponsor-list.component';
+import { SponsorViewComponent } from './forms/sponsor/sponsor-view/sponsor-view.component';
+import { SponsorEditorComponent } from './forms/sponsor/sponsor-editor/sponsor-editor.component';
+import { PrizeEditorComponent } from './forms/prize/prize-editor/prize-editor.component';
+import { SponsorPickerComponent } from './forms/sponsor/sponsor-picker/sponsor-picker.component';
+import { RefereeListComponent } from './forms/referee/referee-list/referee-list.component';
+import { RefereeViewComponent } from './forms/referee/referee-view/referee-view.component';
+import { RefereeEditorComponent } from './forms/referee/referee-editor/referee-editor.component';
+import { RefereePickerComponent } from './forms/referee/referee-picker/referee-picker.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +78,17 @@ import { TournamentTableComponent } from './forms/tournament/tournament-table/to
     OrganizerViewComponent,
     OrganizerEditorComponent,
     OrganizerPickerComponent,
-    TournamentTableComponent
+    TournamentTableComponent,
+    TournamentPickerComponent,
+    SponsorListComponent,
+    SponsorViewComponent,
+    SponsorEditorComponent,
+    PrizeEditorComponent,
+    SponsorPickerComponent,
+    RefereeListComponent,
+    RefereeViewComponent,
+    RefereeEditorComponent,
+    RefereePickerComponent
   ],
   entryComponents: [
     PlayerEditorComponent,
@@ -76,9 +96,15 @@ import { TournamentTableComponent } from './forms/tournament/tournament-table/to
     ClubEditorComponent,
     TournamentEditorComponent,
     OrganizerEditorComponent,
+    SponsorEditorComponent,
+    PrizeEditorComponent,
+    RefereeEditorComponent,
     ClubPickerComponent,
     PlayerPickerComponent,
-    OrganizerPickerComponent
+    OrganizerPickerComponent,
+    TournamentPickerComponent,
+    SponsorPickerComponent,
+    RefereePickerComponent
   ],
   imports: [
     CommonModule,

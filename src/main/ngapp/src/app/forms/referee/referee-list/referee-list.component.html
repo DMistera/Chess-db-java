@@ -1,0 +1,3 @@
+<app-entity-list *ngIf="referees$ | async as referees" entityName = "Referee" (create)="newReferee()">
+  <app-entity-table [data]="referees" [filter]="['id']" (deleteEntity)="deleteReferee($event)" (selectEntity)="viewReferee($event)"></app-entity-table>
+</app-entity-list>

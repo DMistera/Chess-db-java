@@ -10,7 +10,10 @@ import { TournamentListComponent } from './forms/tournament/tournament-list/tour
 import { TournamentViewComponent } from './forms/tournament/tournament-view/tournament-view.component';
 import { OrganizerListComponent } from './forms/organizer/organizer-list/organizer-list.component';
 import { OrganizerViewComponent } from './forms/organizer/organizer-view/organizer-view.component';
-
+import { SponsorListComponent } from './forms/sponsor/sponsor-list/sponsor-list.component';
+import { SponsorViewComponent } from './forms/sponsor/sponsor-view/sponsor-view.component';
+import { RefereeListComponent } from './forms/referee/referee-list/referee-list.component';
+import { RefereeViewComponent } from './forms/referee/referee-view/referee-view.component';
 
 const routes: Routes = [
   {path: 'player', component: PlayerListComponent},
@@ -22,7 +25,11 @@ const routes: Routes = [
   {path: 'tournament', component: TournamentListComponent},
   {path: 'tournament/:id', component: TournamentViewComponent},
   {path: 'organizer', component: OrganizerListComponent},
-  {path: 'organizer/:id', component: OrganizerViewComponent}
+  {path: 'organizer/:id', component: OrganizerViewComponent},
+  {path: 'sponsor', component: SponsorListComponent},
+  {path: 'sponsor/:id', component: SponsorViewComponent},
+  {path: 'referee', component: RefereeListComponent},
+  {path: 'referee/:id', component: RefereeViewComponent}
 ];
 
 @NgModule({

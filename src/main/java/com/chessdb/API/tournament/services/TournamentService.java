@@ -1,8 +1,11 @@
 package com.chessdb.API.tournament.services;
 
+import com.chessdb.API.prize.models.Prize;
+import com.chessdb.API.prize.services.PrizeService;
 import com.chessdb.API.tournament.models.Tournament;
 import com.chessdb.services.database.QueryResult;
 import com.chessdb.services.repository.RepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
@@ -13,48 +16,59 @@ import java.util.List;
 @Service
 public class TournamentService extends RepositoryService<Tournament, Integer> {
 
+    @Autowired
+    private PrizeService prizeService;
+
     public void addPlayer(int tournamentID, int playerID) throws SQLException {
-        connection.callProcedure("tournament.add_player", tournamentID, playerID);
+        connection.callProcedure(getEntityName() + ".add_player", tournamentID, playerID);
     }
 
     public void addReferee(int tournamentID, int refereeID) throws SQLException {
-        connection.callProcedure("tournament.add_referee", tournamentID, refereeID);
+        connection.callProcedure(getEntityName() + ".add_referee", tournamentID, refereeID);
     }
 
     public void addPatron(int tournamentID, String patron) throws SQLException {
-        connection.callProcedure("tournament.add_patron", tournamentID, patron);
+        connection.callProcedure(getEntityName() + ".add_patron", tournamentID, patron);
     }
 
-    public void addOrganizer(int tournamentID, String organizer) throws SQLException {
-        connection.callProcedure("tournament.add_organizer", tournamentID, organizer);
+    public void addPrize(int tournamentID, Prize prize) throws SQLException {
+        connection.callProcedure(getEntityName() + ".add_prize", tournamentID, prize.getName(), prize.getQuantity(), prize.getSponsorName());
     }
 
-    public void addPrize(int tournamentID, String prizeName, int amount, String sponsorName) throws SQLException {
-        connection.callProcedure("tournament.add_prize", tournamentID, prizeName, amount, sponsorName);
+    public void removePlayer(int tournamentID, int playerID) throws SQLException {
+        connection.callProcedure(getEntityName() + ".remove_player", tournamentID, playerID);
+    }
+
+    public void removeReferee(int tournamentID, int refereeID) throws SQLException {
+        connection.callProcedure(getEntityName() + ".remove_referee", tournamentID, refereeID);
+    }
+
+    public void removePatron(int tournamentID, String patron) throws SQLException {
+        connection.callProcedure(getEntityName() + ".remove_patron", tournamentID, patron);
+    }
+
+    public void removePrize(int tournamentID, Prize prize) throws SQLException {
+        connection.callProcedure(getEntityName() + ".remove_prize", tournamentID, prize.getName(), prize.getSponsorName());
     }
 
     public int countPlayers(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_players", Types.INTEGER, id);
+        return (int)connection.callFunction(getEntityName() + ".count_players", Types.INTEGER, id);
     }
 
     public int countReferees(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_referees", Types.INTEGER, id);
+        return (int)connection.callFunction(getEntityName() + ".count_referees", Types.INTEGER, id);
     }
 
     public int countSponsors(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_sponsors", Types.INTEGER, id);
-    }
-
-    public int countOrganizers(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_organizers", Types.INTEGER, id);
+        return (int)connection.callFunction(getEntityName() + ".count_sponsors", Types.INTEGER, id);
     }
 
     public int countGames(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_games", Types.INTEGER, id);
+        return (int)connection.callFunction(getEntityName() + ".count_games", Types.INTEGER, id);
     }
 
     public int countPatrons(int id) throws SQLException {
-        return (int)connection.callFunction("tournament.count_patrons", Types.INTEGER, id);
+        return (int)connection.callFunction(getEntityName() + ".count_patrons", Types.INTEGER, id);
     }
 
     public List<Tournament> getOrganizerTournaments(String organizerName) throws SQLException {
@@ -65,8 +79,22 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
     }
 
     public List<Tournament> getRefereeTournaments(int refereeID) throws SQLException {
-        QueryResult queryResult = connection.query("SELECT * FROM TOURNAMENTS WHERE ID IN (SELECT TOURNAMENT_ID FROM REFERING WHERE REFEREE_ID = ?)", refereeID);
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID IN (SELECT TOURNAMENT_ID FROM REFERING WHERE REFEREE_ID = ?)", refereeID);
         List<Tournament> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
+    }
+
+    public List<Tournament> getPlayerTournaments(int playerID) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID IN (SELECT TOURNAMENT_ID FROM PARTICIPATION WHERE PLAYER_ID = ?)", playerID);
+        List<Tournament> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
+    }
+
+    public List<Prize> getPrizes(int id) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM PRIZES WHERE TOURNAMENT_ID = ?", id);
+        List<Prize> result = prizeService.queryResultToPrizeList(queryResult.getResultSet());
         queryResult.close();
         return result;
     }

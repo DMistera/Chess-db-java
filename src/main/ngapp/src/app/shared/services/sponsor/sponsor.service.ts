@@ -3,6 +3,8 @@ import { EntityService } from '../entity-service/entity.service';
 import { Sponsor } from '../../models/sponsor';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Prize } from '../../models/prize';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +18,9 @@ export class SponsorService extends EntityService<Sponsor, string> {
   }
   protected getID(entity: Sponsor): string {
     return entity.name;
+  }
+
+  public getPrizes(sponsorName: string): Observable<Prize[]> {
+    return this.http.get<Prize[]>(this.url() + '/prize/' + sponsorName);
   }
 }

@@ -1,9 +1,9 @@
 <mat-card>
   <mat-card-title>List of {{entityName}}s</mat-card-title>
-  <mat-divider></mat-divider>
-  <ng-content></ng-content>
-  <mat-divider></mat-divider>
-  <mat-card-footer>
-    <button mat-button (click)="create.emit()">New {{entityName}}</button>
-  </mat-card-footer>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+    <ng-content></ng-content>
+    <mat-divider></mat-divider>
+    <button mat-raised-button color="primary" (click)="create.emit()">New {{entityName}}</button>
+  </mat-card-content>
 </mat-card>

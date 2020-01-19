@@ -1,22 +1,37 @@
 <mat-card *ngIf="player$ | async as player">
   <mat-card-title>{{player.name}} {{player.surname}}</mat-card-title>
   <mat-card-content>
-    <p>Name: {{player.name}}</p>
-    <p>Surname: {{player.surname}}</p>
-    <p>Elo: {{player.elo}}</p>
-    <p>Category: {{player.category}}</p>
-    <p *ngIf="player.clubID > 0; else noClub">
-      <ng-container *ngIf="getClub$(player.clubID) | async as club">
-        Club: {{club.name}}
-        <button mat-button (click)="joinClub(player.id)">Change Club!</button>
-      </ng-container>
-    </p>
-    <ng-template #noClub>
-      <p>
-        No club
-        <button mat-button (click)="joinClub(player.id)">Join Club!</button>
-      </p>
-    </ng-template>
-    <button mat-button (click)="editPlayer(player.id)">Edit</button>
+    <mat-tab-group>
+      <mat-tab label="Basic Info">
+        <p>Name: {{player.name}}</p>
+        <p>Surname: {{player.surname}}</p>
+        <p>Elo: {{player.elo}}</p>
+        <p>Category: {{player.category}}</p>
+        <p *ngIf="player.clubID > 0; else noClub">
+          <ng-container *ngIf="getClub$(player.clubID) | async as club">
+            Club: {{club.name}}
+            <button mat-button (click)="joinClub(player.id)">Change Club!</button>
+          </ng-container>
+        </p>
+        <ng-template #noClub>
+          <p>
+            No club
+            <button mat-button (click)="joinClub(player.id)">Join Club!</button>
+          </p>
+        </ng-template>
+        <button mat-raised-button color="primary" (click)="editPlayer(player.id)">Edit</button>
+      </mat-tab>
+      <mat-tab label="Tournaments">
+        <ng-container *ngIf="tournaments$ | async as tournaments">
+          <ng-container *ngIf="tournaments.length > 0; else noTournaments">
+            <app-entity-table [data]="tournaments" [filter]="['id']" (deleteEntity)="quitTournament(player.id, $event)" (selectEntity)="showTournament($event)"></app-entity-table>
+          </ng-container>
+          <ng-template #noTournaments>
+            <p>No tournaments found.</p>
+          </ng-template>
+        </ng-container>
+        <button mat-raised-button color="primary" (click)="joinTournament(player.id)">Join Tournament</button>
+      </mat-tab>
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>

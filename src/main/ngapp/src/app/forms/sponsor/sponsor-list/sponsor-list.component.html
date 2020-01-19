@@ -1,0 +1,3 @@
+<app-entity-list *ngIf="sponsors$ | async as sponsors" entityName = "Sponsor" (create)="newSponsor()">
+  <app-entity-table [data]="sponsors" (deleteEntity)="deleteSponsor($event)" (selectEntity)="viewSponsor($event)"></app-entity-table>
+</app-entity-list>

@@ -18,6 +18,10 @@ export class PlayerService extends EntityService<Player, number> {
     return this.http.get<Player[]>(this.url() + '/club/' + clubID);
   }
 
+  public getTournamentPlayers(tournamentID: number): Observable<Player[]> {
+    return this.http.get<Player[]>(this.url() + '/tournament/' + tournamentID);
+  }
+
   protected getID(entity: Player): number {
     return entity.id;
   }

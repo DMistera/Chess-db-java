@@ -32,6 +32,7 @@ public class RefereeService extends RepositoryService<Referee, Integer> {
     @Override
     protected Referee entityFromRow(ResultSet row) throws SQLException {
         Referee referee = new Referee();
+        referee.setId(row.getInt("id"));
         referee.setName(row.getString("name"));
         referee.setSurname(row.getString("surname"));
         return referee;

@@ -1,0 +1,19 @@
+<app-entity-editor entityName="Prize" (accept)="onSubmit()" [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Name" formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Quantity" formControlName="quantity">
+  </mat-form-field>
+
+  <p>
+    Sponsor:
+    <ng-container *ngIf="sponsorName; else noSponsor">
+      {{sponsorName}}
+    </ng-container>
+    <ng-template #noSponsor>
+      <i>not selected</i>
+    </ng-template>
+    <button mat-raised-button (click)="pickSponsor()">Select</button>
+  </p>
+</app-entity-editor>
