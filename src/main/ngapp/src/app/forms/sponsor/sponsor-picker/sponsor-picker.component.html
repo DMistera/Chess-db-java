@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>
+  Select Sponsor
+</h2>
+<mat-dialog-content *ngIf="sponsors$ | async as sponsors">
+  <app-entity-table [data]="sponsors" [showDelete]="false" (selectEntity)="end($event)" buttonLabel="Select"></app-entity-table >
+</mat-dialog-content>

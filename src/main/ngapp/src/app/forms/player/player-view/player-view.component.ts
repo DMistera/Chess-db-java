@@ -9,6 +9,9 @@ import { PlayerEditorComponent } from '../player-editor/player-editor.component'
 import { ClubService } from 'src/app/shared/services/club/club.service';
 import { Club } from 'src/app/shared/models/club';
 import { ClubPickerComponent } from '../../club/club-picker/club-picker.component';
+import { Tournament } from 'src/app/shared/models/tournament';
+import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
+import { TournamentPickerComponent } from '../../tournament/tournament-picker/tournament-picker.component';
 
 @Component({
   selector: 'app-player-view',
@@ -18,19 +21,25 @@ import { ClubPickerComponent } from '../../club/club-picker/club-picker.componen
 export class PlayerViewComponent implements OnInit {
 
   player$: Observable<Player>;
+  tournaments$: Observable<Tournament[]>;
 
   constructor(
     private playerService: PlayerService,
+    private tournamentService: TournamentService,
     private clubService: ClubService,
     private route: ActivatedRoute,
     private dialog: MatDialog
     ) { }
 
   ngOnInit() {
-    this.player$ = this.loadPlayer$();
+    this.player$ = this.route.params.pipe(first(), switchMap((params: Params) => {
+      return this.playerService.getByID(parseInt(params.id, 10));
+    }), tap(player => {
+      this.tournaments$ = this.tournamentService.getPlayerTournaments(player.id);
+    }));
   }
 
-  private joinClub(playerID: number) {
+  joinClub(playerID: number) {
     const dialogRef = this.dialog.open(ClubPickerComponent);
     dialogRef.afterClosed().subscribe(id => {
       if (id) {
@@ -39,20 +48,31 @@ export class PlayerViewComponent implements OnInit {
     });
   }
 
-  private loadPlayer$(): Observable<Player> {
-    return this.route.params.pipe(first(), switchMap((params: Params) => {
-      return this.playerService.getByID(parseInt(params.id, 10));
-    }));
-  }
-
-  private getClub$(id: number): Observable<Club> {
+  getClub$(id: number): Observable<Club> {
     return this.clubService.getByID(id);
   }
 
-  private editPlayer(playerID: number) {
+  editPlayer(playerID: number) {
     this.dialog.open(PlayerEditorComponent, {
       data: {id: playerID, isNew: false}
     });
+  }
+
+  joinTournament(playerID: number) {
+    const dialogRef = this.dialog.open(TournamentPickerComponent);
+    dialogRef.afterClosed().subscribe(id => {
+      if (id) {
+        this.tournamentService.addPlayer(playerID, id);
+      }
+    });
+  }
+
+  showTournament(tournament: Tournament) {
+    this.tournamentService.navigate(tournament.id);
+  }
+
+  quitTournament(playerID: number, tournament: Tournament) {
+    this.tournamentService.removePlayer(tournament.id, playerID);
   }
 
 }

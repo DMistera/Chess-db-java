@@ -5,6 +5,7 @@ import { PlayerEditorComponent } from '../../player/player-editor/player-editor.
 import { ClubService } from 'src/app/shared/services/club/club.service';
 import { EditorTemplate, DialogData } from 'src/app/shared/templates/editor-template';
 import { Club } from 'src/app/shared/models/club';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-club-editor',
@@ -21,9 +22,10 @@ export class ClubEditorComponent extends EditorTemplate<Club, number> {
   constructor(
      clubService: ClubService,
      dialogRef: MatDialogRef<PlayerEditorComponent>,
-     @Inject(MAT_DIALOG_DATA)  data: DialogData<number>
+     @Inject(MAT_DIALOG_DATA)  data: DialogData<number>,
+     snackBar: MatSnackBar
     ) {
-      super(clubService, dialogRef, data);
+      super(clubService, dialogRef, data, snackBar);
     }
 
   protected initForm(entity: Club): void {

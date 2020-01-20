@@ -12,4 +12,5 @@ public class Tournament {
     Date endDate;
     float entryFee;
     String location;
+    String organizerName;
 }

@@ -2,12 +2,14 @@ import { EntityService } from '../services/entity-service/entity.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PlayerEditorComponent } from 'src/app/forms/player/player-editor/player-editor.component';
 import { Inject, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export abstract class EditorTemplate<T, IdType> implements OnInit {
   constructor(
     protected entityService: EntityService<T, IdType>,
     protected dialogRef: MatDialogRef<EditorTemplate<T, IdType>>,
-    protected data: DialogData<IdType>) {
+    protected data: DialogData<IdType>,
+    protected snackBar: MatSnackBar) {
 
     }
 
@@ -29,6 +31,8 @@ export abstract class EditorTemplate<T, IdType> implements OnInit {
         this.entityService.update(entity);
       }
       this.dialogRef.close();
+    } else {
+      this.snackBar.open('Invalid form!', 'Close');
     }
   }
 

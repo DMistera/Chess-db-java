@@ -2,25 +2,38 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild, A
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-entity-table',
   templateUrl: './entity-table.component.html',
   styleUrls: ['./entity-table.component.scss']
 })
-export class EntityTableComponent implements OnChanges {
+export class EntityTableComponent implements OnInit {
 
   @Input()
-  data: any[];
+  data: any[] = [];
 
   @Input()
   buttonLabel = 'View';
 
   @Input()
+  deleteLabel = 'Delete';
+
+  @Input()
+  showDelete = true;
+
+  @Input()
   filter: string[] = [];
+
+  @Input()
+  mapper: (entity: any) => Observable<any>;
 
   @Output()
   selectEntity = new EventEmitter<any>();
+
+  @Output()
+  deleteEntity = new EventEmitter<any>();
 
   @ViewChild(MatSort, {static: true}) set matSort(sort: MatSort) {
     this.sort = sort;
@@ -35,16 +48,26 @@ export class EntityTableComponent implements OnChanges {
   sort: MatSort;
   paginator: MatPaginator;
 
-  dataSource = new  MatTableDataSource(this.data);
+  dataSource: MatTableDataSource<any>;
 
   additionalColumns = [
     'actions'
   ];
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnChanges(): void {
-    this.dataSource.data = this.data;
+  ngOnInit(): void {
+    this.filter.push('tableIndex');
+  }
+
+  initDataSource(data: any[]) {
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource(data);
+    } else {
+      this.dataSource.data = data;
+    }
+    return true;
   }
 
   getProperties(o: any) {
@@ -58,16 +81,38 @@ export class EntityTableComponent implements OnChanges {
   }
 
   setDataSourceAttributes() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
 
-  buttonClick(entity: any) {
-    this.selectEntity.emit(entity);
+  buttonClick(index: number) {
+    this.selectEntity.emit(this.data[index]);
+  }
+
+  deleteClick(index: number) {
+    this.deleteEntity.emit(this.data[index]);
   }
 
   dataFilter(query: string) {
     this.dataSource.filter = query;
   }
 
+  createAsyncData(data: any[]) {
+    return forkJoin(data.map(this.mapper));
+  }
+
+  createIndexedData(data: any[]): TableElement[] {
+    return data.map((d, i) => {
+      d.tableIndex = i;
+      return d;
+    });
+  }
+
+}
+
+export interface TableElement {
+  data: any;
+  index: number;
 }

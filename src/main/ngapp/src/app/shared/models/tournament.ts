@@ -3,6 +3,7 @@ export class Tournament {
   name: string;
   startDate: string;
   endDate: string;
-  entryFee: string;
+  entryFee: number;
   location: string;
+  organizerName: string;
 }

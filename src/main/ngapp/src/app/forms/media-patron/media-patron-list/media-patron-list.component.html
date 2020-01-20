@@ -1,0 +1,3 @@
+<app-entity-list *ngIf="mediaPatrons$ | async as mediaPatrons" entityName = "Media Patron" (create)="newMediaPatron()">
+  <app-entity-table [data]="mediaPatrons" (deleteEntity)="deleteMediaPatron($event)" (selectEntity)="viewMediaPatron($event)"></app-entity-table>
+</app-entity-list>

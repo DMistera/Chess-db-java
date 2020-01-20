@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>
+  Select Media Patron
+</h2>
+<mat-dialog-content *ngIf="mediaPatrons$ | async as mediaPatrons">
+  <app-entity-table [data]="mediaPatrons" [showDelete]="false" (selectEntity)="end($event)" buttonLabel="Select"></app-entity-table >
+</mat-dialog-content>
+

@@ -27,7 +27,7 @@ export abstract class EntityService<T, IdType> {
   public getByID(id: IdType): Observable<T> {
     if (!this.singleEntities.has(id)) {
       this.singleEntities.set(id, new BehaviorSubject<T>(null));
-      this.refreshID(id).subscribe();
+      this.refreshID(id);
     }
     return this.singleEntities.get(id).asObservable().pipe(filter(entity => entity !== null));
   }
@@ -44,6 +44,12 @@ export abstract class EntityService<T, IdType> {
     });
   }
 
+  public delete(id: IdType) {
+    this.http.delete(this.url() + '/' + id).subscribe(() => {
+      this.refresh();
+    });
+  }
+
   protected abstract url(): string;
   protected abstract getID(entity: T): IdType;
 
@@ -52,14 +58,16 @@ export abstract class EntityService<T, IdType> {
       this.entities$.next(entities);
     });
     if (id) {
-      this.refreshID(id).subscribe();
+      this.refreshID(id);
     }
   }
 
-  public refreshID(id: IdType): Observable<T> {
-    return this.http.get<T>(this.url() + '/' + id).pipe(tap(entity => {
-      this.singleEntities.get(id).next(entity);
-    }));
+  public refreshID(id: IdType) {
+    if (this.singleEntities.has(id)) {
+      this.http.get<T>(this.url() + '/' + id).subscribe(entity => {
+        this.singleEntities.get(id).next(entity);
+      });
+    }
   }
 
 }

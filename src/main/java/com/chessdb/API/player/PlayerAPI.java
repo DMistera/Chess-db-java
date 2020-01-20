@@ -19,6 +19,11 @@ public class PlayerAPI extends RepositoryAPI<Player, Integer> {
         return playerService.getClubPlayers(id);
     }
 
+    @GetMapping("/tournament/{id}")
+    public List<Player> getTournamentPlayers(@PathVariable int id) throws SQLException {
+        return playerService.getTournamentPlayers(id);
+    }
+
     @Autowired
     private PlayerService playerService;
 

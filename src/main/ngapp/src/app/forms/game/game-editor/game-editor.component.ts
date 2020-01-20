@@ -8,6 +8,7 @@ import { PlayerPickerComponent } from '../../player/player-picker/player-picker.
 import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { Player } from 'src/app/shared/models/player';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface GameResult {
   value: string;
@@ -45,9 +46,10 @@ export class GameEditorComponent extends EditorTemplate<Game, number> {
     dialogRef: MatDialogRef<GameEditorComponent>,
     @Inject(MAT_DIALOG_DATA) data: DialogData<number>,
     private dialog: MatDialog,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    snackBar: MatSnackBar
   ) {
-    super(gameService, dialogRef, data);
+    super(gameService, dialogRef, data, snackBar);
   }
 
   protected initForm(entity: Game): void {

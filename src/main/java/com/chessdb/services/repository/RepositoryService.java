@@ -39,21 +39,32 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
 
     @Override
     public void insert(T t)  throws SQLException {
-        connection.callProcedure( getEntityName() + ".insert_" + getEntityName(), getEntityProperties(t));
+        Object[] properties;
+        if(getEntityID(t) instanceof Integer) {
+            properties = getEntityProperties(t);
+        }
+        else {
+            properties = getEntityPropertiesWithID(t);
+        }
+        connection.callProcedure( getEntityName() + ".insert_" + getEntityName(), properties);
     }
 
     @Override
     public void update(T t) throws SQLException {
-        Object[] properties = getEntityProperties(t);
-        Object[] list = new Object[1 + properties.length];
-        list[0] = getEntityID(t);
-        System.arraycopy(properties, 0, list, 1, properties.length);
-        connection.callProcedure( getEntityName() + ".update_" + getEntityName(), list);
+        connection.callProcedure( getEntityName() + ".update_" + getEntityName(), getEntityPropertiesWithID(t));
     }
 
     @Override
     public void delete(IDType id)  throws SQLException {
         connection.callProcedure( getEntityName() + ".delete_" + getEntityName(), id);
+    }
+
+    protected Object[] getEntityPropertiesWithID(T t) {
+        Object[] properties = getEntityProperties(t);
+        Object[] list = new Object[1 + properties.length];
+        list[0] = getEntityID(t);
+        System.arraycopy(properties, 0, list, 1, properties.length);
+        return list;
     }
 
     protected List<T> queryResultToList(ResultSet queryResult) throws SQLException {

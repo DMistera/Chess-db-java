@@ -21,8 +21,8 @@ export class ClubService extends EntityService<Club, number> {
   }
 
   public addPlayer(id: number, playerID: number) {
-    return this.http.put(this.url() + '/add-player/' + id, playerID).subscribe(() => {
-      this.playerService.refreshID(playerID).subscribe();
+    this.http.put(this.url() + '/add-player/' + id, playerID).subscribe(() => {
+      this.playerService.refreshID(playerID);
     });
   }
 

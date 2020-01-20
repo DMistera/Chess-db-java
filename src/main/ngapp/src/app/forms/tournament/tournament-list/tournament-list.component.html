@@ -1,0 +1,3 @@
+<app-entity-list *ngIf="tournaments$ | async as tournaments" entityName = "Tournament" (create)="newTournament()">
+  <app-entity-table [data]="tournaments" (selectEntity)="viewTournament($event)" (deleteEntity)="deleteTournament($event)" [filter]="['id']"></app-entity-table>
+</app-entity-list>

@@ -31,6 +31,27 @@ import { GameViewComponent } from './forms/game/game-view/game-view.component';
 import { GamePreviewComponent } from './shared/components/game-preview/game-preview.component';
 
 import * as $ from 'jquery';
+import { TournamentViewComponent } from './forms/tournament/tournament-view/tournament-view.component';
+import { TournamentEditorComponent } from './forms/tournament/tournament-editor/tournament-editor.component';
+import { OrganizerListComponent } from './forms/organizer/organizer-list/organizer-list.component';
+import { OrganizerViewComponent } from './forms/organizer/organizer-view/organizer-view.component';
+import { OrganizerEditorComponent } from './forms/organizer/organizer-editor/organizer-editor.component';
+import { OrganizerPickerComponent } from './forms/organizer/organizer-picker/organizer-picker.component';
+import { TournamentTableComponent } from './forms/tournament/tournament-table/tournament-table.component';
+import { TournamentPickerComponent } from './forms/tournament/tournament-picker/tournament-picker.component';
+import { SponsorListComponent } from './forms/sponsor/sponsor-list/sponsor-list.component';
+import { SponsorViewComponent } from './forms/sponsor/sponsor-view/sponsor-view.component';
+import { SponsorEditorComponent } from './forms/sponsor/sponsor-editor/sponsor-editor.component';
+import { PrizeEditorComponent } from './forms/prize/prize-editor/prize-editor.component';
+import { SponsorPickerComponent } from './forms/sponsor/sponsor-picker/sponsor-picker.component';
+import { RefereeListComponent } from './forms/referee/referee-list/referee-list.component';
+import { RefereeViewComponent } from './forms/referee/referee-view/referee-view.component';
+import { RefereeEditorComponent } from './forms/referee/referee-editor/referee-editor.component';
+import { RefereePickerComponent } from './forms/referee/referee-picker/referee-picker.component';
+import { MediaPatronListComponent } from './forms/media-patron/media-patron-list/media-patron-list.component';
+import { MediaPatronViewComponent } from './forms/media-patron/media-patron-view/media-patron-view.component';
+import { MediaPatronEditorComponent } from './forms/media-patron/media-patron-editor/media-patron-editor.component';
+import { MediaPatronPickerComponent } from './forms/media-patron/media-patron-picker/media-patron-picker.component';
 
 @NgModule({
   declarations: [
@@ -54,14 +75,46 @@ import * as $ from 'jquery';
     EntityEditorComponent,
     PlayerPickerComponent,
     GameViewComponent,
-    GamePreviewComponent
+    GamePreviewComponent,
+    TournamentViewComponent,
+    TournamentEditorComponent,
+    OrganizerListComponent,
+    OrganizerViewComponent,
+    OrganizerEditorComponent,
+    OrganizerPickerComponent,
+    TournamentTableComponent,
+    TournamentPickerComponent,
+    SponsorListComponent,
+    SponsorViewComponent,
+    SponsorEditorComponent,
+    PrizeEditorComponent,
+    SponsorPickerComponent,
+    RefereeListComponent,
+    RefereeViewComponent,
+    RefereeEditorComponent,
+    RefereePickerComponent,
+    MediaPatronListComponent,
+    MediaPatronViewComponent,
+    MediaPatronEditorComponent,
+    MediaPatronPickerComponent
   ],
   entryComponents: [
     PlayerEditorComponent,
     GameEditorComponent,
     ClubEditorComponent,
+    TournamentEditorComponent,
+    OrganizerEditorComponent,
+    SponsorEditorComponent,
+    PrizeEditorComponent,
+    RefereeEditorComponent,
+    MediaPatronEditorComponent,
     ClubPickerComponent,
-    PlayerPickerComponent
+    PlayerPickerComponent,
+    OrganizerPickerComponent,
+    TournamentPickerComponent,
+    SponsorPickerComponent,
+    RefereePickerComponent,
+    MediaPatronPickerComponent
   ],
   imports: [
     CommonModule,

@@ -20,13 +20,13 @@ public abstract class RepositoryAPI<T, IDType> {
     }
 
     @PostMapping("")
-    public void insert(@RequestBody T player) throws SQLException {
-        getRepositoryService().insert(player);
+    public void insert(@RequestBody T entity) throws SQLException {
+        getRepositoryService().insert(entity);
     }
 
     @PutMapping("")
-    public void update(@RequestBody T player) throws SQLException {
-        getRepositoryService().update(player);
+    public void update(@RequestBody T entity) throws SQLException {
+        getRepositoryService().update(entity);
     }
 
     @DeleteMapping("/{id}")
