@@ -21,7 +21,7 @@
             <p>No players found</p>
           </ng-template>
         </ng-container>
-        <button mat-raised-button color="primary" (click)="addPlayer(tournament.id)">Add player</button>
+        <button mat-raised-button color="primary" (click)="addPlayer(tournament.id)">Add Player</button>
       </mat-tab>
       <mat-tab label="Prizes">
         <ng-container *ngIf="prizes$ | async as prizes">
@@ -32,7 +32,29 @@
             <p>No prizes found</p>
           </ng-template>
         </ng-container>
-        <button mat-raised-button color="primary" (click)="addPrize(tournament.id)">Add prize</button>
+        <button mat-raised-button color="primary" (click)="addPrize(tournament.id)">Add Prize</button>
+      </mat-tab>
+      <mat-tab label="Referees">
+        <ng-container *ngIf="referees$ | async as referees">
+          <ng-container *ngIf="referees.length > 0; else noReferees">
+            <app-entity-table [data]="referees" [filter]="['id']" buttonLabel="View Referee" (deleteEntity)="removeReferee(tournament, $event)" (selectEntity)="showReferee($event)"></app-entity-table>
+          </ng-container>
+          <ng-template #noReferees>
+            <p>No referees found</p>
+          </ng-template>
+        </ng-container>
+        <button mat-raised-button color="primary" (click)="addReferee(tournament.id)">Add Referee</button>
+      </mat-tab>
+      <mat-tab label="Media Patrons">
+        <ng-container *ngIf="mediaPatrons$ | async as mediaPatrons">
+          <ng-container *ngIf="mediaPatrons.length > 0; else noMediaPatrons">
+            <app-entity-table [data]="mediaPatrons" buttonLabel="View Media Patron" (deleteEntity)="removeMediaPatron(tournament, $event)" (selectEntity)="showMediaPatron($event)"></app-entity-table>
+          </ng-container>
+          <ng-template #noMediaPatrons>
+            <p>No referees found</p>
+          </ng-template>
+        </ng-container>
+        <button mat-raised-button color="primary" (click)="addMediaPatron(tournament.id)">Add Media Patron</button>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

@@ -14,7 +14,7 @@
               <th mat-header-cell *matHeaderCellDef> Actions </th>
               <td mat-cell *matCellDef="let element">
                 <button mat-button (mousedown)="buttonClick(element.tableIndex)">{{buttonLabel}}</button>
-                <button mat-button *ngIf="showDelete"  (mousedown)="deleteClick(element.tableIndex)">Delete</button>
+                <button mat-button *ngIf="showDelete"  (mousedown)="deleteClick(element.tableIndex)">{{deleteLabel}}</button>
               </td>
             </ng-container>
 

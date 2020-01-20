@@ -11,7 +11,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class SponsorPickerComponent implements OnInit {
 
-  sposnors$: Observable<Sponsor[]>;
+  sponsors$: Observable<Sponsor[]>;
 
   constructor(
     private sponsorService: SponsorService,
@@ -19,7 +19,7 @@ export class SponsorPickerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sposnors$ = this.sponsorService.getAll();
+    this.sponsors$ = this.sponsorService.getAll();
   }
 
   end(sponsor: Sponsor) {

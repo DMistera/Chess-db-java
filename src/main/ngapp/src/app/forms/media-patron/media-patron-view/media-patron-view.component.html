@@ -1,0 +1,21 @@
+<mat-card *ngIf="mediaPatron$ | async as mediaPatron">
+  <mat-card-title>{{mediaPatron.name}}</mat-card-title>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Basic Info">
+        <p>Name: {{mediaPatron.name}}</p>
+      </mat-tab>
+      <mat-tab label="Tournaments">
+        <ng-container *ngIf="tournaments$ | async as tournaments">
+          <ng-container *ngIf="tournaments.length > 0; else noTournaments">
+            <app-entity-table [data]="tournaments" [filter]="['id']" buttonLabel="View Tournament" deleteLabel="Leave" (deleteEntity)="leaveTournament(mediaPatron, $event)" (selectEntity)="showTournament($event)"></app-entity-table>
+          </ng-container>
+          <ng-template #noTournaments>
+            <p><i>No tournaments found!</i></p>
+          </ng-template>
+          <button mat-raised-button color="primary" (click)="joinTournament(mediaPatron)">Patron Tournament</button>
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

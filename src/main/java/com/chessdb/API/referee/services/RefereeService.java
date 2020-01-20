@@ -1,14 +1,24 @@
 package com.chessdb.API.referee.services;
 
 import com.chessdb.API.referee.models.Referee;
+import com.chessdb.services.database.QueryResult;
 import com.chessdb.services.repository.RepositoryService;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class RefereeService extends RepositoryService<Referee, Integer> {
+
+    public List<Referee> getTournamentReferees(int tournamentID) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID IN (SELECT REFEREE_ID FROM REFERING WHERE TOURNAMENT_ID = ?)", tournamentID);
+        List<Referee> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
+    }
+
     @Override
     protected String getEntityName() {
         return "referee";

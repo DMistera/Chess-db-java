@@ -7,13 +7,22 @@ import { Observable } from 'rxjs';
 import { PlayerService } from '../player/player.service';
 import { Prize } from '../../models/prize';
 import { SponsorService } from '../sponsor/sponsor.service';
+import { RefereeService } from '../referee/referee.service';
+import { MediaPatronService } from '../media-patron/media-patron.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TournamentService extends EntityService<Tournament, number> {
 
-  constructor(http: HttpClient, router: Router, private playerService: PlayerService, private sponsorService: SponsorService) {
+  constructor(
+    http: HttpClient,
+    router: Router,
+    private playerService: PlayerService,
+    private sponsorService: SponsorService,
+    private refereeService: RefereeService,
+    private mediaPatronService: MediaPatronService
+     ) {
     super(http, router);
    }
 
@@ -36,15 +45,19 @@ export class TournamentService extends EntityService<Tournament, number> {
     return this.http.get<Tournament[]>(this.url() + '/referee/' + refereeID);
   }
 
+  public getMediaPatronTournaments(mediaPatronName: string): Observable<Tournament[]> {
+    return this.http.get<Tournament[]>(this.url() + '/media-patron/' + mediaPatronName);
+  }
+
   public addPlayer(id: number, playerID: number) {
-    return this.http.put(this.url() + '/add-player/' + id, playerID).subscribe(() => {
+    this.http.put(this.url() + '/add-player/' + id, playerID).subscribe(() => {
       this.refreshID(id);
       this.playerService.refreshID(playerID);
     });
   }
 
   public removePlayer(id: number, playerID: number) {
-    return this.http.put(this.url() + '/remove-player/' + id, playerID).subscribe(() => {
+    this.http.put(this.url() + '/remove-player/' + id, playerID).subscribe(() => {
       this.refreshID(id);
       this.playerService.refreshID(playerID);
     });
@@ -55,16 +68,44 @@ export class TournamentService extends EntityService<Tournament, number> {
   }
 
   public addPrize(prize: Prize) {
-    return this.http.put(this.url() + '/add-prize/' + prize.tournamentID, prize).subscribe(() => {
+    this.http.put(this.url() + '/add-prize/' + prize.tournamentID, prize).subscribe(() => {
       this.refreshID(prize.tournamentID);
       this.sponsorService.refreshID(prize.sponsorName);
     });
   }
 
   public removePrize(prize: Prize) {
-    return this.http.put(this.url() + '/remove-prize/' + prize.tournamentID, prize).subscribe(() => {
+    this.http.put(this.url() + '/remove-prize/' + prize.tournamentID, prize).subscribe(() => {
       this.refreshID(prize.tournamentID);
       this.sponsorService.refreshID(prize.sponsorName);
+    });
+  }
+
+  public addReferee(id: number, refereeId: number) {
+    this.http.put(this.url() + '/add-referee/' + id, refereeId).subscribe(() => {
+      this.refreshID(id);
+      this.refereeService.refreshID(refereeId);
+    });
+  }
+
+  public removeReferee(id: number, refereeId: number) {
+    this.http.put(this.url() + '/remove-referee/' + id, refereeId).subscribe(() => {
+      this.refreshID(id);
+      this.refereeService.refreshID(refereeId);
+    });
+  }
+
+  public addMediaPatron(id: number, mediaPatronName: string) {
+    this.http.put(this.url() + '/add-patron/' + id, mediaPatronName).subscribe(() => {
+      this.refreshID(id);
+      this.mediaPatronService.refreshID(mediaPatronName);
+    });
+  }
+
+  public removeMediaPatron(id: number, mediaPatronName: string) {
+    this.http.put(this.url() + '/remove-patron/' + id, mediaPatronName).subscribe(() => {
+      this.refreshID(id);
+      this.mediaPatronService.refreshID(mediaPatronName);
     });
   }
 }

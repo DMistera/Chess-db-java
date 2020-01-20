@@ -48,6 +48,10 @@ import { RefereeListComponent } from './forms/referee/referee-list/referee-list.
 import { RefereeViewComponent } from './forms/referee/referee-view/referee-view.component';
 import { RefereeEditorComponent } from './forms/referee/referee-editor/referee-editor.component';
 import { RefereePickerComponent } from './forms/referee/referee-picker/referee-picker.component';
+import { MediaPatronListComponent } from './forms/media-patron/media-patron-list/media-patron-list.component';
+import { MediaPatronViewComponent } from './forms/media-patron/media-patron-view/media-patron-view.component';
+import { MediaPatronEditorComponent } from './forms/media-patron/media-patron-editor/media-patron-editor.component';
+import { MediaPatronPickerComponent } from './forms/media-patron/media-patron-picker/media-patron-picker.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +92,11 @@ import { RefereePickerComponent } from './forms/referee/referee-picker/referee-p
     RefereeListComponent,
     RefereeViewComponent,
     RefereeEditorComponent,
-    RefereePickerComponent
+    RefereePickerComponent,
+    MediaPatronListComponent,
+    MediaPatronViewComponent,
+    MediaPatronEditorComponent,
+    MediaPatronPickerComponent
   ],
   entryComponents: [
     PlayerEditorComponent,
@@ -99,12 +107,14 @@ import { RefereePickerComponent } from './forms/referee/referee-picker/referee-p
     SponsorEditorComponent,
     PrizeEditorComponent,
     RefereeEditorComponent,
+    MediaPatronEditorComponent,
     ClubPickerComponent,
     PlayerPickerComponent,
     OrganizerPickerComponent,
     TournamentPickerComponent,
     SponsorPickerComponent,
-    RefereePickerComponent
+    RefereePickerComponent,
+    MediaPatronPickerComponent
   ],
   imports: [
     CommonModule,

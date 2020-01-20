@@ -11,6 +11,11 @@ export class MediaPatronService extends EntityService<MediaPatron, string> {
   constructor(http: HttpClient, router: Router) {
     super(http, router);
   }
+
+  public getTournamentMediaPatrons(tournamentID: number) {
+    return this.http.get<MediaPatron[]>(this.url() + '/tournament/' + tournamentID);
+  }
+
   protected url(): string {
     return 'media-patron';
   }

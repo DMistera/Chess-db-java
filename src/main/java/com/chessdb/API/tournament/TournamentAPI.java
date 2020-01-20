@@ -38,6 +38,11 @@ public class TournamentAPI extends RepositoryAPI<Tournament, Integer> {
         return tournamentService.getPrizes(id);
     }
 
+    @GetMapping("/media-patron/{id}")
+    public List<Tournament> getMediaPatronTournaments(@PathVariable String id) throws SQLException {
+        return tournamentService.getMediaPatronTournaments(id);
+    }
+
     @PutMapping("/add-player/{id}")
     public void addPlayer(@PathVariable int id, @RequestBody int player_id) throws SQLException {
         tournamentService.addPlayer(id, player_id);

@@ -18,6 +18,9 @@ export class EntityTableComponent implements OnInit {
   buttonLabel = 'View';
 
   @Input()
+  deleteLabel = 'Delete';
+
+  @Input()
   showDelete = true;
 
   @Input()

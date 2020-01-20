@@ -14,6 +14,8 @@ import { SponsorListComponent } from './forms/sponsor/sponsor-list/sponsor-list.
 import { SponsorViewComponent } from './forms/sponsor/sponsor-view/sponsor-view.component';
 import { RefereeListComponent } from './forms/referee/referee-list/referee-list.component';
 import { RefereeViewComponent } from './forms/referee/referee-view/referee-view.component';
+import { MediaPatronListComponent } from './forms/media-patron/media-patron-list/media-patron-list.component';
+import { MediaPatronViewComponent } from './forms/media-patron/media-patron-view/media-patron-view.component';
 
 const routes: Routes = [
   {path: 'player', component: PlayerListComponent},
@@ -29,7 +31,9 @@ const routes: Routes = [
   {path: 'sponsor', component: SponsorListComponent},
   {path: 'sponsor/:id', component: SponsorViewComponent},
   {path: 'referee', component: RefereeListComponent},
-  {path: 'referee/:id', component: RefereeViewComponent}
+  {path: 'referee/:id', component: RefereeViewComponent},
+  {path: 'media-patron', component: MediaPatronListComponent},
+  {path: 'media-patron/:id', component: MediaPatronViewComponent}
 ];
 
 @NgModule({

@@ -6,6 +6,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { first, switchMap, tap } from 'rxjs/operators';
 import { Tournament } from 'src/app/shared/models/tournament';
 import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TournamentPickerComponent } from '../../tournament/tournament-picker/tournament-picker.component';
 
 @Component({
   selector: 'app-referee-view',
@@ -20,7 +22,8 @@ export class RefereeViewComponent implements OnInit {
   constructor(
     private refereeService: RefereeService,
     private tournamentService: TournamentService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -31,8 +34,21 @@ export class RefereeViewComponent implements OnInit {
     }));
   }
 
-  pickTournament() {
+  viewTournament(tournament: Tournament) {
+    this.tournamentService.navigate(tournament.id);
+  }
 
+  joinTournament(referee: Referee) {
+    const dialogRef = this.dialog.open(TournamentPickerComponent);
+    dialogRef.afterClosed().subscribe(id => {
+      if (id) {
+        this.tournamentService.addReferee(id, referee.id);
+      }
+    });
+  }
+
+  leaveTournament(referee: Referee, tournament: Tournament) {
+    this.tournamentService.removeReferee(tournament.id, referee.id);
   }
 
 }

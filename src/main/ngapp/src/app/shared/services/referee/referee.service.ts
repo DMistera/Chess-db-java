@@ -11,6 +11,11 @@ export class RefereeService extends EntityService<Referee, number> {
   constructor(http: HttpClient, router: Router) {
     super(http, router);
   }
+
+  public getTournamentReferees(tournamentId: number) {
+    return this.http.get<Referee[]>(this.url() + '/tournament/' + tournamentId);
+  }
+
   protected url(): string {
     return 'referee';
   }

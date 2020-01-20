@@ -92,6 +92,13 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
         return result;
     }
 
+    public List<Tournament> getMediaPatronTournaments(String mediaPatronName) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID IN (SELECT TOURNAMENT_ID FROM PATRONING WHERE MEDIA_PATRON_NAME = ?)", mediaPatronName);
+        List<Tournament> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
+    }
+
     public List<Prize> getPrizes(int id) throws SQLException {
         QueryResult queryResult = connection.query("SELECT * FROM PRIZES WHERE TOURNAMENT_ID = ?", id);
         List<Prize> result = prizeService.queryResultToPrizeList(queryResult.getResultSet());
