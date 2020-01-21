@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 @Service
 public class GameService extends RepositoryService<Game, Integer> {
@@ -17,6 +18,10 @@ public class GameService extends RepositoryService<Game, Integer> {
 
     public void setPGN(int id, String pgn) {
         //TODO
+    }
+
+    public int countMoves(int id) throws SQLException {
+        return (int)this.connection.callFunction(getEntityName() + ".count_moves", Types.INTEGER, id);
     }
 
     @Override

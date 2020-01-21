@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormControlName } from '@angular/forms';
 import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
 import { DialogData } from 'src/app/shared/templates/editor-template';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,15 +13,15 @@ import { SponsorPickerComponent } from '../../sponsor/sponsor-picker/sponsor-pic
 })
 export class PrizeEditorComponent implements OnInit {
 
-  nameForm = new FormControl('');
-  quantityForm = new FormControl('');
+  nameForm = new FormControl('', [Validators.required]);
+  quantityForm = new FormControl('', [Validators.required, Validators.min(1)]);
+  sponsorForm = new FormControl({value: '', disabled: true});
 
   form = new FormGroup({
     name: this.nameForm,
-    quantity: this.quantityForm
+    quantity: this.quantityForm,
+    sponsor: this.sponsorForm
   });
-
-  sponsorName: string;
 
   constructor(
     private tournamentService: TournamentService,
@@ -37,7 +37,7 @@ export class PrizeEditorComponent implements OnInit {
     const prize = new Prize();
     prize.name = this.nameForm.value;
     prize.quantity = this.quantityForm.value;
-    prize.sponsorName = this.sponsorName;
+    prize.sponsorName = this.sponsorForm.value;
     prize.tournamentID = this.tournamentID;
     return prize;
   }
@@ -52,7 +52,7 @@ export class PrizeEditorComponent implements OnInit {
     const dialogRef = this.dialog.open(SponsorPickerComponent);
     dialogRef.afterClosed().subscribe(id => {
       if (id) {
-        this.sponsorName = id;
+        this.sponsorForm.setValue(id);
       }
     });
   }

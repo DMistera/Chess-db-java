@@ -16,6 +16,16 @@ import java.util.List;
 @RequestMapping("sponsor")
 public class SponsorAPI extends RepositoryAPI<Sponsor, String> {
 
+    @GetMapping("/prize/{id}")
+    public List<Prize> getPrizes(@PathVariable String id) throws SQLException {
+        return prizeService.getSponsorPrizes(id);
+    }
+
+    @GetMapping("/count-tournament/{id}")
+    public int getTournamentCount(@PathVariable String id) throws SQLException {
+        return sponsorService.countTournaments(id);
+    }
+
     @Autowired
     private SponsorService sponsorService;
 
@@ -25,10 +35,5 @@ public class SponsorAPI extends RepositoryAPI<Sponsor, String> {
     @Override
     protected RepositoryService<Sponsor, String> getRepositoryService() {
         return sponsorService;
-    }
-
-    @GetMapping("/prize/{id}")
-    public List<Prize> getPrizes(@PathVariable String id) throws SQLException {
-        return prizeService.getSponsorPrizes(id);
     }
 }

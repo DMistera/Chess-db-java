@@ -6,6 +6,6 @@
     <ng-content></ng-content>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="accept.emit()">Accept</button>
+    <button mat-raised-button color="primary" (click)="accept.emit()" [disabled]="!valid">Accept</button>
   </mat-dialog-actions>
 </form>

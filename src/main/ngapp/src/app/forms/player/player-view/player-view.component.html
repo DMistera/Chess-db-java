@@ -7,6 +7,10 @@
         <p>Surname: {{player.surname}}</p>
         <p>Elo: {{player.elo}}</p>
         <p>Category: {{player.category}}</p>
+
+        <p>Number of Games: <ng-container *ngIf="gameCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <p>Number of Tournaments: <ng-container *ngIf="tournamentCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <ng-template #zero>0</ng-template>
         <p *ngIf="player.clubID > 0; else noClub">
           <ng-container *ngIf="getClub$(player.clubID) | async as club">
             Club: {{club.name}}

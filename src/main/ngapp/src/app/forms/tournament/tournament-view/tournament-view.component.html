@@ -9,7 +9,12 @@
         <p>Entry Fee: {{tournament.entryFee}}</p>
         <p>Location: {{tournament.location}}</p>
         <p>Organizer: {{tournament.organizerName}}</p>
-
+        <p> Number of Players:  <ng-container *ngIf="playerCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <p> Number of Games:  <ng-container *ngIf="gameCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <p> Number of Sponsors:  <ng-container *ngIf="sponsorCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <p> Number of Referees:  <ng-container *ngIf="refereeCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <p> Number of Media Patrons:  <ng-container *ngIf="mediaPatronCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <ng-template #zero>0</ng-template>
         <button mat-raised-button color="primary" (click)="edit(tournament.id)">Edit</button>
       </mat-tab>
       <mat-tab label="Players">

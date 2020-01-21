@@ -10,8 +10,8 @@
             <p>Black Player: {{blackPlayer.name}} {{blackPlayer.surname}}</p>
             <p>Date: {{game.date}}</p>
             <p>Result: {{getResultString(whitePlayer, blackPlayer, game.result)}}</p>
-            <ng-container *ngIf="getTournament$(game.tournamentID) | async as tournament">
-              <p>Tournament: {{tournament.id}}</p>
+            <ng-container *ngIf="tournament$ | async as tournament">
+              <p>Tournament: {{tournament.name}}</p>
             </ng-container>
             <button mat-raised-button color="primary" (click)="edit(game.id)">Edit</button>
           </mat-tab>

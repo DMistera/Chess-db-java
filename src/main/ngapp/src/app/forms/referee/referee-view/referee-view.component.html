@@ -5,6 +5,9 @@
       <mat-tab label="Basic Info">
         <p>Name: {{referee.name}}</p>
         <p>Surname: {{referee.surname}}</p>
+        <p>Number of Tournaments: <ng-container *ngIf="tournamentCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <ng-template #zero>0</ng-template>
+        <button mat-raised-button color="primary" (click)="edit(referee)">Edit</button>
       </mat-tab>
       <mat-tab label="Tournaments">
         <ng-container *ngIf="tournaments$ | async as tournaments">

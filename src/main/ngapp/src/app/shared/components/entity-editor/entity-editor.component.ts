@@ -12,6 +12,9 @@ export class EntityEditorComponent implements OnInit {
   accept = new EventEmitter<void>();
 
   @Input()
+  valid = true;
+
+  @Input()
   formGroup: FormGroup;
 
   @Input()

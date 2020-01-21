@@ -7,10 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 @Service
 public class RefereeService extends RepositoryService<Referee, Integer> {
+
+    public int countTournaments(int id) throws SQLException {
+        return (int)this.connection.callFunction(getEntityName() + ".count_tournaments", Types.INTEGER, id);
+    }
 
     public List<Referee> getTournamentReferees(int tournamentID) throws SQLException {
         QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE ID IN (SELECT REFEREE_ID FROM REFERING WHERE TOURNAMENT_ID = ?)", tournamentID);

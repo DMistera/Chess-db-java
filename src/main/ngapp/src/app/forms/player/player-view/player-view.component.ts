@@ -23,6 +23,9 @@ export class PlayerViewComponent implements OnInit {
   player$: Observable<Player>;
   tournaments$: Observable<Tournament[]>;
 
+  gameCount$: Observable<number>;
+  tournamentCount$: Observable<number>;
+
   constructor(
     private playerService: PlayerService,
     private tournamentService: TournamentService,
@@ -36,6 +39,9 @@ export class PlayerViewComponent implements OnInit {
       return this.playerService.getByID(parseInt(params.id, 10));
     }), tap(player => {
       this.tournaments$ = this.tournamentService.getPlayerTournaments(player.id);
+
+      this.gameCount$ = this.playerService.getGameCount(player.id);
+      this.tournamentCount$ = this.playerService.getTournamentCount(player.id);
     }));
   }
 

@@ -12,6 +12,10 @@ export class RefereeService extends EntityService<Referee, number> {
     super(http, router);
   }
 
+  public getTournamentCount(id: number) {
+    return this.http.get<number>(this.url() + '/count-tournament/' + id);
+  }
+
   public getTournamentReferees(tournamentId: number) {
     return this.http.get<Referee[]>(this.url() + '/tournament/' + tournamentId);
   }

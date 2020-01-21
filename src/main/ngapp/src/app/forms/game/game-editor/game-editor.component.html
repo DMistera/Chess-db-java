@@ -1,39 +1,45 @@
-<app-entity-editor [formGroup]="gameForm" (accept)="onSubmit()">
+<app-entity-editor [formGroup]="gameForm" (accept)="onSubmit()" (valid)="validate()">
 
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Date" [formControl]="dateControl">
+    <input matInput [matDatepicker]="picker" placeholder="Date" [formControl]="dateForm">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="dateForm.hasError('matDatepickerParse')">
+      Invalid date format
+    </mat-error>
+    <mat-error *ngIf="dateForm.hasError('required')">
+      Date is required
+    </mat-error>
   </mat-form-field>
-
   <mat-form-field>
     <mat-label>Result</mat-label>
-    <mat-select [formControl]="resultControl">
+    <mat-select [formControl]="resultForm">
       <mat-option *ngFor="let gameResult of gameResults" [value]="gameResult.value">
         {{gameResult.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <ng-template #noPlayer>
-    <i>None</i>
-  </ng-template>
+  <mat-form-field>
+    <input matInput placeholder="White Player" [formControl]="whitePlayerForm">
+    <button matSuffix mat-icon-button (click)="pickWhitePlayer()">
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+  </mat-form-field>
 
-  <div>
-    <mat-label>White Player: </mat-label>
-    <ng-container *ngIf="whitePlayer$ | async as whitePlayer; else noPlayer">
-      {{whitePlayer.name}} {{whitePlayer.surname}}
-    </ng-container>
-    <button mat-button (click)="pickWhitePlayer()">Select</button>
-  </div>
+  <mat-form-field>
+    <input matInput placeholder="Black Player" [formControl]="blackPlayerForm">
+    <button matSuffix mat-icon-button (click)="pickBlackPlayer()">
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+  </mat-form-field>
 
-  <div>
-    <mat-label>Black Player: </mat-label>
-    <ng-container *ngIf="blackPlayer$ | async as blackPlayer; else noPlayer">
-      {{blackPlayer.name}} {{blackPlayer.surname}}
-    </ng-container>
-    <button mat-button (click)="pickBlackPlayer()">Select</button>
-  </div>
+  <mat-form-field>
+    <input matInput placeholder="Tournament" [formControl]="tournamentForm">
+    <button matSuffix mat-icon-button (click)="pickTournament()">
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+  </mat-form-field>
 
 </app-entity-editor>
 

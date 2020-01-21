@@ -34,7 +34,7 @@ public abstract class RepositoryService<T, IDType> implements Repository<T, IDTy
             return entity;
         }
         queryResult.close();
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException(id);
     }
 
     @Override

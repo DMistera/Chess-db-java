@@ -17,6 +17,11 @@ import java.util.List;
 @RequestMapping("referee")
 public class RefereeAPI extends RepositoryAPI<Referee, Integer> {
 
+    @GetMapping("/count-tournament/{id}")
+    public int getTournamentCount(@PathVariable int id) throws SQLException {
+        return refereeService.countTournaments(id);
+    }
+
     @GetMapping("/tournament/{id}")
     public List<Referee> getTournamentPlayers(@PathVariable int id) throws SQLException {
         return refereeService.getTournamentReferees(id);

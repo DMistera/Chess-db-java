@@ -1,32 +1,43 @@
-<app-entity-editor entityName="Tournament" [formGroup]="form" (accept)="onSubmit()">
+<app-entity-editor entityName="Tournament" [formGroup]="form" (accept)="onSubmit()" [valid]="validate()">
   <mat-form-field>
     <input matInput placeholder="Name" formControlName="name">
+    <mat-error *ngIf="nameForm.hasError('required')">
+      Name is required!
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDate">
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
+    <mat-error *ngIf="startDateForm.invalid">
+      Start Date is invalid!
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate">
     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
     <mat-datepicker #picker2></mat-datepicker>
+    <mat-error *ngIf="endDateForm.invalid">
+      End Date is invalid!
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Entry Fee" formControlName="entryFee">
+    <input matInput type="number" placeholder="Entry Fee" formControlName="entryFee">
+    <mat-error *ngIf="entryFeeForm.hasError('required')">
+      Entry Fee is required!
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Location" formControlName="location">
+    <mat-error *ngIf="locationForm.hasError('required')">
+      Location is required!
+    </mat-error>
   </mat-form-field>
 
-  <p>
-    Organizer:
-    <ng-container *ngIf="organizerName; else noOrganizer">
-      {{organizerName}}
-    </ng-container>
-    <ng-template #noOrganizer>
-      <i>Please select</i>
-    </ng-template>
-    <button class=select-button mat-raised-button (click)="pickOrganizer()">Select</button>
-  </p>
+  <mat-form-field>
+    <input matInput placeholder="Organizer" formControlName="organizerName">
+    <button matSuffix mat-icon-button (click)="pickOrganizer()">
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+  </mat-form-field>
 </app-entity-editor>

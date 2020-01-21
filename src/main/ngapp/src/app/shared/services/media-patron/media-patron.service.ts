@@ -16,6 +16,11 @@ export class MediaPatronService extends EntityService<MediaPatron, string> {
     return this.http.get<MediaPatron[]>(this.url() + '/tournament/' + tournamentID);
   }
 
+  public getTournamentCount(id: string) {
+    return this.http.get<number>(this.url() + '/count-tournament/' + id);
+  }
+
+
   protected url(): string {
     return 'media-patron';
   }

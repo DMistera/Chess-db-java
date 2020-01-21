@@ -4,6 +4,8 @@
     <mat-tab-group>
       <mat-tab label="Info">
         <p>Name: {{organizer.name}}</p>
+        <p>Number of Tournaments: <ng-container *ngIf="tournamentCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <ng-template #zero>0</ng-template>
       </mat-tab>
       <mat-tab label="Tournaments" *ngIf="tournaments$ | async as tournaments">
         <app-entity-table [data]="tournaments" [showDelete]="false" [filter]="['id']" (selectEntity)="showTournament($event)"></app-entity-table>

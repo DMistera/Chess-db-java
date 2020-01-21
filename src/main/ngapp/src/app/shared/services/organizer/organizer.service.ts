@@ -13,6 +13,11 @@ export class OrganizerService extends EntityService<Organizer, string> {
     super(http, router);
   }
 
+  public getTournamentCount(id: string) {
+    return this.http.get<number>(this.url() + '/count-tournament/' + id);
+  }
+
+
   protected url(): string {
     return 'organizer';
   }

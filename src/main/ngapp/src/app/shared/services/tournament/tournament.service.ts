@@ -33,6 +33,26 @@ export class TournamentService extends EntityService<Tournament, number> {
     return entity.id;
   }
 
+  public getPlayerCount(id: number): Observable<number> {
+    return this.http.get<number>(this.url() + '/count-player/' + id);
+  }
+
+  public getRefereeCount(id: number): Observable<number> {
+    return this.http.get<number>(this.url() + '/count-referee/' + id);
+  }
+
+  public getSponsorCount(id: number): Observable<number> {
+    return this.http.get<number>(this.url() + '/count-sponsor/' + id);
+  }
+
+  public getPatronCount(id: number): Observable<number> {
+    return this.http.get<number>(this.url() + '/count-patron/' + id);
+  }
+
+  public getGameCount(id: number): Observable<number> {
+    return this.http.get<number>(this.url() + '/count-game/' + id);
+  }
+
   public getPlayerTournaments(playerID: number): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(this.url() + '/player/' + playerID);
   }
