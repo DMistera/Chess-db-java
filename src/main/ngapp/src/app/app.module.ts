@@ -52,6 +52,7 @@ import { MediaPatronListComponent } from './forms/media-patron/media-patron-list
 import { MediaPatronViewComponent } from './forms/media-patron/media-patron-view/media-patron-view.component';
 import { MediaPatronEditorComponent } from './forms/media-patron/media-patron-editor/media-patron-editor.component';
 import { MediaPatronPickerComponent } from './forms/media-patron/media-patron-picker/media-patron-picker.component';
+import { PgnEditorComponent } from './forms/game/pgn-editor/pgn-editor.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { MediaPatronPickerComponent } from './forms/media-patron/media-patron-pi
     MediaPatronListComponent,
     MediaPatronViewComponent,
     MediaPatronEditorComponent,
-    MediaPatronPickerComponent
+    MediaPatronPickerComponent,
+    PgnEditorComponent
   ],
   entryComponents: [
     PlayerEditorComponent,
@@ -114,7 +116,8 @@ import { MediaPatronPickerComponent } from './forms/media-patron/media-patron-pi
     TournamentPickerComponent,
     SponsorPickerComponent,
     RefereePickerComponent,
-    MediaPatronPickerComponent
+    MediaPatronPickerComponent,
+    PgnEditorComponent
   ],
   imports: [
     CommonModule,

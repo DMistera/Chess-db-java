@@ -16,9 +16,17 @@
             <button mat-raised-button color="primary" (click)="edit(game.id)">Edit</button>
           </mat-tab>
           <mat-tab label="Preview">
-            <div class=chessboard-panel>
-              <app-game-preview></app-game-preview>
-            </div>
+            <ng-container *ngIf="gamePgn$ | async as gamePgn">
+              <ng-container *ngIf="gamePgn; else noPGN">
+                <div class=chessboard-panel>
+                  <app-game-preview [pgn]="gamePgn"></app-game-preview>
+                </div>
+              </ng-container>
+              <ng-template #noPGN>
+                No preview available.
+              </ng-template>
+            </ng-container>
+            <button mat-raised-button color="primary" (click)="editPGN(game.id)">Edit PGN</button>
           </mat-tab>
         </mat-tab-group>
       </mat-card-content>

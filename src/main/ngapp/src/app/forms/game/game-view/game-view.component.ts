@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GameEditorComponent } from '../game-editor/game-editor.component';
 import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
 import { Tournament } from 'src/app/shared/models/tournament';
+import { PgnEditorComponent } from '../pgn-editor/pgn-editor.component';
 
 @Component({
   selector: 'app-game-view',
@@ -20,6 +21,7 @@ export class GameViewComponent implements OnInit {
 
   game$: Observable<Game>;
   tournament$: Observable<Tournament>;
+  gamePgn$: Observable<string>;
 
   constructor(
     private gameService: GameService,
@@ -34,8 +36,9 @@ export class GameViewComponent implements OnInit {
       return this.gameService.getByID(parseInt(params.id, 10));
     }), tap((game) => {
       if (game.tournamentID > 0) {
-        this.tournament$ = this.tournamentService.getByID(game.tournamentID );
+        this.tournament$ = this.tournamentService.getByID(game.tournamentID);
       }
+      this.gamePgn$ = this.gameService.getPgn(game.id);
     }));
   }
 
@@ -59,6 +62,12 @@ export class GameViewComponent implements OnInit {
   edit(gameID: number) {
     this.dialog.open(GameEditorComponent, {
       data: {id: gameID, isNew: false}
+    });
+  }
+
+  editPGN(gameID: number) {
+    this.dialog.open(PgnEditorComponent, {
+      data: gameID
     });
   }
 
