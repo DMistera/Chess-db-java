@@ -25,7 +25,7 @@ public class GameAPI extends RepositoryAPI<Game, Integer> {
     }
 
     @PostMapping("{id}/pgn")
-    public void setPGN(@PathVariable int id, @RequestBody String pgn) {
+    public void setPGN(@PathVariable int id, @RequestBody String pgn) throws Exception {
         gameService.setPGN(id, pgn);
     }
 }

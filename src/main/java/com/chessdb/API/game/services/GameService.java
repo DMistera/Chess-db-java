@@ -2,21 +2,86 @@ package com.chessdb.API.game.services;
 
 import com.chessdb.API.game.models.Game;
 import com.chessdb.services.repository.RepositoryService;
+import com.github.bhlangonijr.chesslib.Board;
+import com.github.bhlangonijr.chesslib.Piece;
+import com.github.bhlangonijr.chesslib.Side;
+import com.github.bhlangonijr.chesslib.Square;
+import com.github.bhlangonijr.chesslib.move.Move;
+import com.github.bhlangonijr.chesslib.move.MoveList;
+import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 
 @Service
 public class GameService extends RepositoryService<Game, Integer> {
 
     public String getPGN(int id) {
-        //TODO
-        return "";
+        StringBuilder pgn = new StringBuilder();
+        // Creates a new chessboard in the standard initial position
+        Board board = new Board();
+        Square start= Square.E2;
+        Square end = Square.E4;
+        Piece piece;
+        int counter=50;//TODO
+        for(int i=1; i<=counter; i++) {
+            //Make a move from E2 to E4 squares
+
+            pgn.append(i).append(". ");
+            for(int j=0; j<2; j++){
+                //TODO przypisanie do start & end field
+                piece=board.getPiece(end);
+                board.doMove(new Move(start, end));
+                pgn.append(piece.toString()).append(end.toString());
+                if(board.isDraw()||board.isStaleMate())
+                {
+                    pgn.append(" 1/2-1/2");
+                    return pgn.toString();
+                }
+                if(board.isMated()){
+                    if(j==1){
+                        pgn.append(" 0-1");
+                    }
+                    else pgn.append(" 1-0");
+                }
+                if(board.isKingAttacked()) pgn.append('+');
+                pgn.append(" ");
+            }
+
+        }
+        return pgn.toString();
     }
 
-    public void setPGN(int id, String pgn) {
-        //TODO
+    public void setPGN(int id, String pgn) throws Exception {
+
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("tmp.pgn")))) {
+            writer.write(pgn);
+        } catch (IOException ex) {
+            // Report
+        }
+        /*ignore*/
+
+        PgnHolder pgnH = new PgnHolder("tmp.pgn");
+        pgnH.loadPgn();
+        for (com.github.bhlangonijr.chesslib.game.Game game: pgnH.getGame()) {
+            game.loadMoveText();
+            MoveList moves = game.getHalfMoves();
+            Board board = new Board();
+            //Replay all the moves from the game and print the final position in FEN format
+            for (Move move: moves) {
+
+
+                connection.callProcedure("game.add_move", id, board.getHalfMoveCounter(), board.getSideToMove(), move.getFrom().toString(), move.getTo().toString());
+                //System.out.println("Ruch "+id+" "+" "+board.getHalfMoveCounter();+" "+" "+board.getSideToMove()+" "+" "+move.getFrom()+" "+move.getTo(), move.toString());
+
+                board.doMove(move);
+            }
+        }
     }
 
     @Override
