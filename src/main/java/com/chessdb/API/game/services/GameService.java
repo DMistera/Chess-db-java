@@ -27,16 +27,33 @@ public class GameService extends RepositoryService<Game, Integer> {
         Square start= Square.E2;
         Square end = Square.E4;
         Piece piece;
-        int counter=50;//TODO
+        int counter= 0;
+        try {
+            counter = (int) connection.callFunction("count_moves", id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         for(int i=1; i<=counter; i++) {
             //Make a move from E2 to E4 squares
 
             pgn.append(i).append(". ");
             for(int j=0; j<2; j++){
                 //TODO przypisanie do start & end field
+                //end=Square.valueOf(endStr.toUpperCase());
+                piece=board.getPiece(start);
+                {
+                    if((piece==Piece.BLACK_KNIGHT)||(piece==Piece.WHITE_KNIGHT))
+                    {
+                        pgn.append('N');
+                    }
+                    pgn.append(piece.name().charAt(6));
+                }
                 piece=board.getPiece(end);
+                if(piece!=Piece.NONE) pgn.append('x').append(end.value());
+
                 board.doMove(new Move(start, end));
-                pgn.append(piece.toString()).append(end.toString());
+                if((piece!=Piece.BLACK_PAWN)&&(piece!=Piece.WHITE_PAWN))
+
                 if(board.isDraw()||board.isStaleMate())
                 {
                     pgn.append(" 1/2-1/2");
@@ -45,8 +62,12 @@ public class GameService extends RepositoryService<Game, Integer> {
                 if(board.isMated()){
                     if(j==1){
                         pgn.append(" 0-1");
+                        return pgn.toString();
                     }
-                    else pgn.append(" 1-0");
+                    else {
+                        pgn.append(" 1-0");
+                        return pgn.toString();
+                    }
                 }
                 if(board.isKingAttacked()) pgn.append('+');
                 pgn.append(" ");
