@@ -39,7 +39,7 @@ public class GameService extends RepositoryService<Game, Integer> {
             pgn.append(i).append(". ");
             for(int j=0; j<2; j++){
                 //TODO przypisanie do start & end field
-                //end=Square.valueOf(endStr.toUpperCase());
+                //end=Square.valueOf(String field.toUpperCase());
                 piece=board.getPiece(start);
                 {
                     if((piece==Piece.BLACK_KNIGHT)||(piece==Piece.WHITE_KNIGHT))
@@ -97,7 +97,7 @@ public class GameService extends RepositoryService<Game, Integer> {
             for (Move move: moves) {
 
 
-                connection.callProcedure("game.add_move", id, board.getHalfMoveCounter(), board.getSideToMove(), move.getFrom().toString(), move.getTo().toString());
+                connection.callProcedure("game.add_move", id, board.getHalfMoveCounter(), board.getSideToMove().toString().charAt(0), move.getFrom().toString(), move.getTo().toString());
                 //System.out.println("Ruch "+id+" "+" "+board.getHalfMoveCounter();+" "+" "+board.getSideToMove()+" "+" "+move.getFrom()+" "+move.getTo(), move.toString());
 
                 board.doMove(move);
