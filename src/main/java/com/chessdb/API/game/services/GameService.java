@@ -97,7 +97,7 @@ public class GameService extends RepositoryService<Game, Integer> {
             for (Move move: moves) {
 
 
-                connection.callProcedure("game.add_move", id, board.getHalfMoveCounter(), board.getSideToMove().toString().charAt(0), move.getFrom().toString(), move.getTo().toString());
+                connection.callProcedure("game.add_move", id, board.getHalfMoveCounter(), board.getSideToMove().toString().charAt(0), move.getFrom().name(), move.getTo().name());
                 //System.out.println("Ruch "+id+" "+" "+board.getHalfMoveCounter();+" "+" "+board.getSideToMove()+" "+" "+move.getFrom()+" "+move.getTo(), move.toString());
 
                 board.doMove(move);
