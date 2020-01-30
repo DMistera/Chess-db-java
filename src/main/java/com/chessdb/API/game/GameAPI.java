@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.List;
 
+import java.sql.SQLException;
+
 @RestController
 @RequestMapping("game")
 public class GameAPI extends RepositoryAPI<Game, Integer> {

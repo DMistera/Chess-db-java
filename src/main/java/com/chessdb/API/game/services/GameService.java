@@ -5,9 +5,11 @@ import com.chessdb.API.move.services.MoveService;
 import com.chessdb.services.database.QueryResult;
 import com.chessdb.services.repository.RepositoryService;
 import com.github.bhlangonijr.chesslib.Board;
+import com.github.bhlangonijr.chesslib.Piece;
 import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveList;
 import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -21,12 +23,17 @@ import java.util.ArrayList;
 @Service
 public class GameService extends RepositoryService<Game, Integer> {
 
+    @Autowired
+    MoveService moveService;
+
+
     public String getPGN(int id) throws SQLException{
-        MoveService moveService = new MoveService();
+
         List<com.chessdb.API.move.models.Move> list = moveService.getGamesMoves(id);
         StringBuilder pgn = new StringBuilder();
 
         int turn=0;
+
         for(com.chessdb.API.move.models.Move move : list){
             if(turn<move.getTurn()){
                 turn=move.getTurn();
@@ -39,10 +46,19 @@ public class GameService extends RepositoryService<Game, Integer> {
 
 
     public void setPGN(int id, String pgn) throws Exception {
-        StringBuilder str = new StringBuilder();
+        connection.callProcedure("game.delete_moves", id);
+        StringBuilder pgn2 = new StringBuilder();
+        pgn2.append("[Event \"F/S Return Match\"]\n");
+        pgn2.append("[Site \"Belgrade\"]\n");
+        pgn2.append("[Date \"1992.11.04\"]\n");
+        pgn2.append("[Round \"29\"]");
+        pgn2.append("[White \"Fischer, Robert J.\"]\n");
+        pgn2.append("[Black \"Spassky, Boris V.\"]\n");
+        pgn2.append("[Result \"1/2-1/2\"]\n");
+        pgn2.append(pgn);
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("tmp.pgn")))) {
-            writer.write(pgn);
+            writer.write(pgn2.toString());
         } catch (IOException ex) {
             // Report
         }
@@ -54,17 +70,30 @@ public class GameService extends RepositoryService<Game, Integer> {
             game.loadMoveText();
             MoveList moves = game.getHalfMoves();
 
+
             Board board = new Board();
             //Replay all the moves from the game and print the final position in FEN format
             int j=1;
             for (Move move: moves) {
+                Piece piece;
+                piece=board.getPiece(move.getFrom());
+                StringBuilder moveValue = new StringBuilder();
+                if((piece!=Piece.WHITE_PAWN)&&(piece!=Piece.BLACK_PAWN)){
+                    if((piece== Piece.BLACK_KNIGHT)||(piece==Piece.WHITE_KNIGHT))
+                    {
+                        moveValue.append('N');
+                    }
+                    else moveValue.append(piece.name().charAt(6));
+                }
+                moveValue.append(move.toString());
 
                 j++;
-                connection.callProcedure("game.add_move", id, j/2, board.getSideToMove().toString().toLowerCase().charAt(0), move.toString());
+
+                connection.callProcedure("game.add_move", id, j/2, board.getSideToMove().toString().toLowerCase().charAt(0), moveValue.toString());
+
 
                 board.doMove(move);
             }
-            if (j>1) break;
         }
     }
 
