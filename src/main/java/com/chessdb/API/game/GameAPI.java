@@ -34,7 +34,7 @@ public class GameAPI extends RepositoryAPI<Game, Integer> {
     }
 
     @GetMapping("/{id}/pgn")
-    public String getPGN(@PathVariable int id) {
+    public String getPGN(@PathVariable int id) throws SQLException {
         return gameService.getPGN(id);
     }
 
