@@ -16,6 +16,15 @@ export class GameTableComponent implements OnInit {
   @Input()
   games: Game[];
 
+  @Input()
+  showDelete = true;
+
+  @Input()
+  buttonLabel = 'View';
+
+  @Input()
+  deleteLabel = 'Delete';
+
   @Output()
   selectGame = new EventEmitter<Game>();
 

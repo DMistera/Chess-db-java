@@ -18,6 +18,9 @@ import { RefereeService } from 'src/app/shared/services/referee/referee.service'
 import { MediaPatronService } from 'src/app/shared/services/media-patron/media-patron.service';
 import { RefereePickerComponent } from '../../referee/referee-picker/referee-picker.component';
 import { MediaPatronPickerComponent } from '../../media-patron/media-patron-picker/media-patron-picker.component';
+import { GameService } from 'src/app/shared/services/game/game.service';
+import { Game } from 'src/app/shared/models/game';
+import { GamePickerComponent } from '../../game/game-picker/game-picker.component';
 
 @Component({
   selector: 'app-tournament-view',
@@ -31,6 +34,7 @@ export class TournamentViewComponent implements OnInit {
   prizes$: Observable<Prize[]>;
   referees$: Observable<Referee[]>;
   mediaPatrons$: Observable<MediaPatron[]>;
+  games$: Observable<Game[]>;
 
   playerCount$: Observable<number>;
   refereeCount$: Observable<number>;
@@ -45,6 +49,7 @@ export class TournamentViewComponent implements OnInit {
     private sponsorService: SponsorService,
     private refereeService: RefereeService,
     private mediaPatronService: MediaPatronService,
+    private gameService: GameService,
     private dialog: MatDialog
   ) { }
 
@@ -56,6 +61,7 @@ export class TournamentViewComponent implements OnInit {
       this.prizes$ = this.tournamentService.getPrizes(tournament.id);
       this.referees$ = this.refereeService.getTournamentReferees(tournament.id);
       this.mediaPatrons$ = this.mediaPatronService.getTournamentMediaPatrons(tournament.id);
+      this.games$ = this.gameService.getTournamentGames(tournament.id);
       this.playerCount$ = this.tournamentService.getPlayerCount(tournament.id);
       this.refereeCount$ = this.tournamentService.getRefereeCount(tournament.id);
       this.mediaPatronCount$ = this.tournamentService.getPatronCount(tournament.id);
@@ -67,6 +73,15 @@ export class TournamentViewComponent implements OnInit {
   edit(tournamentID: number) {
     this.dialog.open(TournamentEditorComponent, {
       data: {id: tournamentID, isNew: false}
+    });
+  }
+
+  addGame(tournamentID: number) {
+    const dialogRef = this.dialog.open(GamePickerComponent);
+    dialogRef.afterClosed().subscribe(id => {
+      if (id) {
+        this.tournamentService.addGame(tournamentID, id);
+      }
     });
   }
 
@@ -133,6 +148,14 @@ export class TournamentViewComponent implements OnInit {
 
   showMediaPatron(mediaPatron: MediaPatron) {
     this.mediaPatronService.navigate(mediaPatron.name);
+  }
+
+  showGame(game: Game) {
+    this.gameService.navigate(game.id);
+  }
+
+  removeGame(id:number, game: Game) {
+    this.tournamentService.removeGame(id, game.id);
   }
 
 }

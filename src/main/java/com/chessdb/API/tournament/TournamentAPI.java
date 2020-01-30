@@ -68,6 +68,11 @@ public class TournamentAPI extends RepositoryAPI<Tournament, Integer> {
         return tournamentService.countPatrons(id);
     }
 
+    @PutMapping("/add-game/{id}")
+    public void addGame(@PathVariable int id, @RequestBody int game_id) throws SQLException {
+        tournamentService.addGame(id, game_id);
+    }
+
     @PutMapping("/add-player/{id}")
     public void addPlayer(@PathVariable int id, @RequestBody int player_id) throws SQLException {
         tournamentService.addPlayer(id, player_id);
@@ -81,6 +86,11 @@ public class TournamentAPI extends RepositoryAPI<Tournament, Integer> {
     @PutMapping("/add-patron/{id}")
     public void addPatron(@PathVariable int id, @RequestBody String patronName) throws SQLException {
         tournamentService.addPatron(id, patronName);
+    }
+
+    @PutMapping("/remove-game/{id}")
+    public void removePlayer(@PathVariable int id) throws SQLException {
+        tournamentService.removeGame(id);
     }
 
     @PutMapping("/remove-player/{id}")

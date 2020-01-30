@@ -37,4 +37,8 @@ export class GameService extends EntityService<Game, number> {
     return this.http.get<Game[]>(this.url() + '/player/' + playerID);
   }
 
+  public getTournamentGames(playerID: number) : Observable<Game[]> {
+    return this.http.get<Game[]>(this.url() + '/tournament/' + playerID);
+  }
+
 }
