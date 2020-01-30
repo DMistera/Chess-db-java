@@ -19,8 +19,10 @@ export class GameService extends EntityService<Game, number> {
     return this.http.get<string[]>(this.url() + '/' + id + '/pgn');
   }
 
-  public setPgn(id: number, pgn: string): Observable<any> {
-    return this.http.put(this.url() + '/' + id + '/pgn', pgn);
+  public setPgn(id: number, pgn: string) {
+    return this.http.put(this.url() + '/' + id + '/pgn', pgn).subscribe(() => {
+      this.refreshID(id);
+    });
   }
 
   protected url(): string {

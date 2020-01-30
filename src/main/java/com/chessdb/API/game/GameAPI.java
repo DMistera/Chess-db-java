@@ -40,7 +40,7 @@ public class GameAPI extends RepositoryAPI<Game, Integer> {
         return gameService.getPGN(id);
     }
 
-    @PostMapping("{id}/pgn")
+    @PutMapping("{id}/pgn")
     public void setPGN(@PathVariable int id, @RequestBody String pgn) throws Exception {
         gameService.setPGN(id, pgn);
     }
