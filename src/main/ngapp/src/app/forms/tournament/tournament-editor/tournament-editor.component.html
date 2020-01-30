@@ -39,5 +39,11 @@
     <button matSuffix mat-icon-button (click)="pickOrganizer()">
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
+    <mat-error *ngIf="organizerForm.hasError('required')">
+      Organizer is required!
+    </mat-error>
+    <mat-error *ngIf="organizerForm.hasError('exists')">
+      This organizer does not exist!
+    </mat-error>
   </mat-form-field>
 </app-entity-editor>

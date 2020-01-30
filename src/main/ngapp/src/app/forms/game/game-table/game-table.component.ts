@@ -56,6 +56,8 @@ export class GameTableComponent implements OnInit {
         return 'White';
       case 'B':
         return 'Black';
+      case 'T':
+        return 'Draw';
       default:
         return 'Undefined';
     }
