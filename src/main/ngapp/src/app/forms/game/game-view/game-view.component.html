@@ -16,10 +16,10 @@
             <button mat-raised-button color="primary" (click)="edit(game.id)">Edit</button>
           </mat-tab>
           <mat-tab label="Preview">
-            <ng-container *ngIf="gamePgn$ | async as gamePgn">
-              <ng-container *ngIf="gamePgn; else noPGN">
+            <ng-container *ngIf="gameMoves$ | async as gameMoves">
+              <ng-container *ngIf="gameMoves; else noPGN">
                 <div class=chessboard-panel>
-                  <app-game-preview [pgn]="gamePgn"></app-game-preview>
+                  <app-game-preview [moves]="gameMoves"></app-game-preview>
                 </div>
               </ng-container>
               <ng-template #noPGN>

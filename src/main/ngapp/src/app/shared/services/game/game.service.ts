@@ -15,9 +15,8 @@ export class GameService extends EntityService<Game, number> {
     super(http, router);
   }
 
-  public getPgn(id: number): Observable<string> {
-    console.log('pgn');
-    return this.http.get(this.url() + '/' + id + '/pgn', { responseType: 'text' });
+  public getMoves(id: number): Observable<string[]> {
+    return this.http.get<string[]>(this.url() + '/' + id + '/pgn');
   }
 
   public setPgn(id: number, pgn: string): Observable<any> {

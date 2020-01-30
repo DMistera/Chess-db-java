@@ -27,21 +27,14 @@ public class GameService extends RepositoryService<Game, Integer> {
     MoveService moveService;
 
 
-    public String getPGN(int id) throws SQLException{
+    public List<String> getPGN(int id) throws SQLException{
 
         List<com.chessdb.API.move.models.Move> list = moveService.getGamesMoves(id);
-        StringBuilder pgn = new StringBuilder();
-
-        int turn=0;
-
+        List<String> result = new ArrayList<>();
         for(com.chessdb.API.move.models.Move move : list){
-            if(turn<move.getTurn()){
-                turn=move.getTurn();
-                pgn.append(turn).append(". ");
-            }
-            pgn.append(move.getMoveValue()).append(" ");
+            result.add(move.getMoveValue());
         }
-        return pgn.toString();
+        return result;
     }
 
 

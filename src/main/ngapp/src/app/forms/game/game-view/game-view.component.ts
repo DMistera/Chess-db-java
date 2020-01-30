@@ -21,7 +21,7 @@ export class GameViewComponent implements OnInit {
 
   game$: Observable<Game>;
   tournament$: Observable<Tournament>;
-  gamePgn$: Observable<string>;
+  gameMoves$: Observable<string[]>;
 
   constructor(
     private gameService: GameService,
@@ -38,7 +38,7 @@ export class GameViewComponent implements OnInit {
       if (game.tournamentID > 0) {
         this.tournament$ = this.tournamentService.getByID(game.tournamentID);
       }
-      this.gamePgn$ = this.gameService.getPgn(game.id);
+      this.gameMoves$ = this.gameService.getMoves(game.id);
     }));
   }
 

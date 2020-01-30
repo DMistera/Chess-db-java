@@ -22,9 +22,9 @@ export class PgnEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.gameService.getPgn(this.gameID).subscribe(png => {
-      this.codeControl.setValue(png);
-    });
+    // this.gameService.getPgn(this.gameID).subscribe(png => {
+    //   this.codeControl.setValue(png);
+    // });
   }
 
   onSubmit() {

@@ -14,7 +14,7 @@ const Chessboard = require('chessboardjs');
 export class GamePreviewComponent implements OnInit, AfterViewChecked {
 
   @Input()
-  pgn: string;
+  moves: string[];
 
   chess: ChessInstance;
   chessBoard: any;
@@ -29,19 +29,7 @@ export class GamePreviewComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.chess = new Chess();
     this.chess.reset();
-    const c = [
-       '1.e4 e5 2.Nf3 Nc6 3.Bc4 Bc5 4.b4 Bxb4 5.c3 Ba5 6.d4 exd4 7.O-O',
-       'd3 8.Qb3 Qf6 9.e5 Qg6 10.Re1 Nge7 11.Ba3 b5 12.Qxb5 Rb8 13.Qa4',
-       'Bb6 14.Nbd2 Bb7 15.Ne4 Qf5 16.Bxd3 Qh5 17.Nf6+ gxf6 18.exf6',
-       'Rg8 19.Rad1 Qxf3 20.Rxe7+ Nxe7 21.Qxd7+ Kxd7 22.Bf5+ Ke8',
-       '23.Bd7+ Kf8 24.Bxe7# 1-0'];
-    const pgnLoadResult = this.chess.load_pgn(this.pgn);
-    if (pgnLoadResult) {
-      this.history = this.chess.history();
-      this.chess.reset();
-    } else {
-      this.errorHandler.showError('Failed to parse PGN!');
-    }
+    this.history = this.moves;
   }
 
   ngAfterViewChecked(): void {
@@ -62,7 +50,7 @@ export class GamePreviewComponent implements OnInit, AfterViewChecked {
   }
 
   nextMove() {
-    this.chess.move(this.history[this.moveIndex]);
+    this.chess.move(this.history[this.moveIndex], {sloppy: true});
     this.moveIndex++;
     this.updateChessboard();
   }
