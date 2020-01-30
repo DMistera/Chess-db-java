@@ -4,5 +4,5 @@
 </div>
 <ng-container *ngIf="history">
   <button mat-raised-button (click)="previousMove()" [disabled]="moveIndex < 1">Previous Move</button>
-  <button mat-raised-button (click)="nextMove()" [disabled]="moveIndex >= history.length - 1">Next Move</button>
+  <button mat-raised-button (click)="nextMove()" [disabled]="moveIndex >= history.length">Next Move</button>
 </ng-container>

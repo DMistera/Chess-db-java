@@ -20,7 +20,6 @@ import { ClubViewComponent } from './forms/club/club-view/club-view.component';
 import { ClubPickerComponent } from './forms/club/club-picker/club-picker.component';
 import { PickerComponent } from './shared/components/picker/picker.component';
 import { EntityTableComponent } from './shared/components/entity-table/entity-table.component';
-import { PlayerTableComponent } from './forms/player/player-table/player-table.component';
 import { GameEditorComponent } from './forms/game/game-editor/game-editor.component';
 import { PlayerListComponent } from './forms/player/player-list/player-list.component';
 import { EntityListComponent } from './shared/components/entity-list/entity-list.component';
@@ -53,6 +52,7 @@ import { MediaPatronViewComponent } from './forms/media-patron/media-patron-view
 import { MediaPatronEditorComponent } from './forms/media-patron/media-patron-editor/media-patron-editor.component';
 import { MediaPatronPickerComponent } from './forms/media-patron/media-patron-picker/media-patron-picker.component';
 import { PgnEditorComponent } from './forms/game/pgn-editor/pgn-editor.component';
+import { GameTableComponent } from './forms/game/game-table/game-table.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,6 @@ import { PgnEditorComponent } from './forms/game/pgn-editor/pgn-editor.component
     ClubPickerComponent,
     PickerComponent,
     EntityTableComponent,
-    PlayerTableComponent,
     GameEditorComponent,
     EntityListComponent,
     GameListComponent,
@@ -98,7 +97,8 @@ import { PgnEditorComponent } from './forms/game/pgn-editor/pgn-editor.component
     MediaPatronViewComponent,
     MediaPatronEditorComponent,
     MediaPatronPickerComponent,
-    PgnEditorComponent
+    PgnEditorComponent,
+    GameTableComponent
   ],
   entryComponents: [
     PlayerEditorComponent,

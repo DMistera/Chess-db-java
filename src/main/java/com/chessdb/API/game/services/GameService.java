@@ -1,19 +1,21 @@
 package com.chessdb.API.game.services;
 
 import com.chessdb.API.game.models.Game;
+import com.chessdb.services.database.QueryResult;
 import com.chessdb.services.repository.RepositoryService;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 @Service
 public class GameService extends RepositoryService<Game, Integer> {
 
     public String getPGN(int id) {
         //TODO
-        return "";
+        return "tt";
     }
 
     public void setPGN(int id, String pgn) {
@@ -22,6 +24,13 @@ public class GameService extends RepositoryService<Game, Integer> {
 
     public int countMoves(int id) throws SQLException {
         return (int)this.connection.callFunction(getEntityName() + ".count_moves", Types.INTEGER, id);
+    }
+
+    public List<Game> getPlayerGames(int playerID) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE PLAYER_ID_WHITE = ? OR PLAYER_ID_BLACK = ?", playerID, playerID);
+        List<Game> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
     }
 
     @Override

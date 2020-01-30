@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { OrganizerService } from 'src/app/shared/services/organizer/organizer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OrganizerEditorComponent } from '../organizer-editor/organizer-editor.component';
+import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
 
 @Component({
   selector: 'app-organizer-list',
@@ -16,6 +17,7 @@ export class OrganizerListComponent implements OnInit {
 
   constructor(
     private organizerService: OrganizerService,
+    private tournamentService: TournamentService,
     private dialog: MatDialog
   ) { }
 
@@ -35,6 +37,7 @@ export class OrganizerListComponent implements OnInit {
 
   deleteOrganizer(organizer: Organizer) {
     this.organizerService.delete(organizer.name);
+    this.tournamentService.refresh();
   }
 
 }

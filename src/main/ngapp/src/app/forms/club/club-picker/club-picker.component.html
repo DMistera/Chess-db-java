@@ -2,5 +2,5 @@
   Select Club
 </h2>
 <mat-dialog-content *ngIf="clubs$ | async as clubs">
-  <app-entity-table [data]="clubs" (selectEntity)="end($event)" buttonLabel="Select" [filter]="['id']"></app-entity-table >
+  <app-entity-table [data]="clubs" (selectEntity)="end($event)" [showDelete]="false" buttonLabel="Select" [filter]="['id']"></app-entity-table >
 </mat-dialog-content>
