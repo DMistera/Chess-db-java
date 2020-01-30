@@ -10,15 +10,23 @@
             <p>Black Player: {{blackPlayer.name}} {{blackPlayer.surname}}</p>
             <p>Date: {{game.date}}</p>
             <p>Result: {{getResultString(whitePlayer, blackPlayer, game.result)}}</p>
-            <ng-container *ngIf="getTournament$(game.tournamentID) | async as tournament">
-              <p>Tournament: {{tournament.id}}</p>
+            <ng-container *ngIf="tournament$ | async as tournament">
+              <p>Tournament: {{tournament.name}}</p>
             </ng-container>
             <button mat-raised-button color="primary" (click)="edit(game.id)">Edit</button>
           </mat-tab>
           <mat-tab label="Preview">
-            <div class=chessboard-panel>
-              <app-game-preview></app-game-preview>
-            </div>
+            <ng-container *ngIf="gameMoves$ | async as gameMoves">
+              <ng-container *ngIf="gameMoves; else noPGN">
+                <div class=chessboard-panel>
+                  <app-game-preview [moves]="gameMoves"></app-game-preview>
+                </div>
+              </ng-container>
+              <ng-template #noPGN>
+                No preview available.
+              </ng-template>
+            </ng-container>
+            <button mat-raised-button color="primary" (click)="editPGN(game.id)">Edit PGN</button>
           </mat-tab>
         </mat-tab-group>
       </mat-card-content>

@@ -4,7 +4,7 @@ import { RefereeService } from 'src/app/shared/services/referee/referee.service'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Referee } from 'src/app/shared/models/referee';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-referee-editor',
@@ -13,8 +13,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class RefereeEditorComponent extends EditorTemplate<Referee, number> {
 
-  nameForm = new FormControl('');
-  surnameForm = new FormControl('');
+  nameForm = new FormControl('', [Validators.required]);
+  surnameForm = new FormControl('', [Validators.required]);
   form = new FormGroup({
     name: this.nameForm,
     surname: this.surnameForm
@@ -39,6 +39,7 @@ export class RefereeEditorComponent extends EditorTemplate<Referee, number> {
     referee.id = this.data.id;
     return referee;
   }
+  
   protected validate(): boolean {
     return this.form.valid;
   }

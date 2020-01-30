@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlayerTableComponent } from './player-table.component';
+import { PgnEditorComponent } from './pgn-editor.component';
 
-describe('PlayerTableComponent', () => {
-  let component: PlayerTableComponent;
-  let fixture: ComponentFixture<PlayerTableComponent>;
+describe('PgnEditorComponent', () => {
+  let component: PgnEditorComponent;
+  let fixture: ComponentFixture<PgnEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerTableComponent ]
+      declarations: [ PgnEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PlayerTableComponent);
+    fixture = TestBed.createComponent(PgnEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

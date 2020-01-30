@@ -43,6 +43,31 @@ public class TournamentAPI extends RepositoryAPI<Tournament, Integer> {
         return tournamentService.getMediaPatronTournaments(id);
     }
 
+    @GetMapping("/count-player/{id}")
+    public int getPlayerCount(@PathVariable int id) throws SQLException {
+        return tournamentService.countPlayers(id);
+    }
+
+    @GetMapping("/count-referee/{id}")
+    public int getRefereeCount(@PathVariable int id) throws SQLException {
+        return tournamentService.countReferees(id);
+    }
+
+    @GetMapping("/count-sponsor/{id}")
+    public int getSponsorCount(@PathVariable int id) throws SQLException {
+        return tournamentService.countSponsors(id);
+    }
+
+    @GetMapping("/count-game/{id}")
+    public int getGameCount(@PathVariable int id) throws SQLException {
+        return tournamentService.countGames(id);
+    }
+
+    @GetMapping("/count-patron/{id}")
+    public int getPatronCount(@PathVariable int id) throws SQLException {
+        return tournamentService.countPatrons(id);
+    }
+
     @PutMapping("/add-player/{id}")
     public void addPlayer(@PathVariable int id, @RequestBody int player_id) throws SQLException {
         tournamentService.addPlayer(id, player_id);

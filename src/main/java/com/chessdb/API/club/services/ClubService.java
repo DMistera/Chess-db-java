@@ -14,7 +14,7 @@ import java.util.List;
 public class ClubService extends RepositoryService<Club, Integer> {
 
     public int countPlayers(int id) throws SQLException {
-        return (int)connection.callFunction("club.count_players", Types.INTEGER, id);
+        return (int)connection.callFunction(getEntityName() + ".count_players", Types.INTEGER, id);
     }
 
     public void addPlayer(int clubID, int playerID) throws SQLException {

@@ -17,6 +17,8 @@ export class OrganizerViewComponent implements OnInit {
   organizer$: Observable<Organizer>;
   tournaments$: Observable<Tournament[]>;
 
+  tournamentCount$: Observable<number>;
+
   constructor(
     private organizerService: OrganizerService,
     private tournamentService: TournamentService,
@@ -28,6 +30,7 @@ export class OrganizerViewComponent implements OnInit {
       return this.organizerService.getByID(params.id);
     }), tap(organizer => {
       this.tournaments$ = this.tournamentService.getOrganizerTournaments(organizer.name);
+      this.tournamentCount$ = this.organizerService.getTournamentCount(organizer.name);
     }));
   }
 

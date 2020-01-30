@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 @Service
@@ -17,6 +18,11 @@ public class MediaPatronService extends RepositoryService<MediaPatron, String> {
         List<MediaPatron> result = queryResultToList(queryResult.getResultSet());
         queryResult.close();
         return result;
+    }
+
+
+    public int countTournaments(String id) throws SQLException {
+        return (int)this.connection.callFunction(getEntityName() + ".count_tournaments", Types.INTEGER, id);
     }
 
     @Override

@@ -22,6 +22,14 @@ export class PlayerService extends EntityService<Player, number> {
     return this.http.get<Player[]>(this.url() + '/tournament/' + tournamentID);
   }
 
+  public getGameCount(id: number): Observable<number> {
+    return this.http.get<number>(this.url() + '/count-game/' + id);
+  }
+
+  public getTournamentCount(id: number): Observable<number> {
+    return this.http.get<number>(this.url() + '/count-tournament/' + id);
+  }
+
   protected getID(entity: Player): number {
     return entity.id;
   }

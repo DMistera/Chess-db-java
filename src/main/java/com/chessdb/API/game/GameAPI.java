@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.List;
+
+import java.sql.SQLException;
 
 @RestController
 @RequestMapping("game")
@@ -16,13 +19,24 @@ public class GameAPI extends RepositoryAPI<Game, Integer> {
     @Autowired
     private GameService gameService;
 
+    @GetMapping("/count-move/{id}")
+    public int getMoveCount(@PathVariable int id) throws SQLException {
+        return gameService.countMoves(id);
+    }
+
+    @GetMapping("/player/{id}")
+    public List<Game> getPlayerGames(@PathVariable int id) throws SQLException {
+        return gameService.getPlayerGames(id);
+    }
+
+
     @Override
     protected RepositoryService<Game, Integer> getRepositoryService() {
         return gameService;
     }
 
-    @GetMapping("{id}/pgn")
-    public String getPGN(@PathVariable int id) throws SQLException {
+    @GetMapping("/{id}/pgn")
+    public List<String>  getPGN(@PathVariable int id) throws SQLException {
         return gameService.getPGN(id);
     }
 

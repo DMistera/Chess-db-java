@@ -19,6 +19,7 @@ export abstract class EditorTemplate<T, IdType> implements OnInit {
         this.initForm(entity);
       });
     }
+    this.afterInit();
   }
 
   public onSubmit() {
@@ -39,6 +40,10 @@ export abstract class EditorTemplate<T, IdType> implements OnInit {
   protected abstract initForm(entity: T): void;
   protected abstract createEntity(): T;
   protected abstract validate(): boolean;
+
+  protected afterInit() {
+
+  };
 }
 
 export interface DialogData<IdType> {

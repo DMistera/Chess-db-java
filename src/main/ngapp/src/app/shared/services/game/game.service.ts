@@ -4,6 +4,7 @@ import { Game } from '../../models/game';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import {map} from 'rxjs/Operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class GameService extends EntityService<Game, number> {
     super(http, router);
   }
 
-  public getPgn(id: number): Observable<string> {
-    return this.http.get<string>(this.url() + '/' + id + '/pgn');
+  public getMoves(id: number): Observable<string[]> {
+    return this.http.get<string[]>(this.url() + '/' + id + '/pgn');
   }
 
   public setPgn(id: number, pgn: string): Observable<any> {
@@ -28,6 +29,10 @@ export class GameService extends EntityService<Game, number> {
 
   protected getID(entity: Game): number {
     return entity.id;
+  }
+
+  public getPlayerGames(playerID: number) : Observable<Game[]> {
+    return this.http.get<Game[]>(this.url() + '/player/' + playerID);
   }
 
 }

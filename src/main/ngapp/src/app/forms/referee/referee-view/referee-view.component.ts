@@ -8,6 +8,7 @@ import { Tournament } from 'src/app/shared/models/tournament';
 import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TournamentPickerComponent } from '../../tournament/tournament-picker/tournament-picker.component';
+import { RefereeEditorComponent } from '../referee-editor/referee-editor.component';
 
 @Component({
   selector: 'app-referee-view',
@@ -18,6 +19,7 @@ export class RefereeViewComponent implements OnInit {
 
   referee$: Observable<Referee>;
   tournaments$: Observable<Tournament[]>;
+  tournamentCount$: Observable<number>;
 
   constructor(
     private refereeService: RefereeService,
@@ -31,7 +33,14 @@ export class RefereeViewComponent implements OnInit {
       return this.refereeService.getByID(parseInt(params.id, 10));
     }), tap(referee => {
       this.tournaments$ = this.tournamentService.getRefereeTournaments(referee.id);
+      this.tournamentCount$ = this.refereeService.getTournamentCount(referee.id);
     }));
+  }
+
+  edit(referee: Referee) {
+    this.dialog.open(RefereeEditorComponent, {
+      data: {isNew: false, id: referee.id}
+    });
   }
 
   viewTournament(tournament: Tournament) {

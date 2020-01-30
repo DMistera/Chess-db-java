@@ -12,6 +12,8 @@ import { ClubPickerComponent } from '../../club/club-picker/club-picker.componen
 import { Tournament } from 'src/app/shared/models/tournament';
 import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
 import { TournamentPickerComponent } from '../../tournament/tournament-picker/tournament-picker.component';
+import { Game } from 'src/app/shared/models/game';
+import { GameService } from 'src/app/shared/services/game/game.service';
 
 @Component({
   selector: 'app-player-view',
@@ -22,10 +24,15 @@ export class PlayerViewComponent implements OnInit {
 
   player$: Observable<Player>;
   tournaments$: Observable<Tournament[]>;
+  games$: Observable<Game[]>;
+
+  gameCount$: Observable<number>;
+  tournamentCount$: Observable<number>;
 
   constructor(
     private playerService: PlayerService,
     private tournamentService: TournamentService,
+    private gameService: GameService,
     private clubService: ClubService,
     private route: ActivatedRoute,
     private dialog: MatDialog
@@ -36,6 +43,9 @@ export class PlayerViewComponent implements OnInit {
       return this.playerService.getByID(parseInt(params.id, 10));
     }), tap(player => {
       this.tournaments$ = this.tournamentService.getPlayerTournaments(player.id);
+      this.games$ = this.gameService.getPlayerGames(player.id);
+      this.gameCount$ = this.playerService.getGameCount(player.id);
+      this.tournamentCount$ = this.playerService.getTournamentCount(player.id);
     }));
   }
 
@@ -73,6 +83,14 @@ export class PlayerViewComponent implements OnInit {
 
   quitTournament(playerID: number, tournament: Tournament) {
     this.tournamentService.removePlayer(tournament.id, playerID);
+  }
+
+  deleteGame(game: Game) {
+    this.gameService.delete(game.id);
+  }
+
+  showGame(game: Game) {
+    this.gameService.navigate(game.id);
   }
 
 }

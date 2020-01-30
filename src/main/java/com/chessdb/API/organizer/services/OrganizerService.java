@@ -6,9 +6,15 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 @Service
 public class OrganizerService extends RepositoryService<Organizer, String> {
+
+    public int countTournaments(String id) throws SQLException {
+        return (int)this.connection.callFunction(getEntityName() + ".count_tournaments", Types.INTEGER, id);
+    }
+
     @Override
     protected String getEntityName() {
         return "organizer";

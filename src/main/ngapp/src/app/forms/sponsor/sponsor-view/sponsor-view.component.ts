@@ -16,6 +16,7 @@ export class SponsorViewComponent implements OnInit {
 
   sponsor$: Observable<Sponsor>;
   prizes$: Observable<Prize[]>;
+  tournamentCount$: Observable<number>;
 
   constructor(
     private sponsorService: SponsorService,
@@ -28,6 +29,7 @@ export class SponsorViewComponent implements OnInit {
       return this.sponsorService.getByID(params.id);
     }), tap(sponsor => {
       this.prizes$ = this.sponsorService.getPrizes(sponsor.name);
+      this.tournamentCount$ = this.sponsorService.getTournamentCount(sponsor.name);
     }));
   }
 

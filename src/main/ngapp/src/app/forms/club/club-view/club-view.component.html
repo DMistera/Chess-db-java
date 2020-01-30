@@ -6,6 +6,7 @@
       <mat-tab label="Info">
         <p>Name: {{club.name}}</p>
         <p>Number of Players: {{playerCount$ | async}}</p>
+        <button mat-raised-button color="primary" (click)="edit(club)">Edit</button>
       </mat-tab>
       <mat-tab label="Players" *ngIf="clubPlayers$ | async as players">
         <app-entity-table *ngIf="players.length > 0" [data]="players" (selectEntity)="viewPlayer($event)"></app-entity-table>

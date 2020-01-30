@@ -68,7 +68,7 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
     }
 
     public int countPatrons(int id) throws SQLException {
-        return (int)connection.callFunction(getEntityName() + ".count_patrons", Types.INTEGER, id);
+        return (int)connection.callFunction(getEntityName() + ".count_media_patrons", Types.INTEGER, id);
     }
 
     public List<Tournament> getOrganizerTournaments(String organizerName) throws SQLException {

@@ -3,8 +3,10 @@ import { MediaPatronService } from 'src/app/shared/services/media-patron/media-p
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData, EditorTemplate } from 'src/app/shared/templates/editor-template';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MediaPatron } from 'src/app/shared/models/media-patron';
+import { first, map } from 'rxjs/operators';
+import { uniqueValidator } from 'src/app/shared/validators/unique-validator';
 
 @Component({
   selector: 'app-media-patron-editor',
@@ -27,6 +29,12 @@ export class MediaPatronEditorComponent extends EditorTemplate<MediaPatron, stri
   form = new FormGroup({
     name: this.nameForm
   });
+
+  afterInit() {
+    this.entityService.getAll().pipe(first(), map(entities => {
+      this.nameForm.setValidators([Validators.required, uniqueValidator(entities.map(entity => entity.name))]);
+    })).subscribe();
+  }
 
   protected initForm(entity: MediaPatron): void {
     this.nameForm.setValue(entity.name);

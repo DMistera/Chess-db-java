@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild, AfterContentChecked } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, forkJoin } from 'rxjs';
 
@@ -110,6 +110,20 @@ export class EntityTableComponent implements OnInit {
     });
   }
 
+  sortData(sort: Sort, indexedData: any[]) {
+    if (!sort.active || sort.direction === '') {
+      return;
+    }
+
+    this.data = this.data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      return this.compare(a[sort.active], b[sort.active], isAsc);
+    });
+  }
+
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 }
 
 export interface TableElement {

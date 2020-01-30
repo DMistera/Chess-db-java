@@ -6,6 +6,8 @@ import { Club } from 'src/app/shared/models/club';
 import { first, switchMap, tap, filter } from 'rxjs/operators';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { Player } from 'src/app/shared/models/player';
+import { MatDialog } from '@angular/material/dialog';
+import { ClubEditorComponent } from '../club-editor/club-editor.component';
 
 @Component({
   selector: 'app-club-view',
@@ -22,7 +24,8 @@ export class ClubViewComponent implements OnInit {
   constructor(
     private clubService: ClubService,
     private playerService: PlayerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -41,6 +44,12 @@ export class ClubViewComponent implements OnInit {
 
   viewPlayer(player: Player) {
     this.playerService.navigate(player.id);
+  }
+
+  edit(club: Club) {
+    this.dialog.open(ClubEditorComponent, {
+      data: {isNew: false, id: club.id}
+    });
   }
 
 }

@@ -18,8 +18,13 @@ import java.util.List;
 public class MediaPatronAPI extends RepositoryAPI<MediaPatron, String> {
 
     @GetMapping("/tournament/{id}")
-    public List<MediaPatron> getTournamentPlayers(@PathVariable int id) throws SQLException {
+    public List<MediaPatron> getTournamentMediaPatrons(@PathVariable int id) throws SQLException {
         return mediaPatronService.getTournamentMediaPatrons(id);
+    }
+
+    @GetMapping("/count-tournament/{id}")
+    public int getTournamentCount(@PathVariable String id) throws SQLException {
+        return mediaPatronService.countTournaments(id);
     }
 
     @Autowired

@@ -7,6 +7,10 @@
         <p>Surname: {{player.surname}}</p>
         <p>Elo: {{player.elo}}</p>
         <p>Category: {{player.category}}</p>
+
+        <p>Number of Games: <ng-container *ngIf="gameCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <p>Number of Tournaments: <ng-container *ngIf="tournamentCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <ng-template #zero>0</ng-template>
         <p *ngIf="player.clubID > 0; else noClub">
           <ng-container *ngIf="getClub$(player.clubID) | async as club">
             Club: {{club.name}}
@@ -21,13 +25,23 @@
         </ng-template>
         <button mat-raised-button color="primary" (click)="editPlayer(player.id)">Edit</button>
       </mat-tab>
+      <mat-tab label="Games">
+        <ng-container *ngIf="games$ | async as games">
+          <ng-container *ngIf="games.length > 0; else noGames">
+            <app-game-table [games]="games" (deleteGame)="deleteGame($event)" (selectGame)="showGame($event)"></app-game-table>
+          </ng-container>
+          <ng-template #noGames>
+            <p>No games found!</p>
+          </ng-template>
+        </ng-container>
+      </mat-tab>
       <mat-tab label="Tournaments">
         <ng-container *ngIf="tournaments$ | async as tournaments">
           <ng-container *ngIf="tournaments.length > 0; else noTournaments">
             <app-entity-table [data]="tournaments" [filter]="['id']" (deleteEntity)="quitTournament(player.id, $event)" (selectEntity)="showTournament($event)"></app-entity-table>
           </ng-container>
           <ng-template #noTournaments>
-            <p>No tournaments found.</p>
+            <p>No tournaments found!</p>
           </ng-template>
         </ng-container>
         <button mat-raised-button color="primary" (click)="joinTournament(player.id)">Join Tournament</button>

@@ -33,4 +33,8 @@ export class ClubListComponent implements OnInit {
     this.clubService.navigate(club.id);
   }
 
+  deleteClub(club: Club) {
+    this.clubService.delete(club.id);
+  }
+
 }

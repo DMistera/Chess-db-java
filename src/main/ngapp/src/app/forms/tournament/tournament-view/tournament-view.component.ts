@@ -32,6 +32,12 @@ export class TournamentViewComponent implements OnInit {
   referees$: Observable<Referee[]>;
   mediaPatrons$: Observable<MediaPatron[]>;
 
+  playerCount$: Observable<number>;
+  refereeCount$: Observable<number>;
+  mediaPatronCount$: Observable<number>;
+  sponsorCount$: Observable<number>;
+  gameCount$: Observable<number>;
+
   constructor(
     private route: ActivatedRoute,
     private tournamentService: TournamentService,
@@ -50,6 +56,11 @@ export class TournamentViewComponent implements OnInit {
       this.prizes$ = this.tournamentService.getPrizes(tournament.id);
       this.referees$ = this.refereeService.getTournamentReferees(tournament.id);
       this.mediaPatrons$ = this.mediaPatronService.getTournamentMediaPatrons(tournament.id);
+      this.playerCount$ = this.tournamentService.getPlayerCount(tournament.id);
+      this.refereeCount$ = this.tournamentService.getRefereeCount(tournament.id);
+      this.mediaPatronCount$ = this.tournamentService.getPatronCount(tournament.id);
+      this.sponsorCount$ = this.tournamentService.getSponsorCount(tournament.id);
+      this.gameCount$ = this.tournamentService.getGameCount(tournament.id);
     }));
   }
 

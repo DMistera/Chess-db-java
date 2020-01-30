@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 @Service
@@ -24,6 +25,14 @@ public class PlayerService extends RepositoryService<Player, Integer> {
         List<Player> result = queryResultToList(queryResult.getResultSet());
         queryResult.close();
         return result;
+    }
+
+    public int countTournaments(int id) throws SQLException {
+        return (int)connection.callFunction(getEntityName() + ".count_tournaments", Types.INTEGER, id);
+    }
+
+    public int countGames(int id) throws SQLException {
+        return (int)connection.callFunction(getEntityName() + ".count_games", Types.INTEGER, id);
     }
 
     @Override

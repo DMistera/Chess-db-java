@@ -10,17 +10,23 @@ import { Prize } from '../../models/prize';
   providedIn: 'root'
 })
 export class SponsorService extends EntityService<Sponsor, string> {
+
   constructor(http: HttpClient, router: Router) {
     super(http, router);
   }
+
+  public getTournamentCount(id: string) {
+    return this.http.get<number>(this.url() + '/count-tournament/' + id);
+  }
+
+  public getPrizes(sponsorName: string): Observable<Prize[]> {
+    return this.http.get<Prize[]>(this.url() + '/prize/' + sponsorName);
+  }
+
   protected url(): string {
     return 'sponsor';
   }
   protected getID(entity: Sponsor): string {
     return entity.name;
-  }
-
-  public getPrizes(sponsorName: string): Observable<Prize[]> {
-    return this.http.get<Prize[]>(this.url() + '/prize/' + sponsorName);
   }
 }

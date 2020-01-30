@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { Player } from 'src/app/shared/models/player';
@@ -18,10 +18,10 @@ export class PlayerEditorComponent extends EditorTemplate<Player, number> {
     'Senior Master', 'Life Master', 'Master', 'Candidate Master', '1st Category',  '2nd Category', '3rd Category', '4th Category', 'None'
   ]
 
-  nameForm = new FormControl('');
-  surnameForm = new FormControl('');
-  eloForm = new FormControl('');
-  categoryForm = new FormControl('');
+  nameForm = new FormControl('', [Validators.required]);
+  surnameForm = new FormControl('',  [Validators.required]);
+  eloForm = new FormControl('',  [Validators.required]);
+  categoryForm = new FormControl('',  [Validators.required]);
   playerForm = new FormGroup({
     name: this.nameForm,
     surname: this.surnameForm,
@@ -45,7 +45,7 @@ export class PlayerEditorComponent extends EditorTemplate<Player, number> {
   }
 
   protected validate(): boolean {
-    return true;
+    return this.playerForm.valid;
   }
 
   protected createEntity(): Player {

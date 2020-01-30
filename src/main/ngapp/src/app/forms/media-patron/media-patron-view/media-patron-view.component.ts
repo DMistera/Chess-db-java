@@ -18,6 +18,7 @@ export class MediaPatronViewComponent implements OnInit {
 
   mediaPatron$: Observable<MediaPatron>;
   tournaments$: Observable<Tournament[]>;
+  tournamentCount$: Observable<number>;
 
   constructor(
     private mediaPatronService: MediaPatronService,
@@ -31,6 +32,7 @@ export class MediaPatronViewComponent implements OnInit {
       return this.mediaPatronService.getByID(params.id);
     }), tap(mediaPatron => {
       this.tournaments$ = this.tournamentService.getMediaPatronTournaments(mediaPatron.name);
+      this.tournamentCount$ = this.mediaPatronService.getTournamentCount(mediaPatron.name);
     }));
   }
 

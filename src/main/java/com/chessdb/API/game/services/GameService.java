@@ -2,6 +2,7 @@ package com.chessdb.API.game.services;
 
 import com.chessdb.API.game.models.Game;
 import com.chessdb.API.move.services.MoveService;
+import com.chessdb.services.database.QueryResult;
 import com.chessdb.services.repository.RepositoryService;
 import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.Piece;
@@ -14,8 +15,9 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Types;
 import java.util.List;
+import java.util.ArrayList;
 
 
 @Service
@@ -25,21 +27,14 @@ public class GameService extends RepositoryService<Game, Integer> {
     MoveService moveService;
 
 
-    public String getPGN(int id) throws SQLException{
+    public List<String> getPGN(int id) throws SQLException{
 
         List<com.chessdb.API.move.models.Move> list = moveService.getGamesMoves(id);
-        StringBuilder pgn = new StringBuilder();
-
-        int turn=0;
-
+        List<String> result = new ArrayList<>();
         for(com.chessdb.API.move.models.Move move : list){
-            if(turn<move.getTurn()){
-                turn=move.getTurn();
-                pgn.append(turn).append(". ");
-            }
-            pgn.append(move.getMoveValue()).append(" ");
+            result.add(move.getMoveValue());
         }
-        return pgn.toString();
+        return result;
     }
 
 
@@ -93,6 +88,17 @@ public class GameService extends RepositoryService<Game, Integer> {
                 board.doMove(move);
             }
         }
+    }
+
+    public int countMoves(int id) throws SQLException {
+        return (int)this.connection.callFunction(getEntityName() + ".count_moves", Types.INTEGER, id);
+    }
+
+    public List<Game> getPlayerGames(int playerID) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE PLAYER_ID_WHITE = ? OR PLAYER_ID_BLACK = ?", playerID, playerID);
+        List<Game> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
     }
 
     @Override

@@ -4,6 +4,8 @@
     <mat-tab-group>
       <mat-tab label="Basic Info">
         <p>Name: {{sponsor.name}}</p>
+        <p>Number of Tournaments: <ng-container *ngIf="tournamentCount$ | async as count; else zero">{{count}}</ng-container></p>
+        <ng-template #zero>0</ng-template>
       </mat-tab>
       <mat-tab label="Prizes">
         <ng-container *ngIf="prizes$ | async as prizes">
