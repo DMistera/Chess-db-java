@@ -72,7 +72,7 @@ export class PlayerViewComponent implements OnInit {
     const dialogRef = this.dialog.open(TournamentPickerComponent);
     dialogRef.afterClosed().subscribe(id => {
       if (id) {
-        this.tournamentService.addPlayer(playerID, id);
+        this.tournamentService.addPlayer(id, playerID);
       }
     });
   }

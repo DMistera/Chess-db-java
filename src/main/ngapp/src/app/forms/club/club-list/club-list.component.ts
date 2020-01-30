@@ -4,6 +4,7 @@ import { ClubService } from 'src/app/shared/services/club/club.service';
 import { Club } from 'src/app/shared/models/club';
 import { MatDialog } from '@angular/material/dialog';
 import { ClubEditorComponent } from '../club-editor/club-editor.component';
+import { PlayerService } from 'src/app/shared/services/player/player.service';
 
 @Component({
   selector: 'app-club-list',
@@ -16,6 +17,7 @@ export class ClubListComponent implements OnInit {
 
   constructor(
     private clubService: ClubService,
+    private playerService: PlayerService,
     private dialog: MatDialog
   ) { }
 
@@ -35,6 +37,7 @@ export class ClubListComponent implements OnInit {
 
   deleteClub(club: Club) {
     this.clubService.delete(club.id);
+    this.playerService.refresh();
   }
 
 }

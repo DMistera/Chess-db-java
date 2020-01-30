@@ -8,6 +8,7 @@ import { PlayerService } from 'src/app/shared/services/player/player.service';
 import { Player } from 'src/app/shared/models/player';
 import { MatDialog } from '@angular/material/dialog';
 import { ClubEditorComponent } from '../club-editor/club-editor.component';
+import { PlayerPickerComponent } from '../../player/player-picker/player-picker.component';
 
 @Component({
   selector: 'app-club-view',
@@ -49,6 +50,15 @@ export class ClubViewComponent implements OnInit {
   edit(club: Club) {
     this.dialog.open(ClubEditorComponent, {
       data: {isNew: false, id: club.id}
+    });
+  }
+
+  addPlayer(clubID: number) {
+    const dialogRef = this.dialog.open(PlayerPickerComponent);
+    dialogRef.afterClosed().subscribe(id => {
+      if (id) {
+        this.clubService.addPlayer(clubID, id);
+      }
     });
   }
 
