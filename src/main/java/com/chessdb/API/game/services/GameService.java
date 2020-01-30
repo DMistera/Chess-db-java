@@ -1,25 +1,71 @@
 package com.chessdb.API.game.services;
 
 import com.chessdb.API.game.models.Game;
+import com.chessdb.API.move.services.MoveService;
 import com.chessdb.services.database.QueryResult;
 import com.chessdb.services.repository.RepositoryService;
+import com.github.bhlangonijr.chesslib.Board;
+import com.github.bhlangonijr.chesslib.move.Move;
+import com.github.bhlangonijr.chesslib.move.MoveList;
+import com.github.bhlangonijr.chesslib.pgn.PgnHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
+import java.util.ArrayList;
+
 
 @Service
 public class GameService extends RepositoryService<Game, Integer> {
 
-    public String getPGN(int id) {
-        //TODO
-        return "tt";
+    public String getPGN(int id) throws SQLException{
+        MoveService moveService = new MoveService();
+        List<com.chessdb.API.move.models.Move> list = moveService.getGamesMoves(id);
+        StringBuilder pgn = new StringBuilder();
+
+        int turn=0;
+        for(com.chessdb.API.move.models.Move move : list){
+            if(turn<move.getTurn()){
+                turn=move.getTurn();
+                pgn.append(turn).append(". ");
+            }
+            pgn.append(move.getMoveValue()).append(" ");
+        }
+        return pgn.toString();
     }
 
-    public void setPGN(int id, String pgn) {
-        //TODO
+
+    public void setPGN(int id, String pgn) throws Exception {
+        StringBuilder str = new StringBuilder();
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("tmp.pgn")))) {
+            writer.write(pgn);
+        } catch (IOException ex) {
+            // Report
+        }
+        /*ignore*/
+
+        PgnHolder pgnH = new PgnHolder("tmp.pgn");
+        pgnH.loadPgn();
+        for (com.github.bhlangonijr.chesslib.game.Game game: pgnH.getGame()) {
+            game.loadMoveText();
+            MoveList moves = game.getHalfMoves();
+
+            Board board = new Board();
+            //Replay all the moves from the game and print the final position in FEN format
+            int j=1;
+            for (Move move: moves) {
+
+                j++;
+                connection.callProcedure("game.add_move", id, j/2, board.getSideToMove().toString().toLowerCase().charAt(0), move.toString());
+
+                board.doMove(move);
+            }
+            if (j>1) break;
+        }
     }
 
     public int countMoves(int id) throws SQLException {
