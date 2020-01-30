@@ -18,10 +18,10 @@ import java.util.List;
 public class MoveService {
 
     @Autowired
-    private DatabaseConnection connection;
+    DatabaseConnection connection;
 
     public List<Move> getGamesMoves(int gameID) throws SQLException {
-        QueryResult queryResult = connection.query("SELECT * FROM MOVES WHERE GAME_ID = ?", gameID);
+        QueryResult queryResult = connection.query("SELECT * FROM MOVES WHERE GAME_ID = ? ORDER BY turn asc, color desc", gameID);
         List<Move> result = queryResultToMoveList(queryResult.getResultSet());
         queryResult.close();
         return result;

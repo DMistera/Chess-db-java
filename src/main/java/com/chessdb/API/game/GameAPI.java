@@ -7,6 +7,8 @@ import com.chessdb.services.repository.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+
 @RestController
 @RequestMapping("game")
 public class GameAPI extends RepositoryAPI<Game, Integer> {
@@ -20,7 +22,7 @@ public class GameAPI extends RepositoryAPI<Game, Integer> {
     }
 
     @GetMapping("{id}/pgn")
-    public String getPGN(@PathVariable int id) {
+    public String getPGN(@PathVariable int id) throws SQLException {
         return gameService.getPGN(id);
     }
 
