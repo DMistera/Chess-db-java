@@ -9,7 +9,8 @@
         <button mat-raised-button color="primary" (click)="edit(club)">Edit</button>
       </mat-tab>
       <mat-tab label="Players" *ngIf="clubPlayers$ | async as players">
-        <app-entity-table *ngIf="players.length > 0" [data]="players" (selectEntity)="viewPlayer($event)"></app-entity-table>
+        <app-entity-table *ngIf="players.length > 0" [data]="players" [filter]="['id', 'clubID']" (selectEntity)="viewPlayer($event)"></app-entity-table>
+        <button mat-raised-button color="primary" (click)="addPlayer(club.id)">Add player</button>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

@@ -9,6 +9,7 @@ import { Prize } from '../../models/prize';
 import { SponsorService } from '../sponsor/sponsor.service';
 import { RefereeService } from '../referee/referee.service';
 import { MediaPatronService } from '../media-patron/media-patron.service';
+import { GameService } from '../game/game.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class TournamentService extends EntityService<Tournament, number> {
     private playerService: PlayerService,
     private sponsorService: SponsorService,
     private refereeService: RefereeService,
-    private mediaPatronService: MediaPatronService
+    private mediaPatronService: MediaPatronService,
+    private gameService: GameService
      ) {
     super(http, router);
    }
@@ -69,6 +71,13 @@ export class TournamentService extends EntityService<Tournament, number> {
     return this.http.get<Tournament[]>(this.url() + '/media-patron/' + mediaPatronName);
   }
 
+  public addGame(id: number, gameID: number) {
+    this.http.put(this.url() + '/add-game/' + id, gameID).subscribe(() => {
+      this.refreshID(id);
+      this.gameService.refreshID(gameID);
+    });
+  }
+
   public addPlayer(id: number, playerID: number) {
     this.http.put(this.url() + '/add-player/' + id, playerID).subscribe(() => {
       this.refreshID(id);
@@ -80,6 +89,12 @@ export class TournamentService extends EntityService<Tournament, number> {
     this.http.put(this.url() + '/remove-player/' + id, playerID).subscribe(() => {
       this.refreshID(id);
       this.playerService.refreshID(playerID);
+    });
+  }
+
+  public removeGame(tournamentID: number, gameID: number) {
+    this.http.put(this.url() + '/remove-game/' + gameID, null).subscribe(() => {
+      this.refreshID(tournamentID);
     });
   }
 

@@ -7,6 +7,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Organizer } from 'src/app/shared/models/organizer';
 import { OrganizerPickerComponent } from '../../organizer/organizer-picker/organizer-picker.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { first, map } from 'rxjs/operators';
+import { existsValidator } from 'src/app/shared/validators/exists-validator';
+import { OrganizerService } from 'src/app/shared/services/organizer/organizer.service';
 
 @Component({
   selector: 'app-tournament-editor',
@@ -17,6 +20,7 @@ export class TournamentEditorComponent extends EditorTemplate<Tournament, number
 
   constructor(
     tournamentSerivce: TournamentService,
+    private organizerService: OrganizerService,
     dialogRef: MatDialogRef<TournamentEditorComponent>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA)  data: DialogData<number>,
@@ -30,7 +34,7 @@ export class TournamentEditorComponent extends EditorTemplate<Tournament, number
   endDateForm = new FormControl('', [Validators.required]);
   entryFeeForm = new FormControl('0', [Validators.required]);
   locationForm = new FormControl('', [Validators.required]);
-  organizerForm = new FormControl({value: '', disabled: true}, [Validators.required]);
+  organizerForm = new FormControl('', [Validators.required]);
 
   form = new FormGroup({
     name: this.nameForm,
@@ -41,6 +45,11 @@ export class TournamentEditorComponent extends EditorTemplate<Tournament, number
     organizerName: this.organizerForm
   });
 
+  afterInit() {
+    this.organizerService.getAll().pipe(first(), map(entity => {
+      this.organizerForm.setValidators([Validators.required, existsValidator(entity.map(e => e.name))]);
+    })).subscribe();
+  }
 
   protected initForm(entity: Tournament): void {
     this.nameForm.setValue(entity.name);
@@ -50,6 +59,7 @@ export class TournamentEditorComponent extends EditorTemplate<Tournament, number
     this.locationForm.setValue(entity.location);
     this.organizerForm.setValue(entity.organizerName);
   }
+
   protected createEntity(): Tournament {
     const tournament: Tournament = this.form.value;
     tournament.organizerName = this.organizerForm.value;

@@ -5,6 +5,9 @@ import { DialogData } from 'src/app/shared/templates/editor-template';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Prize } from 'src/app/shared/models/prize';
 import { SponsorPickerComponent } from '../../sponsor/sponsor-picker/sponsor-picker.component';
+import { SponsorService } from 'src/app/shared/services/sponsor/sponsor.service';
+import { first, map } from 'rxjs/operators';
+import { existsValidator } from 'src/app/shared/validators/exists-validator';
 
 @Component({
   selector: 'app-prize-editor',

@@ -53,6 +53,7 @@ import { MediaPatronEditorComponent } from './forms/media-patron/media-patron-ed
 import { MediaPatronPickerComponent } from './forms/media-patron/media-patron-picker/media-patron-picker.component';
 import { PgnEditorComponent } from './forms/game/pgn-editor/pgn-editor.component';
 import { GameTableComponent } from './forms/game/game-table/game-table.component';
+import { GamePickerComponent } from './forms/game/game-picker/game-picker.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { GameTableComponent } from './forms/game/game-table/game-table.component
     MediaPatronEditorComponent,
     MediaPatronPickerComponent,
     PgnEditorComponent,
-    GameTableComponent
+    GameTableComponent,
+    GamePickerComponent
   ],
   entryComponents: [
     PlayerEditorComponent,
@@ -117,7 +119,8 @@ import { GameTableComponent } from './forms/game/game-table/game-table.component
     SponsorPickerComponent,
     RefereePickerComponent,
     MediaPatronPickerComponent,
-    PgnEditorComponent
+    PgnEditorComponent,
+    GamePickerComponent
   ],
   imports: [
     CommonModule,

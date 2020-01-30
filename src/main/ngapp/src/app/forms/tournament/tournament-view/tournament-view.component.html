@@ -28,10 +28,21 @@
         </ng-container>
         <button mat-raised-button color="primary" (click)="addPlayer(tournament.id)">Add Player</button>
       </mat-tab>
+      <mat-tab label="Games">
+        <ng-container *ngIf="games$ | async as games">
+          <ng-container *ngIf="games.length > 0; else noGames">
+            <app-game-table [games]="games" (deleteGame)="removeGame(tournament.id, $event)" deleteLabel="Remove" (selectGame)="showGame($event)"></app-game-table>
+          </ng-container>
+          <ng-template #noGames>
+            <p>No games found!</p>
+          </ng-template>
+        </ng-container>
+        <button mat-raised-button color="primary" (click)="addGame(tournament.id)">Add Game</button>
+      </mat-tab>
       <mat-tab label="Prizes">
         <ng-container *ngIf="prizes$ | async as prizes">
           <ng-container *ngIf="prizes.length > 0; else noPrizes">
-            <app-entity-table [data]="prizes" [filter]="['tournamentID']" buttonLabel="View Sponsor" (deleteEntity)="removePrize($event)" (selectEntity)="showSponsor($event)"></app-entity-table>
+            <app-entity-table [data]="prizes" deleteLabel="Remove" [filter]="['tournamentID']" buttonLabel="View Sponsor" (deleteEntity)="removePrize($event)" (selectEntity)="showSponsor($event)"></app-entity-table>
           </ng-container>
           <ng-template #noPrizes>
             <p>No prizes found</p>
@@ -42,7 +53,7 @@
       <mat-tab label="Referees">
         <ng-container *ngIf="referees$ | async as referees">
           <ng-container *ngIf="referees.length > 0; else noReferees">
-            <app-entity-table [data]="referees" [filter]="['id']" buttonLabel="View Referee" (deleteEntity)="removeReferee(tournament, $event)" (selectEntity)="showReferee($event)"></app-entity-table>
+            <app-entity-table [data]="referees" deleteLabel="Remove" [filter]="['id']" buttonLabel="View Referee" (deleteEntity)="removeReferee(tournament, $event)" (selectEntity)="showReferee($event)"></app-entity-table>
           </ng-container>
           <ng-template #noReferees>
             <p>No referees found</p>
@@ -53,7 +64,7 @@
       <mat-tab label="Media Patrons">
         <ng-container *ngIf="mediaPatrons$ | async as mediaPatrons">
           <ng-container *ngIf="mediaPatrons.length > 0; else noMediaPatrons">
-            <app-entity-table [data]="mediaPatrons" buttonLabel="View Media Patron" (deleteEntity)="removeMediaPatron(tournament, $event)" (selectEntity)="showMediaPatron($event)"></app-entity-table>
+            <app-entity-table [data]="mediaPatrons" deleteLabel="Remove" buttonLabel="View Media Patron" (deleteEntity)="removeMediaPatron(tournament, $event)" (selectEntity)="showMediaPatron($event)"></app-entity-table>
           </ng-container>
           <ng-template #noMediaPatrons>
             <p>No referees found</p>

@@ -4,6 +4,7 @@ import { Tournament } from 'src/app/shared/models/tournament';
 import { TournamentService } from 'src/app/shared/services/tournament/tournament.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
+import { GameService } from 'src/app/shared/services/game/game.service';
 
 @Component({
   selector: 'app-tournament-list',
@@ -16,6 +17,7 @@ export class TournamentListComponent implements OnInit {
 
   constructor(
     private tournamentService: TournamentService,
+    private gameService: GameService,
     private dialog: MatDialog
   ) { }
 
@@ -35,6 +37,7 @@ export class TournamentListComponent implements OnInit {
 
   deleteTournament(tournament: Tournament) {
     this.tournamentService.delete(tournament.id);
+    this.gameService.refresh();
   }
 
 }

@@ -16,6 +16,15 @@ export class GameTableComponent implements OnInit {
   @Input()
   games: Game[];
 
+  @Input()
+  showDelete = true;
+
+  @Input()
+  buttonLabel = 'View';
+
+  @Input()
+  deleteLabel = 'Delete';
+
   @Output()
   selectGame = new EventEmitter<Game>();
 
@@ -56,6 +65,8 @@ export class GameTableComponent implements OnInit {
         return 'White';
       case 'B':
         return 'Black';
+      case 'T':
+        return 'Draw';
       default:
         return 'Undefined';
     }

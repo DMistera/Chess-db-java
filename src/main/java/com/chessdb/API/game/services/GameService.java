@@ -101,6 +101,13 @@ public class GameService extends RepositoryService<Game, Integer> {
         return result;
     }
 
+    public List<Game> getTournamentGames(int tournamentID) throws SQLException {
+        QueryResult queryResult = connection.query("SELECT * FROM " + getTableName() + " WHERE TOURNAMENT_ID = ?", tournamentID);
+        List<Game> result = queryResultToList(queryResult.getResultSet());
+        queryResult.close();
+        return result;
+    }
+
     @Override
     protected String getEntityName() {
         return "Game";

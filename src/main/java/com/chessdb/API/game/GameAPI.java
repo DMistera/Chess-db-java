@@ -29,6 +29,11 @@ public class GameAPI extends RepositoryAPI<Game, Integer> {
         return gameService.getPlayerGames(id);
     }
 
+    @GetMapping("/tournament/{id}")
+    public List<Game> getTournamentGames(@PathVariable int id) throws SQLException {
+        return gameService.getTournamentGames(id);
+    }
+
 
     @Override
     protected RepositoryService<Game, Integer> getRepositoryService() {

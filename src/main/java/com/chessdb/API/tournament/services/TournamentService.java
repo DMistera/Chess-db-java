@@ -19,6 +19,10 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
     @Autowired
     private PrizeService prizeService;
 
+    public void addGame(int tournamentID, int gameID) throws SQLException {
+        connection.callProcedure(getEntityName() + ".add_game", tournamentID, gameID);
+    }
+
     public void addPlayer(int tournamentID, int playerID) throws SQLException {
         connection.callProcedure(getEntityName() + ".add_player", tournamentID, playerID);
     }
@@ -33,6 +37,10 @@ public class TournamentService extends RepositoryService<Tournament, Integer> {
 
     public void addPrize(int tournamentID, Prize prize) throws SQLException {
         connection.callProcedure(getEntityName() + ".add_prize", tournamentID, prize.getName(), prize.getQuantity(), prize.getSponsorName());
+    }
+
+    public void removeGame(int gameID) throws SQLException {
+        connection.callProcedure(getEntityName() + ".remove_game", gameID);
     }
 
     public void removePlayer(int tournamentID, int playerID) throws SQLException {

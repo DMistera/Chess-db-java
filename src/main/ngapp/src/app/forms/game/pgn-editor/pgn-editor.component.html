@@ -1,4 +1,4 @@
-<app-entity-editor entityName="Prize" (accept)="onSubmit()" [formGroup]="form" [valid]="this.form.valid">
+<app-entity-editor entityName="Insert PGN Code" (accept)="onSubmit()" [formGroup]="form" [valid]="this.form.valid">
   <mat-form-field>
     <textarea  matInput placeholder="Code" formControlName="code"></textarea>
     <mat-error *ngIf="codeControl.hasError('required')">

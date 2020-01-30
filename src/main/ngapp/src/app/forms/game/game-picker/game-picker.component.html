@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>
+  Select Game
+</h2>
+<mat-dialog-content *ngIf="games$ | async as games">
+  <app-game-table [games]="games" [showDelete]="false" (selectGame)="end($event)" buttonLabel="Select"></app-game-table>
+</mat-dialog-content>
