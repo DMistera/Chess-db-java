@@ -43,7 +43,7 @@ export class OrganizerEditorComponent extends EditorTemplate<Organizer, string> 
     return this.form.value;
   }
   protected validate(): boolean {
-    return true;
+    return this.form.valid;
   }
 
 }
