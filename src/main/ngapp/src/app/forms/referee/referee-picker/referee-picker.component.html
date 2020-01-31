@@ -1,1 +1,6 @@
-<p>referee-picker works!</p>
+<h2 mat-dialog-title>
+  Select Referee
+</h2>
+<mat-dialog-content *ngIf="referees$ | async as referees">
+  <app-entity-table [data]="referees" [showDelete]="false" (selectEntity)="end($event)" buttonLabel="Select" [filter]="['id', 'clubID']"></app-entity-table >
+</mat-dialog-content>
